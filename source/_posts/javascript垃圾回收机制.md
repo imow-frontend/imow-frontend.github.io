@@ -55,7 +55,7 @@ Generational Hypothesis的意思是大部分的对象在早期就需要被回收
 ### Scavenger
 V8在年轻代的内存space使用的是semi-space算法,也就是说将内存分为两半,同时只有一块的内存能被使用,另外一半是完全空的(或者说这一半内存都是可以被分配的)。在程序开始执行的时候,将所有的变量都分配可以被使用的一半内存中(叫做from-space)。当第一次GC开始的时候根据追踪分析结果,将所有可以reachable的对象(不能被释放的对象),全部转移到剩余一半可以被分配的内存中(to-space)，这样from-space中的内存又全部可以被分配了，这个时候如果又有新申明的对象需要分配内存,就会分配到这一块内存当中了,最后在转移完不能被释放的对象之后,还需要更新引用指针,指向在to-space中最新的地址。
 
-![第一次GC](http://img.pandihai.com/03.svg)<center><font color=gray size=2>第一次GC</font></center>
+![第一次GC](http://img.pandihai.com/03.svg)
 
 
 第二次GC开始的时候,在原本的to-space中仍然不能被释放的对象首先转移到老代(old generation)的space中,这时候to-space中又全部可以被分配,重复之前的操作。从from-space中将不能被释放的对象转移过来。完成2次GC之后,存货了两次的对象现在就在老代里面了,而存活一次GC的对象现在就在to-space中了,这个to-space也被叫做intermediate generation(中生代).在Scavenger中回收内存有三个过程:标记(追踪分析),转移(from-space to to-space),更新指针地址。
