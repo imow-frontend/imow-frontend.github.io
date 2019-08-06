@@ -78,4 +78,7 @@ theme: clean-blog
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git   
+  repo: https://github.com/imow-frontend/imow-frontend.github.io.git 
+  branch: master #published
+  message: "{{ now('YYYY-MM-DD HH:mm:ss') }} "  #leave this blank
