@@ -16,6 +16,7 @@ tags:
  ``` javacript
 
  var dataCookie='110';
+ 
     document.cookie = 'token' + "=" +dataCookie;
 
 ```
