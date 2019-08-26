@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="随着web浏览器的发展,浏览器的性能越来越好,WebGL和WebAssembly提供越来越多的可能性。很多原本只能在终端运行的程序都开始开发web版本例如CAD的web版本,PS的web版本,figma。这一个个的设计协作平台原本在终端都有插件机制。那么如果在web端能提供一个插件机制,对于有一点编">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="中立前端组">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="如何为平台设计一个插件系统">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="随着web浏览器的发展,浏览器的性能越来越好,WebGL和WebAssembly提供越来越多的可能性。很多原本只能在终端运行的程序都开始开发web版本例如CAD的web版本,PS的web版本,figma。这一个个的设计协作平台原本在终端都有插件机制。那么如果在web端能提供一个插件机制,对于有一点编">
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="阿母工业前端组">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg">
+    
+
+        <meta name="twitter:card" content="summary_large_image">
+
+    
+
+    
+        <meta name="twitter:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg">
+    
+
+    <!-- Title -->
+    
+    <title>如何为平台设计一个插件系统 - 阿母工业前端组</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">阿母工业</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/imow-frontend/">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>如何为平台设计一个插件系统</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2019-08-25
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>随着web浏览器的发展,浏览器的性能越来越好,WebGL和WebAssembly提供越来越多的可能性。很多原本只能在终端运行的程序都开始开发web版本例如CAD的web版本,PS的web版本,figma。这一个个的设计协作平台原本在终端都有插件机制。那么如果在web端能提供一个插件机制,对于有一点编程能力的用户,就可以提供更好的用户体验和开发更多的可能性。如何开发一个好的插件系统呢?</p>
+<p>一个javascript的插件系统需要满足以下几个方面:</p>
+<h4 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h4><ul>
+<li>插件不可以发送请求</li>
+<li>插件和程序模块不可以非法的调用相互的数据</li>
+<li>插件不可以在不受约束的情况下执行</li>
+<li>插件不可以任意的修改UI,从而给用户造成误导</li>
+</ul>
+<h4 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h4><ul>
+<li>插件不能影响主程序的稳定性</li>
+<li>插件不可以修改主程序中的常量</li>
+</ul>
+<h4 id="易开发性"><a href="#易开发性" class="headerlink" title="易开发性"></a>易开发性</h4><ul>
+<li>插件应该是容易开发的,即使是面对没有那么多编程经验的设计师,也应该是容易开发的。</li>
+<li>插件要可以使用调试工具。</li>
+</ul>
+<h4 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h4><ul>
+<li>插件的执行效率不能太慢从而影响整个主程序的效率。</li>
+</ul>
+<h2 id="方案一-iframe沙盒实现方式"><a href="#方案一-iframe沙盒实现方式" class="headerlink" title="方案一:iframe沙盒实现方式"></a>方案一:iframe沙盒实现方式</h2><p>当我们在程序中执行第三方的代码的时候,首先第一个应该会想到的就是iframe。iframe不是我们每天都会用到的html标签。要理解为什么iframe为什么安全，我们有不要想一下iframe标签是用来干什么的。</p>
+<p>iframe比较典型的使用场景就是在一个网页中嵌入一个其他的网页。举个例子来说,你需要在网站中嵌入谷歌地图的页面来实现地图的展现功能。你不会希望谷歌地图的页面中的代码有能力访问你本身的一些代码和敏感数据,相应的谷歌地图也不希望你能够访问他页面中的数据和代码。</p>
+<p>这意味着一切和iframe的交互都受限于浏览器。当iframe和原网页有不同的域(imow.cn和google.com),他们是完全隔绝的。那么网页和iframe交互的唯一办法就是通过 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage" target="_blank" rel="noopener"><code>postMessage</code></a>。这个message是一个string。需要交互的双方可以选择忽略这个message或者做对应的动作。</p>
+<p>iframe和原网页是完全独立的,其实,如果你想要的话浏览器允许我们通过另外一个线程来创建一个iframe。<a href="https://www.chromium.org/developers/design-documents/oop-iframes" target="_blank" rel="noopener">这里</a>.</p>
+<p>当我们了解了iframe是如何工作了以后,我们可以在我们需要执行第三方插件的时候创一个iframe，将插件的代码在iframe中执行。在iframe中插件可以执行任何代码,也不会影响到主程序,除非通过提前申明好的message。同时我们可以给iframe的域名设置为null,这意味着根据浏览器<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">跨域保护策略</a>,iframe无法给域名发送任何请求。</p>
+<p>iframe就这样很简单的成为我们执行第三方插件的沙盒环境,他的安全性也通过浏览器来保证。插件在沙盒中执行,通过主程序提供的api(postMeassge)和主程序进行交互。代码就像下面这个样子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> scene = <span class="keyword">await</span> main.loadScene() <span class="comment">// 从主程序获取界面数据</span></span><br><span class="line">scene.selection[<span class="number">0</span>].width *= <span class="number">2</span>  <span class="comment">// 修改界面数据</span></span><br><span class="line">scene.createNode(&#123;</span><br><span class="line">  type: <span class="string">'RECTANGLE'</span>,</span><br><span class="line">  x: <span class="number">10</span>, <span class="attr">y</span>: <span class="number">20</span>,</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">await</span> main.updateScene() <span class="comment">// 向主程序发送修改后的界面数据</span></span><br></pre></td></tr></table></figure>
+
+<p>这里主要的代码是loadScene(发送消息给主程序,然后获得主程序界面的document拷贝),然后修改完以后通过调用updateScene(发送更新消息给主程序).这里需要注意的是</p>
+<ul>
+<li>我们拷贝了整个document而不是在每次需要读取或者修改属性的时候通过message传输.postMessage每次传输需要0.1ms.每秒钟大约只允许1000 messages。</li>
+<li>我们没有让插件直接使用postMessage api,而是包装了一个api给插件用户使用,这样使用起来不会太笨重。</li>
+</ul>
+<h3 id="问题-1-async-await-使用起来不是那么方便"><a href="#问题-1-async-await-使用起来不是那么方便" class="headerlink" title="问题#1:async/await 使用起来不是那么方便"></a>问题#1:async/await 使用起来不是那么方便</h3><p>这种实现方式第一个问题就是对于一些不那么了解javascript的新手或者设计师来说,<code>async/await</code>关键字还是非常陌生的。但是要使用postMessge是一个异步操作。所以不可避免的要使用<code>async/await</code>来控制异步流程。但是如果只是需要在开头和结束的时候调用我们的api还方便,我们可以告诉用户在调用我们的api时候在前面加上<code>async/await</code>即使他们不知道这个关键字的作用也不会对他们的操作造成非常大的困扰。</p>
+<p>但是问题是有些插件需要执行非常复杂的逻辑,在修改一个layout的属性的时候有时候会引起其他好几个layout的更新。比如更新外层的layout的属性之后,内部的layout的属性也可能发生了更新,这个时候你需要先提交你的属性,然后在重新或者视图的属性,那这个时候你的代码就会变成这样:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> mian.loadScene()</span><br><span class="line">... 操作 ...</span><br><span class="line"><span class="keyword">await</span> mian.updateScene()</span><br><span class="line"><span class="keyword">await</span> mian.loadScene()</span><br><span class="line">... 操作 ...</span><br><span class="line"><span class="keyword">await</span> mian.updateScene()</span><br><span class="line"><span class="keyword">await</span> mian.loadScene()</span><br><span class="line">... 操作 ...</span><br><span class="line"><span class="keyword">await</span> mian.updateScene()</span><br></pre></td></tr></table></figure>
+
+<p>这个代码一下子就变的不可控了,而且用户也很难确认什么时候应该要提交我的属性更新。</p>
+<h3 id="问题-2-拷贝视图给iframe的操作是非常昂贵的"><a href="#问题-2-拷贝视图给iframe的操作是非常昂贵的" class="headerlink" title="问题#2:拷贝视图给iframe的操作是非常昂贵的"></a>问题#2:拷贝视图给iframe的操作是非常昂贵的</h3><p>iframe这种实现方式的第二个问题就是,当你需要给插件发送视图信息的时候你需要序列化你的document发送给你iframe，当你的视图非常非常大的时候,这个序列化的操作是非常耗时的,甚至会导致内存溢出。<br>即使我们可以使用增量的加载数据或者懒加载数据这种方式仍然有他的问题:</p>
+<ul>
+<li>首先这种方式是非常难实现的,即使有比较好的方案实现了以后,面对比较大的视图,性能仍然不是很理想,而且对于插件开发者来说是非常难理解的，这违背了我们的插件易开发性。</li>
+<li>异步方法需要等待你需要到的数据达到才能开始后面的操作,对于异步流程控制来说也是一个挑战(steam? Rx?)。</li>
+</ul>
+<p>总的来说如果你的主程序有非常大的document要交给第三方插件来进行操作,那么iframe的这种实现方式就不是非常理想的解决方案</p>
+<h3 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h3><p>如果能在主线程上执行插件代码,那么在性能上就会好很多,但是我们又不能简单的<code>eval(code)</code>执行插件代码,因为这样是很不安全的。</p>
+<h4 id="什么导致eval不安全"><a href="#什么导致eval不安全" class="headerlink" title="什么导致eval不安全"></a>什么导致eval不安全</h4><p>如果我们退一步想:是什么使<code>eval</code>方法不安全?如果我们只是执行一段很单纯的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> code = <span class="string">'let a = (7 + 1) * 8;'</span></span><br><span class="line"><span class="built_in">eval</span>(code)</span><br></pre></td></tr></table></figure>
+
+<p>如果只是一段逻辑代码,那么这个代码是没有什么不安全的。之所以认为eval执行的代码不安全是因为<b>在插件代码中有可能会发送网络请求,修改全局的state变量,或者直接修改dom对象等等</b>这些使得我们的插件代码变的不可控,换句话来说是<b>插件具有浏览器api访问的能力让我们插件的代码变的不可控</b>。</p>
+<h3 id="是不是能把全局的对象藏起来"><a href="#是不是能把全局的对象藏起来" class="headerlink" title="是不是能把全局的对象藏起来?"></a>是不是能把全局的对象藏起来?</h3><p>如果我们能把全局的对象藏起来,保证插件代码中只能做变量的赋值或者一些if判断的逻辑代码,没有了全局对象xhr,插件将无法发送请求,没有document对象,插件也不具备访问dom的能力,那么插件能力是不是能在我们的可控范围里面了。</p>
+<p>隐藏全局对象,理论上是可行的。但是我们很难仅仅通过隐藏全局对象来创建一个绝对安全的运行环境。举例来说,我们现在把window对象设置为null,但是代码还是可以通过<code>({}).constructor</code>来访问全局对象。所以找到所有有可能访问危险api的对象,把所有的路全部堵死是非常难的一件事情。</p>
+<p>是不是我们可以找到一个这些全局对象从一开始就不存在的沙盒环境?</p>
+<h2 id="方案二-将javascript编译成WebAssembly"><a href="#方案二-将javascript编译成WebAssembly" class="headerlink" title="方案二:将javascript编译成WebAssembly"></a>方案二:将javascript编译成WebAssembly</h2><p><a href="https://github.com/svaarala/duktape" target="_blank" rel="noopener">Duktape</a>是一个轻量级的用c++写的javascript解释器,他可以将javascript编译成WebAssembly,经过<a href="https://github.com/tc39/test262/tree/es5-tests" target="_blank" rel="noopener">test262</a>测试之后,可以确定他全面的支持了ES5的语法。</p>
+<p>这种实现方法有以下几种优缺点</p>
+<ul>
+<li>首先这是一种安全的执行环境,因为Duktape不支持任何的浏览器API。作为WebAssembly执行,他本身就是一个沙盒环境,他可以通过提供一个白名单的API和主程序进行交互。</li>
+<li>这个解释器是运行在主线程上的。这意味着我们可以创建一个基于主线程的API。(共享document等)</li>
+<li>他可能会比原本的javascript慢一些,因为JIT解释器在编译的时候做了很多的优化,但是作为WebAssembly我相信这个性能应该也是可以被接受的。</li>
+<li>他需要用浏览器来编译WebAssembly,这会有一些性能消耗。</li>
+<li>浏览器的调试工具就不能用了。</li>
+</ul>
+<p>看起来好像不错，但是他作为一个线上项目的表现到底怎么样呢?一个javascript引擎来执行另外一个引擎?WebAssembly本身也是比较新的一个东西，我们是不是真的需要一个相对复杂的解决方案?有没有更简单的方法了?</p>
+<h2 id="方案三-Realms"><a href="#方案三-Realms" class="headerlink" title="方案三:Realms"></a>方案三:Realms</h2><p>这个技术可以创建一个沙盒环境来支持插件,当我看到他readme文档的时候,就一下子提起了我的兴趣,<a href="https://github.com/tc39/proposal-realms#intuitions" target="_blank" rel="noopener">Intuitions</a></p>
+<ul>
+<li>sandbox</li>
+<li>iframe without DOM</li>
+<li>principled version of Node’s ‘vm’ module</li>
+<li>sync Worker</li>
+</ul>
+<p>这不就是我们需要的吗?他的代码看起来是这个样子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> g = <span class="built_in">window</span>; <span class="comment">// outer global</span></span><br><span class="line"><span class="keyword">let</span> r = <span class="keyword">new</span> Realm(); <span class="comment">// root realm</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> f = r.evaluate(<span class="string">"(function() &#123; return 17 &#125;)"</span>);</span><br><span class="line"></span><br><span class="line">f() === <span class="number">17</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.getPrototypeOf(f) === g.Function.prototype <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Reflect</span>.getPrototypeOf(f) === r.global.Function.prototype <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>是不是很酷。这个技术其实可以用现在已有的但是不常用的一个javascript功能来实现。代码想这样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">simplifiedEval</span>(<span class="params">scopeProxy, code</span>) </span>&#123;</span><br><span class="line"><span class="meta">  'use strict'</span></span><br><span class="line">  <span class="keyword">with</span> (scopeProxy) &#123;</span><br><span class="line">    <span class="built_in">eval</span>(code)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个就像一个简单版本的Realms,但是管中窥豹,我们可以看见两个关键代码<code>with</code>和<code>Proxy</code>对象。</p>
+<p><code>with(obj)</code>表达式创建了一个作用域,当寻找变量的时候,可以使用这个<code>obj</code>的属性.看个例子:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> (<span class="built_in">Math</span>) &#123;</span><br><span class="line">  a = PI * r * r</span><br><span class="line">  x = r * cos(PI)</span><br><span class="line">  y = r * sin(PI)</span><br><span class="line">  <span class="built_in">console</span>.log(x,  y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子里,当我们访问<code>PI</code>,<code>cos</code>,<code>sin</code>的时候,就会找到<code>Math</code>的属性。但是<code>console</code>因为<code>Math</code>没有就仍然会找到全局对象。</p>
+<p>知道了<code>with</code>表达式,接下来就是<code>Proxy</code>对象,这个对象有下面几个特性</p>
+<ul>
+<li>他是一个普通的javascript对象,可以通过<code>obj.x</code>访问对象的属性值.</li>
+<li>我们可以实现一个对象属性的<code>get</code>方法来实现<code>obj.x</code>操作,实际上只执行这个<code>get</code>方法.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> scopeProxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(whitelist, &#123;</span><br><span class="line">  <span class="keyword">get</span>(target, prop) &#123;</span><br><span class="line">    <span class="comment">// target === whitelist</span></span><br><span class="line">    <span class="keyword">if</span> (prop <span class="keyword">in</span> target) &#123;</span><br><span class="line">      <span class="keyword">return</span> target[prop]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们就可以把这个<code>scopeProxy</code>对象作为参数传入<code>with</code>中,他就捕获作用域所有的变量查找,在这个<code>scopeProxy</code>的get方法中进行查找这个变量:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> (scopeProxy) &#123;</span><br><span class="line">  <span class="built_in">document</span> <span class="comment">// undefined!</span></span><br><span class="line">  <span class="built_in">eval</span>(<span class="string">"xhr"</span>) <span class="comment">// undefined!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里只有whitelist的属性会被返回,其他都会返回<code>undefined</code>.但是其实利用一些类似<code>({}).constructor</code>表达式还是有可能访问全局对象的.此外,这个沙盒其实还是需要访问一些全局对象的方法的,类似<code>Object.keys</code></p>
+<p>为要给我们的插件系统访问受限全局api的方法然后又不会把window搞乱,Realms沙盒通过创建一个和主程序同源的<code>iframe</code>用来拷贝需要用到的全局API。这个iframe和我们第一种实现中创建的iframe不一样,他不是作为运行程序的沙盒。当你创建一个和主程序同源的iframe以后</p>
+<ol>
+<li>他会拷贝一份分开的全局对象(比如:Object.prototype)。</li>
+<li>这些全局对象可以从父文档中访问,也就是说我们可以在Realms访问这些全局对象. </li>
+</ol>
+<p>我们将这些全局对象放入到Proxy的白名单(whitelist)中，这样在插件代码中就可以访问这些全局对象了。通过创建iframe来拷贝全局对象有一个很重要的好处:即使是通过<code>({}).constructor</code>对象访问到的全局对象,也会是iframe中拷贝的全局对象。这样的实现方式有这些优点:</p>
+<ul>
+<li>他在主程序中运行。</li>
+<li>因为他本身还是javascript,所以他仍然用JIT编译解析,浏览器对javascript的优化还是有效。</li>
+<li>浏览器开发工具也还是有效的。</li>
+</ul>
+<p>那么就剩下最后一个问题.他真的够安全了吗?</p>
+<p>这样看起来结合了iframe的Realms看起来似乎已经挺不错的了,而且他本身也是tc39下面的项目,所以可靠性应该也不错。但是光有一个安全的沙盒环境是不够的,你的插件肯定需要和主程序进行交互,那么我们就肯定要为我们的插件系统提供API,提供给插件的API系统也一定要是安全的。</p>
+<p>举个例子,<code>console.log</code>是浏览器的api是不是javascript功能,那么我们要为插件系统提供一个<code>console.log</code>方法,我们可以这样写:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">realm.evaluate(USER_CODE, &#123; <span class="attr">log</span>: <span class="built_in">console</span>.log &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>或者为了隐藏方法本身,我们可以要求他只传参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">realm.evaluate(USER_CODE, &#123; <span class="attr">log</span>: <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123; <span class="built_in">console</span>.log(...args) &#125; &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>看起来是这么回事,很可惜,这其实是一个安全漏洞,即使是第二种方法我们还是在Realms外面创建了一个匿名方法,然后直接传入到Realms中。<b>这意味着插件可以通过方法的原型链访问到外部。</b></p>
+<p>正确创建<code>console.log</code>方法的方法是,将这个方法通过Realms包裹起来在Realms内部创建像这样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个工厂方法</span></span><br><span class="line"><span class="comment">// 这个工厂方法返回一个新的方法他保存一个闭包</span></span><br><span class="line"><span class="keyword">const</span> safeLogFactory = realm.evaluate(<span class="string">`</span></span><br><span class="line"><span class="string">        (function safeLogFactory(unsafeLog) &#123; </span></span><br><span class="line"><span class="string">                return function safeLog(...args) &#123;</span></span><br><span class="line"><span class="string">                        unsafeLog(...args);</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">        &#125;)</span></span><br><span class="line"><span class="string">`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个安全的方法</span></span><br><span class="line"><span class="keyword">const</span> safeLog = safeLogFactory(<span class="built_in">console</span>.log);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> outerIntrinsics = safeLog <span class="keyword">instanceof</span> <span class="built_in">Function</span>;</span><br><span class="line"><span class="keyword">const</span> innerIntrinsics = realm.evaluate(<span class="string">`log instanceof Function`</span>, &#123; <span class="attr">log</span>: safeLog &#125;);</span><br><span class="line"><span class="keyword">if</span> (outerIntrinsics || !innerIntrinsics) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line">realm.evaluate(<span class="string">`log("Hello outside world!")`</span>, &#123; <span class="attr">log</span>: safeLog &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>通常来说,在沙盒中不应该能够访问到外部的任何对象包括作用域。因为我们的插件和主程序运行在一个线程中，所以在提供api的时候要非常小心,特别是当你的api需要在realm内部操作外部对象的时候。这对于开发api的开发人员来说是不是有点太不友好了，一不小心就产生了安全隐患，(todo:完善起来)。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>如果我们的主程序不是特别复杂而且庞大的话,第一种通过iframe的实现方式应该是最为简单的。</p>
+<p>如果我们的主程序本身就是通过WebAssembly创建的例如CAD网页版,我们想第二种方式可能是比较适合他们的,或者他们提供更加优秀的基于WebAssembly的解决方案</p>
+<p>最后一种方式如果我们能提供一种简单又安全的开发API的办法,这应该是一种性价比比较高的解决方案。</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/imow-frontend/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 中立前端组<br></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
