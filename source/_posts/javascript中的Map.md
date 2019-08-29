@@ -3,6 +3,7 @@ layout: post
 title: javascript中的Map
 date: 2019-08-26 10:53:41
 tags:
+- js 
 ---
 
 
@@ -12,7 +13,7 @@ Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一�
 ECMAScript6原生实现了Map类，即我们所说的字典，字典和集合很像，不过集合是以值值得形式存储元素，字典则是以键值的形式存储元素。字典也叫映射。
 ## 语法
 
-```
+```js
 new Map([iterable])
 ```
 iterable (可迭代传参)
@@ -89,7 +90,7 @@ Map.prototype[@@iterator]()
 ## 实例
 
 ### 使用 Map 对象
-```
+```js
 var myMap = new Map();
  
 var keyObj = {},
@@ -114,7 +115,7 @@ myMap.get({});           // undefined, 因为keyObj !== {}
 myMap.get(function() {}) // undefined, 因为keyFunc !== function () {}
 ```
 ### 使用 for..of 方法迭代 Map
-```
+```js
 var myMap = new Map();
 myMap.set(0, "zero");
 myMap.set(1, "one");
@@ -139,14 +140,14 @@ for (var [key, value] of myMap.entries()) {
 // 将会显示两个log。 一个是 "0 = zero" 另一个是 "1 = one"
 ```
 ### 使用 forEach() 方法迭代 Map
-```
+```js
 myMap.forEach(function(value, key) {
   console.log(key + " = " + value);
 })
 // 将会显示两个logs。 一个是 "0 = zero" 另一个是 "1 = one"
 ```
 ### Map 与数组的关系
-```
+```js
 var kvArray = [["key1", "value1"], ["key2", "value2"]];
 
 // 使用常规的Map构造函数可以将一个二维键值对数组转换成一个Map对象
@@ -161,7 +162,7 @@ console.log(Array.from(myMap)); // 输出和kvArray相同的数组
 console.log(Array.from(myMap.keys())); // 输出 ["key1", "key2"]
 ```
 ### 复制或合并 Maps
-```
+```js
 var original = new Map([
   [1, 'one']
 ]);
@@ -174,7 +175,7 @@ console.log(original === clone); // false. Useful for shallow comparison
 请记住，数据本身未被克隆。
 
 Map对象间可以进行合并，但是会保持键的唯一性。
-```
+```js
 var first = new Map([
   [1, 'one'],
   [2, 'two'],
@@ -195,7 +196,7 @@ console.log(merged.get(2)); // dos
 console.log(merged.get(3)); // three
 ```
 Map对象也能与数组合并：
-```
+```js
 var first = new Map([
   [1, 'one'],
   [2, 'two'],
@@ -222,7 +223,7 @@ ECMAScript5中我们有一个数组方法 map( ),区别于ECMAScript6 中 Map类
 map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
 
 ## 语法
-``` 
+``` js
 var new_array = array.map(function callback(currentValue,index,arr), thisValue)
 ```
 ## 参数
@@ -234,14 +235,14 @@ callback 生成新数组元素的函数，使用三个参数：
 thisArg可选 执行 callback 函数时使用的this 值。
 
 ## 示例
-```
+```js
 var array1 = [1,3,6];
 const map1 = array1.map(x => x *2);
 console.log(map1);   
 // > Array [2, 6, 12]
 ```
 
-```
+```js
 var array1 = [1, 3,6];
 
 const map1 = array1.map(x => {
@@ -255,7 +256,7 @@ console.log(map1);
 // > Array [undefined, 6, undefined]
 ```
 出现undefined ：只是增加了一个条件，即x的值为3时才乘以2，之所以会出现undefined，是因为map()方法创建了一个新数组，但新数组并不是在遍历完array1后才被赋值的，而是每遍历一次就得到一个值。所以，下面这样修改后就正确了
-```
+```js
 var array1 = [1, 3,6];
 
 const map1 = array1.map(x => {
@@ -270,7 +271,7 @@ console.log(map1);
 // > Array [2, 6, 12]
 ```
 可以使用 map 重新格式化数组中的对象
-```
+```js
 var oldArray = [{key: 1, value: 10}, 
                 {key: 2, value: 20}, 
                 {key: 3, value: 30}];
@@ -309,7 +310,7 @@ var nowArr = oldArray.map(function(obj) {
 8.getItems():返回items变量，代表字典本身。
 
 
-```
+```js
 function Map() {
     var items = {};
     this.has = function(key){    //has方法判断某个键值是否在字典中
