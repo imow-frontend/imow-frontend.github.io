@@ -2,6 +2,8 @@
 layout: post
 title: javascript中的Map
 date: 2019-08-26 10:53:41
+categories: 
+- JavaScript 
 tags:
 - js 
 ---

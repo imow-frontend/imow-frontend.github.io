@@ -2,8 +2,8 @@
 menu:
   Home: /
   Archives: /archives
-  Tags: /tags
-  Categories: /categories
+  tags: /tags/
+  categories: /categories/
   Github:
     url: https://github.com/imow-frontend/
     icon: github
