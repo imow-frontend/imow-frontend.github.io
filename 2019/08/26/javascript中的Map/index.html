@@ -1,200 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
+<html>
 <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>javascript中的map | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="js">
+  
+  
+  
+  
+  <meta name="description" content="探究javascript Map什么是Map，此处说的Map，非js中的map( )方法,下文会详细解释。Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。ECMAScript6原生实现了Map类，即我们所说的字典，字典和集合很像，不过集合是以值值得形式存储元素，字典则是以键值的形式存储元素。字典也叫映射。 语法1new Map([iterable])  iterable">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript中的Map">
+<meta property="og:url" content="http://yoursite.com/2019/08/26/javascript中的Map/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="探究javascript Map什么是Map，此处说的Map，非js中的map( )方法,下文会详细解释。Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。ECMAScript6原生实现了Map类，即我们所说的字典，字典和集合很像，不过集合是以值值得形式存储元素，字典则是以键值的形式存储元素。字典也叫映射。 语法1new Map([iterable])  iterable">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-28T09:36:55.016Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript中的Map">
+<meta name="twitter:description" content="探究javascript Map什么是Map，此处说的Map，非js中的map( )方法,下文会详细解释。Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。ECMAScript6原生实现了Map类，即我们所说的字典，字典和集合很像，不过集合是以值值得形式存储元素，字典则是以键值的形式存储元素。字典也叫映射。 语法1new Map([iterable])  iterable">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
 
-    <!--Description-->
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
 
-    
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
 
-    
-        <meta name="description" content="探究javascript Map什么是Map，此处说的Map，非js中的map( )方法,下文会详细解释。Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。ECMAScript6原生实现了Map类，即我们所说的字典，字典和集合很像，不过集合是以值值得形式存储元素，字典则是以">
-    
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
 
-    <!--Author-->
-    
-        <meta name="author" content="中立前端组">
-    
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
 
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="javascript中的Map">
-    
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
 
-    <!--Open Graph Description-->
-    
-        <meta property="og:description" content="探究javascript Map什么是Map，此处说的Map，非js中的map( )方法,下文会详细解释。Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。ECMAScript6原生实现了Map类，即我们所说的字典，字典和集合很像，不过集合是以值值得形式存储元素，字典则是以">
-    
+  
 
-    <!--Open Graph Site Name-->
-        <meta property="og:site_name" content="阿母工业前端组">
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
 
-    <!--Type page-->
-    
-        <meta property="og:type" content="article">
-    
-
-    <!--Page Cover-->
-    
-    
-        <meta property="og:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg">
-    
-
-        <meta name="twitter:card" content="summary_large_image">
-
-    
-
-    
-        <meta name="twitter:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg">
-    
-
-    <!-- Title -->
-    
-    <title>javascript中的Map - 阿母工业前端组</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
-
-    <!-- Google Analytics -->
-    
-
-
-    <!-- favicon -->
-    
+  
+  
+  
 
 </head>
+</html>
 
 
-<body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
-    <!-- Menu -->
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">阿母工业</a>
-        </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
                 
-                    <li>
-                        <a href="/">
-                            
-                                Home
-                            
-                        </a>
-                    </li>
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
                 
-                    <li>
-                        <a href="/archives">
-                            
-                                Archives
-                            
-                        </a>
-                    </li>
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
                 
-                    <li>
-                        <a href="/tags">
-                            
-                                Tags
-                            
-                        </a>
-                    </li>
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
                 
-                    <li>
-                        <a href="/categories">
-                            
-                                Categories
-                            
-                        </a>
-                    </li>
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
                 
-                    <li>
-                        <a href="https://github.com/imow-frontend/">
-                            
-                                <i class="fa fa-github fa-stack-2x"></i>
-                            
-                        </a>
-                    </li>
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
                 
-            </ul>
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
-        <!-- /.navbar-collapse -->
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
     </div>
-    <!-- /.container -->
-</nav>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
 
-    <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
-
-<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>javascript中的Map</h1>
-                    
-                    <span class="meta">
-                        <!-- Date and Author -->
-                        
-                        
-                            2019-08-26
-                        
-                    </span>
-                </div>
+</div></li>
             </div>
-        </div>
+          </div>
+                
+      </div>
     </div>
+
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
 
-            <!-- Tags and categories -->
-           
 
-            <!-- Gallery -->
+      
             
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-javascript中的Map" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      javascript中的Map
+    </h1>
+  
 
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h1 id="探究javascript-Map"><a href="#探究javascript-Map" class="headerlink" title="探究javascript Map"></a>探究javascript Map</h1><p>什么是Map，此处说的Map，非js中的map( )方法,下文会详细解释。<br>Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。<br>ECMAScript6原生实现了Map类，即我们所说的字典，字典和集合很像，不过集合是以值值得形式存储元素，字典则是以键值的形式存储元素。字典也叫映射。</p>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new Map([iterable])</span><br></pre></td></tr></table></figure>
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/08/26/javascript中的Map/" class="article-date">
+	  <time datetime="2019-08-26T02:53:41.000Z" itemprop="datePublished">2019-08-26</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="探究javascript-Map"><a href="#探究javascript-Map" class="headerlink" title="探究javascript Map"></a>探究javascript Map</h1><p>什么是Map，此处说的Map，非js中的map( )方法,下文会详细解释。<br>Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。<br>ECMAScript6原生实现了Map类，即我们所说的字典，字典和集合很像，不过集合是以值值得形式存储元素，字典则是以键值的形式存储元素。字典也叫映射。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Map</span>([iterable])</span><br></pre></td></tr></table></figure>
 
 <p>iterable (可迭代传参)<br>Iterable 可以是一个数组或者其他 iterable 对象，其元素为键值对(两个元素的数组，例如: [[ 1, ‘one’ ],[ 2, ‘two’ ]])。 每个键值对都会添加到新的 Map。null 会被当做 undefined。</p>
 <h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>一个Map对象在迭代时会根据对象中元素的插入顺序来进行 — 一个  for…of 循环在每次迭代后会返回一个形式为[key，value]的数组。</p>
@@ -229,25 +231,25 @@
 <p>Map.prototype.set(key, value)<br>设置Map对象中键的值。返回该Map对象。</p>
 <p>Map.prototype.values()<br>返回一个新的Iterator对象，它按插入顺序包含了Map对象中每个元素的值 。</p>
 <p>Map.prototype<a href>@@iterator</a><br>返回一个新的Iterator对象，它按插入顺序包含了Map对象中每个元素的 [key, value] 数组。</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="使用-Map-对象"><a href="#使用-Map-对象" class="headerlink" title="使用 Map 对象"></a>使用 Map 对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var myMap = new Map();</span><br><span class="line"> </span><br><span class="line">var keyObj = &#123;&#125;,</span><br><span class="line">    keyFunc = function () &#123;&#125;,</span><br><span class="line">    keyString = &quot;a string&quot;;</span><br><span class="line"> </span><br><span class="line">// 添加键</span><br><span class="line">myMap.set(keyString, &quot;和键&apos;a string&apos;关联的值&quot;);</span><br><span class="line">myMap.set(keyObj, &quot;和键keyObj关联的值&quot;);</span><br><span class="line">myMap.set(keyFunc, &quot;和键keyFunc关联的值&quot;);</span><br><span class="line"> </span><br><span class="line">myMap.size; // 3</span><br><span class="line"> </span><br><span class="line">// 读取值</span><br><span class="line">myMap.get(keyString);    // &quot;和键&apos;a string&apos;关联的值&quot;</span><br><span class="line">myMap.get(keyObj);       // &quot;和键keyObj关联的值&quot;</span><br><span class="line">myMap.get(keyFunc);      // &quot;和键keyFunc关联的值&quot;</span><br><span class="line"> </span><br><span class="line">myMap.get(&quot;a string&quot;);   // &quot;和键&apos;a string&apos;关联的值&quot;</span><br><span class="line">                         // 因为keyString === &apos;a string&apos;</span><br><span class="line">myMap.get(&#123;&#125;);           // undefined, 因为keyObj !== &#123;&#125;</span><br><span class="line">myMap.get(function() &#123;&#125;) // undefined, 因为keyFunc !== function () &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="使用-Map-对象"><a href="#使用-Map-对象" class="headerlink" title="使用 Map 对象"></a>使用 Map 对象</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> keyObj = &#123;&#125;,</span><br><span class="line">    keyFunc = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">    keyString = <span class="string">"a string"</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 添加键</span></span><br><span class="line">myMap.set(keyString, <span class="string">"和键'a string'关联的值"</span>);</span><br><span class="line">myMap.set(keyObj, <span class="string">"和键keyObj关联的值"</span>);</span><br><span class="line">myMap.set(keyFunc, <span class="string">"和键keyFunc关联的值"</span>);</span><br><span class="line"> </span><br><span class="line">myMap.size; <span class="comment">// 3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 读取值</span></span><br><span class="line">myMap.get(keyString);    <span class="comment">// "和键'a string'关联的值"</span></span><br><span class="line">myMap.get(keyObj);       <span class="comment">// "和键keyObj关联的值"</span></span><br><span class="line">myMap.get(keyFunc);      <span class="comment">// "和键keyFunc关联的值"</span></span><br><span class="line"> </span><br><span class="line">myMap.get(<span class="string">"a string"</span>);   <span class="comment">// "和键'a string'关联的值"</span></span><br><span class="line">                         <span class="comment">// 因为keyString === 'a string'</span></span><br><span class="line">myMap.get(&#123;&#125;);           <span class="comment">// undefined, 因为keyObj !== &#123;&#125;</span></span><br><span class="line">myMap.get(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;) <span class="comment">// undefined, 因为keyFunc !== function () &#123;&#125;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="使用-for-of-方法迭代-Map"><a href="#使用-for-of-方法迭代-Map" class="headerlink" title="使用 for..of 方法迭代 Map"></a>使用 for..of 方法迭代 Map</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var myMap = new Map();</span><br><span class="line">myMap.set(0, &quot;zero&quot;);</span><br><span class="line">myMap.set(1, &quot;one&quot;);</span><br><span class="line">for (var [key, value] of myMap) &#123;</span><br><span class="line">  console.log(key + &quot; = &quot; + value);</span><br><span class="line">&#125;</span><br><span class="line">// 将会显示两个log。一个是&quot;0 = zero&quot;另一个是&quot;1 = one&quot;</span><br><span class="line"></span><br><span class="line">for (var key of myMap.keys()) &#123;</span><br><span class="line">  console.log(key);</span><br><span class="line">&#125;</span><br><span class="line">// 将会显示两个log。 一个是 &quot;0&quot; 另一个是 &quot;1&quot;</span><br><span class="line"></span><br><span class="line">for (var value of myMap.values()) &#123;</span><br><span class="line">  console.log(value);</span><br><span class="line">&#125;</span><br><span class="line">// 将会显示两个log。 一个是 &quot;zero&quot; 另一个是 &quot;one&quot;</span><br><span class="line"></span><br><span class="line">for (var [key, value] of myMap.entries()) &#123;</span><br><span class="line">  console.log(key + &quot; = &quot; + value);</span><br><span class="line">&#125;</span><br><span class="line">// 将会显示两个log。 一个是 &quot;0 = zero&quot; 另一个是 &quot;1 = one&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="使用-for-of-方法迭代-Map"><a href="#使用-for-of-方法迭代-Map" class="headerlink" title="使用 for..of 方法迭代 Map"></a>使用 for..of 方法迭代 Map</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">myMap.set(<span class="number">0</span>, <span class="string">"zero"</span>);</span><br><span class="line">myMap.set(<span class="number">1</span>, <span class="string">"one"</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> [key, value] <span class="keyword">of</span> myMap) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">" = "</span> + value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将会显示两个log。一个是"0 = zero"另一个是"1 = one"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">of</span> myMap.keys()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将会显示两个log。 一个是 "0" 另一个是 "1"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> value <span class="keyword">of</span> myMap.values()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将会显示两个log。 一个是 "zero" 另一个是 "one"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> [key, value] <span class="keyword">of</span> myMap.entries()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">" = "</span> + value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将会显示两个log。 一个是 "0 = zero" 另一个是 "1 = one"</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="使用-forEach-方法迭代-Map"><a href="#使用-forEach-方法迭代-Map" class="headerlink" title="使用 forEach() 方法迭代 Map"></a>使用 forEach() 方法迭代 Map</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">myMap.forEach(function(value, key) &#123;</span><br><span class="line">  console.log(key + &quot; = &quot; + value);</span><br><span class="line">&#125;)</span><br><span class="line">// 将会显示两个logs。 一个是 &quot;0 = zero&quot; 另一个是 &quot;1 = one&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="使用-forEach-方法迭代-Map"><a href="#使用-forEach-方法迭代-Map" class="headerlink" title="使用 forEach() 方法迭代 Map"></a>使用 forEach() 方法迭代 Map</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">myMap.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">value, key</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">" = "</span> + value);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 将会显示两个logs。 一个是 "0 = zero" 另一个是 "1 = one"</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="Map-与数组的关系"><a href="#Map-与数组的关系" class="headerlink" title="Map 与数组的关系"></a>Map 与数组的关系</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var kvArray = [[&quot;key1&quot;, &quot;value1&quot;], [&quot;key2&quot;, &quot;value2&quot;]];</span><br><span class="line"></span><br><span class="line">// 使用常规的Map构造函数可以将一个二维键值对数组转换成一个Map对象</span><br><span class="line">var myMap = new Map(kvArray);</span><br><span class="line"></span><br><span class="line">myMap.get(&quot;key1&quot;); // 返回值为 &quot;value1&quot;</span><br><span class="line"></span><br><span class="line">// 使用Array.from函数可以将一个Map对象转换成一个二维键值对数组</span><br><span class="line">console.log(Array.from(myMap)); // 输出和kvArray相同的数组</span><br><span class="line"></span><br><span class="line">// 或者在键或者值的迭代器上使用Array.from，进而得到只含有键或者值的数组</span><br><span class="line">console.log(Array.from(myMap.keys())); // 输出 [&quot;key1&quot;, &quot;key2&quot;]</span><br></pre></td></tr></table></figure>
+<h3 id="Map-与数组的关系"><a href="#Map-与数组的关系" class="headerlink" title="Map 与数组的关系"></a>Map 与数组的关系</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> kvArray = [[<span class="string">"key1"</span>, <span class="string">"value1"</span>], [<span class="string">"key2"</span>, <span class="string">"value2"</span>]];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用常规的Map构造函数可以将一个二维键值对数组转换成一个Map对象</span></span><br><span class="line"><span class="keyword">var</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>(kvArray);</span><br><span class="line"></span><br><span class="line">myMap.get(<span class="string">"key1"</span>); <span class="comment">// 返回值为 "value1"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用Array.from函数可以将一个Map对象转换成一个二维键值对数组</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(myMap)); <span class="comment">// 输出和kvArray相同的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者在键或者值的迭代器上使用Array.from，进而得到只含有键或者值的数组</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(myMap.keys())); <span class="comment">// 输出 ["key1", "key2"]</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="复制或合并-Maps"><a href="#复制或合并-Maps" class="headerlink" title="复制或合并 Maps"></a>复制或合并 Maps</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var original = new Map([</span><br><span class="line">  [1, &apos;one&apos;]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">var clone = new Map(original);</span><br><span class="line"></span><br><span class="line">console.log(clone.get(1)); // one</span><br><span class="line">console.log(original === clone); // false. Useful for shallow comparison</span><br></pre></td></tr></table></figure>
+<h3 id="复制或合并-Maps"><a href="#复制或合并-Maps" class="headerlink" title="复制或合并 Maps"></a>复制或合并 Maps</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> original = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">'one'</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> clone = <span class="keyword">new</span> <span class="built_in">Map</span>(original);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(clone.get(<span class="number">1</span>)); <span class="comment">// one</span></span><br><span class="line"><span class="built_in">console</span>.log(original === clone); <span class="comment">// false. Useful for shallow comparison</span></span><br></pre></td></tr></table></figure>
 
 <p>请记住，数据本身未被克隆。</p>
 <p>Map对象间可以进行合并，但是会保持键的唯一性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var first = new Map([</span><br><span class="line">  [1, &apos;one&apos;],</span><br><span class="line">  [2, &apos;two&apos;],</span><br><span class="line">  [3, &apos;three&apos;],</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">var second = new Map([</span><br><span class="line">  [1, &apos;uno&apos;],</span><br><span class="line">  [2, &apos;dos&apos;]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">// 合并两个Map对象时，如果有重复的键值，则后面的会覆盖前面的。</span><br><span class="line">// 展开运算符本质上是将Map对象转换成数组。</span><br><span class="line">var merged = new Map([...first, ...second]);</span><br><span class="line"></span><br><span class="line">console.log(merged.get(1)); // uno</span><br><span class="line">console.log(merged.get(2)); // dos</span><br><span class="line">console.log(merged.get(3)); // three</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> first = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">'one'</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="string">'two'</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="string">'three'</span>],</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> second = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">'uno'</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="string">'dos'</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并两个Map对象时，如果有重复的键值，则后面的会覆盖前面的。</span></span><br><span class="line"><span class="comment">// 展开运算符本质上是将Map对象转换成数组。</span></span><br><span class="line"><span class="keyword">var</span> merged = <span class="keyword">new</span> <span class="built_in">Map</span>([...first, ...second]);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(merged.get(<span class="number">1</span>)); <span class="comment">// uno</span></span><br><span class="line"><span class="built_in">console</span>.log(merged.get(<span class="number">2</span>)); <span class="comment">// dos</span></span><br><span class="line"><span class="built_in">console</span>.log(merged.get(<span class="number">3</span>)); <span class="comment">// three</span></span><br></pre></td></tr></table></figure>
 
 <p>Map对象也能与数组合并：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var first = new Map([</span><br><span class="line">  [1, &apos;one&apos;],</span><br><span class="line">  [2, &apos;two&apos;],</span><br><span class="line">  [3, &apos;three&apos;],</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">var second = new Map([</span><br><span class="line">  [1, &apos;uno&apos;],</span><br><span class="line">  [2, &apos;dos&apos;]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">// Map对象同数组进行合并时，如果有重复的键值，则后面的会覆盖前面的。</span><br><span class="line">var merged = new Map([...first, ...second, [1, &apos;eins&apos;]]);</span><br><span class="line"></span><br><span class="line">console.log(merged.get(1)); // eins</span><br><span class="line">console.log(merged.get(2)); // dos</span><br><span class="line">console.log(merged.get(3)); // three</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> first = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">'one'</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="string">'two'</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="string">'three'</span>],</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> second = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">'uno'</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="string">'dos'</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Map对象同数组进行合并时，如果有重复的键值，则后面的会覆盖前面的。</span></span><br><span class="line"><span class="keyword">var</span> merged = <span class="keyword">new</span> <span class="built_in">Map</span>([...first, ...second, [<span class="number">1</span>, <span class="string">'eins'</span>]]);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(merged.get(<span class="number">1</span>)); <span class="comment">// eins</span></span><br><span class="line"><span class="built_in">console</span>.log(merged.get(<span class="number">2</span>)); <span class="comment">// dos</span></span><br><span class="line"><span class="built_in">console</span>.log(merged.get(<span class="number">3</span>)); <span class="comment">// three</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="以上讲的是Map，那不得不说map-是什么"><a href="#以上讲的是Map，那不得不说map-是什么" class="headerlink" title="以上讲的是Map，那不得不说map( )是什么"></a>以上讲的是Map，那不得不说map( )是什么</h1><p>ECMAScript5中我们有一个数组方法 map( ),区别于ECMAScript6 中 Map类<br>map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。</p>
-<h2 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var new_array = array.map(function callback(currentValue,index,arr), thisValue)</span><br></pre></td></tr></table></figure>
+<h2 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> new_array = array.map(<span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">currentValue,index,arr</span>), <span class="title">thisValue</span>)</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>callback 生成新数组元素的函数，使用三个参数：  </p>
 <ul>
@@ -256,15 +258,15 @@
 <li>array可选 callback  map 方法被调用的数组。</li>
 </ul>
 <p>thisArg可选 执行 callback 函数时使用的this 值。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var array1 = [1,3,6];</span><br><span class="line">const map1 = array1.map(x =&gt; x *2);</span><br><span class="line">console.log(map1);   </span><br><span class="line">// &gt; Array [2, 6, 12]</span><br></pre></td></tr></table></figure>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array1 = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">const</span> map1 = array1.map(<span class="function"><span class="params">x</span> =&gt;</span> x *<span class="number">2</span>);</span><br><span class="line"><span class="built_in">console</span>.log(map1);   </span><br><span class="line"><span class="comment">// &gt; Array [2, 6, 12]</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var array1 = [1, 3,6];</span><br><span class="line"></span><br><span class="line">const map1 = array1.map(x =&gt; &#123;</span><br><span class="line">    if (x == 3) &#123;</span><br><span class="line">      return x * 2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">console.log(map1);</span><br><span class="line"></span><br><span class="line">// &gt; Array [undefined, 6, undefined]</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array1 = [<span class="number">1</span>, <span class="number">3</span>,<span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> map1 = array1.map(<span class="function"><span class="params">x</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (x == <span class="number">3</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> x * <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(map1);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &gt; Array [undefined, 6, undefined]</span></span><br></pre></td></tr></table></figure>
 
 <p>出现undefined ：只是增加了一个条件，即x的值为3时才乘以2，之所以会出现undefined，是因为map()方法创建了一个新数组，但新数组并不是在遍历完array1后才被赋值的，而是每遍历一次就得到一个值。所以，下面这样修改后就正确了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var array1 = [1, 3,6];</span><br><span class="line"></span><br><span class="line">const map1 = array1.map(x =&gt; &#123;</span><br><span class="line">    if (x == 3) &#123;</span><br><span class="line">      return x * 2;</span><br><span class="line">    &#125;</span><br><span class="line">    return x</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">console.log(map1);</span><br><span class="line"></span><br><span class="line">// &gt; Array [2, 6, 12]</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array1 = [<span class="number">1</span>, <span class="number">3</span>,<span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> map1 = array1.map(<span class="function"><span class="params">x</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (x == <span class="number">3</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> x * <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(map1);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &gt; Array [2, 6, 12]</span></span><br></pre></td></tr></table></figure>
 
 <p>可以使用 map 重新格式化数组中的对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var oldArray = [&#123;key: 1, value: 10&#125;, </span><br><span class="line">                &#123;key: 2, value: 20&#125;, </span><br><span class="line">                &#123;key: 3, value: 30&#125;];</span><br><span class="line"></span><br><span class="line">var nowArr = oldArray.map(function(obj) &#123; </span><br><span class="line">   var rObj = &#123;&#125;;</span><br><span class="line">   rObj[obj.key] = obj.value;</span><br><span class="line">   return rObj;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// nowArr 数组为： [&#123;1: 10&#125;, &#123;2: 20&#125;, &#123;3: 30&#125;], </span><br><span class="line"></span><br><span class="line">// oldArray 数组未被修改: </span><br><span class="line">// [&#123;key: 1, value: 10&#125;, </span><br><span class="line">//  &#123;key: 2, value: 20&#125;, </span><br><span class="line">//  &#123;key: 3, value: 30&#125;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oldArray = [&#123;<span class="attr">key</span>: <span class="number">1</span>, <span class="attr">value</span>: <span class="number">10</span>&#125;, </span><br><span class="line">                &#123;<span class="attr">key</span>: <span class="number">2</span>, <span class="attr">value</span>: <span class="number">20</span>&#125;, </span><br><span class="line">                &#123;<span class="attr">key</span>: <span class="number">3</span>, <span class="attr">value</span>: <span class="number">30</span>&#125;];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> nowArr = oldArray.map(<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123; </span><br><span class="line">   <span class="keyword">var</span> rObj = &#123;&#125;;</span><br><span class="line">   rObj[obj.key] = obj.value;</span><br><span class="line">   <span class="keyword">return</span> rObj;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// nowArr 数组为： [&#123;1: 10&#125;, &#123;2: 20&#125;, &#123;3: 30&#125;], </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// oldArray 数组未被修改: </span></span><br><span class="line"><span class="comment">// [&#123;key: 1, value: 10&#125;, </span></span><br><span class="line"><span class="comment">//  &#123;key: 2, value: 20&#125;, </span></span><br><span class="line"><span class="comment">//  &#123;key: 3, value: 30&#125;]</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="用ES5模拟实现ES6中的Map类"><a href="#用ES5模拟实现ES6中的Map类" class="headerlink" title="用ES5模拟实现ES6中的Map类"></a>用ES5模拟实现ES6中的Map类</h1><p>与Set类一样，我们用Object的实例而不是数组存储元素,我们实现以下方法：<br>1.set(key,value):向字典中添加新元素。</p>
 <p>2.remove(key):使用键名从字典中移除相应的元素。</p>
@@ -274,75 +276,274 @@
 <p>6.size():返回字典中元素个数。</p>
 <p>7.values():将字典所有值以数组形式返回。</p>
 <p>8.getItems():返回items变量，代表字典本身。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">function Map() &#123;</span><br><span class="line">    var items = &#123;&#125;;</span><br><span class="line">    this.has = function(key)&#123;    //has方法判断某个键值是否在字典中</span><br><span class="line">        return key in items;</span><br><span class="line">    &#125;,</span><br><span class="line">    this.set = function(key,value)&#123;    //set方法为字典添加新元素或更新已有元素</span><br><span class="line">        items[key] = value;</span><br><span class="line">    &#125;,</span><br><span class="line">    this.remove = function(key)&#123;</span><br><span class="line">        if (this.has(key)) &#123;</span><br><span class="line">            delete items[key];</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;,</span><br><span class="line">    this.get = function(key)&#123;</span><br><span class="line">        return this.has(key)?items[key]:undefined;</span><br><span class="line">    &#125;,</span><br><span class="line">    this.values = function()&#123;</span><br><span class="line">        var values = [];</span><br><span class="line">         //for...in会遍历出对象原型上的属性，所以要this.hasOwnProperty()方法选出对象自身的属性。</span><br><span class="line">        for(var k in items)&#123;   </span><br><span class="line">            if (this.hasOwnProperty(k)) &#123;</span><br><span class="line">                values.push(items[k]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return values;</span><br><span class="line">    &#125;,</span><br><span class="line">    this.clear = function()&#123;</span><br><span class="line">        items = &#123;&#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    this.size = function()&#123;</span><br><span class="line">        return Object.Keys(items).length;</span><br><span class="line">    &#125;,</span><br><span class="line">    this.getItems = function()&#123;</span><br><span class="line">        return items;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-                
-            </div>
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-
-
-                </div>
-            
-        </div>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Map</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> items = &#123;&#125;;</span><br><span class="line">    <span class="keyword">this</span>.has = <span class="function"><span class="keyword">function</span>(<span class="params">key</span>)</span>&#123;    <span class="comment">//has方法判断某个键值是否在字典中</span></span><br><span class="line">        <span class="keyword">return</span> key <span class="keyword">in</span> items;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">this</span>.set = <span class="function"><span class="keyword">function</span>(<span class="params">key,value</span>)</span>&#123;    <span class="comment">//set方法为字典添加新元素或更新已有元素</span></span><br><span class="line">        items[key] = value;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">this</span>.remove = <span class="function"><span class="keyword">function</span>(<span class="params">key</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.has(key)) &#123;</span><br><span class="line">            <span class="keyword">delete</span> items[key];</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">this</span>.get = <span class="function"><span class="keyword">function</span>(<span class="params">key</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.has(key)?items[key]:<span class="literal">undefined</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">this</span>.values = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> values = [];</span><br><span class="line">         <span class="comment">//for...in会遍历出对象原型上的属性，所以要this.hasOwnProperty()方法选出对象自身的属性。</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> items)&#123;   </span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.hasOwnProperty(k)) &#123;</span><br><span class="line">                values.push(items[k]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> values;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">this</span>.clear = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        items = &#123;&#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">this</span>.size = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.Keys(items).length;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">this</span>.getItems = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
     </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中立前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/08/26/javascript中的Map/" target="_blank" title="javascript中的Map">http://yoursite.com/2019/08/26/javascript中的Map/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/25/如何为平台设计一个插件系统/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何为平台设计一个插件系统</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-    <!-- Footer -->
-    <hr />
+<!-- Table of Contents -->
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    
-
-                    
-
-                    
-                        <li>
-                            <a href="https://github.com/imow-frontend/" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    
-
-                    
-
-                    
-
-                    
-                </ul>
-                <p class="copyright text-muted">&copy; 2019 中立前端组<br></p>
-            </div>
-        </div>
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#探究javascript-Map"><span class="nav-number">1.</span> <span class="nav-text">探究javascript Map</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#描述"><span class="nav-number">1.2.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性"><span class="nav-number">1.3.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map-实例"><span class="nav-number">1.4.</span> <span class="nav-text">Map 实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">*属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">*方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">1.5.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Map-对象"><span class="nav-number">1.5.1.</span> <span class="nav-text">使用 Map 对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-for-of-方法迭代-Map"><span class="nav-number">1.5.2.</span> <span class="nav-text">使用 for..of 方法迭代 Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-forEach-方法迭代-Map"><span class="nav-number">1.5.3.</span> <span class="nav-text">使用 forEach() 方法迭代 Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-与数组的关系"><span class="nav-number">1.5.4.</span> <span class="nav-text">Map 与数组的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制或合并-Maps"><span class="nav-number">1.5.5.</span> <span class="nav-text">复制或合并 Maps</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#以上讲的是Map，那不得不说map-是什么"><span class="nav-number">2.</span> <span class="nav-text">以上讲的是Map，那不得不说map( )是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法-1"><span class="nav-number">2.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">2.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">2.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用ES5模拟实现ES6中的Map类"><span class="nav-number">3.</span> <span class="nav-text">用ES5模拟实现ES6中的Map类</span></a></li></ol>
+    
     </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
 </footer>
 
 
-    <!-- After footer scripts -->
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
     
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 
-<!-- Bootstrap -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- mathjax config similar to math.stackexchange -->
 
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
 
-<!-- Disqus Comments -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
 
 
 
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 中立前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
 </body>
-
 </html>
