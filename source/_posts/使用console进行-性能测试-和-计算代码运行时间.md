@@ -38,7 +38,7 @@ function myOtherFunction2() {
 }
 ```
 打印结果：
-![Markdown](http://i1.fuimg.com/568986/00e48355e16c2cbe.png)
+![console.trace](http://i1.fuimg.com/568986/00e48355e16c2cbe.png)
 
 
 ## table
@@ -68,7 +68,7 @@ var Teletubbies = {
 console.table(Teletubbies);
 ```
 打印结果：
-![Markdown](http://i1.fuimg.com/568986/e7119ca8ae2455ac.png)
+![console.table](http://i1.fuimg.com/568986/e7119ca8ae2455ac.png)
 
 
 ## console.time进行时间计算
@@ -143,7 +143,7 @@ console.log("排序用时共计"+(endTime-beginTime)+"ms");
 ```
 测试用例[https://jsperf.com/date-now-vs-new-date]
 
-![Markdown](http://i2.tiimg.com/568986/92dcb75722e2b402.png)
+![测试用例](http://i2.tiimg.com/568986/92dcb75722e2b402.png)
 
 ## profile
 
@@ -170,4 +170,4 @@ console.profileEnd('性能分析');
 //Profile '性能分析' started.
 //Profile '性能分析' finished.
 ```
-![Markdown](http://i1.fuimg.com/568986/196edcdae0dc0ed8.png)
+![console.profile](http://i1.fuimg.com/568986/196edcdae0dc0ed8.png)
