@@ -50,6 +50,20 @@
 .article-date:hover
   color: color-theme
 
+.article-author
+  @extend $block-caption
+  text-align: center
+  font-weight: normal
+
+.article-author:before
+  font-family: "FontAwesome";
+  content: "@";
+  @media mq-mobile
+    display: none
+
+.article-author:hover
+  color: color-theme
+
 .article-category
   text-align: center
   line-height: 1em

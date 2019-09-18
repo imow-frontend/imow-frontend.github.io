@@ -1,0 +1,5 @@
+<% if (post.author){ %>
+<a href="<%- url_for(post.path) %>" class="article-author">
+<%= (post.author) %>
+</a>
+<% } %>
