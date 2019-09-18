@@ -94,7 +94,7 @@ var beginTime = +new Date();
     for (var j = 0; j < 1000; j++) {}
   }
 var endTime = +new Date();
-console.log("排序用时共计"+(endTime-beginTime)+"ms");
+console.log("用时共计"+(endTime-beginTime)+"ms");
 
 
 //或者
@@ -103,17 +103,17 @@ for (var i = 0; i < 1000; i++) {
     for (var j = 0; j < 1000; j++) {}
   }
 var endTime  = new Date().getTime()
-console.log("排序用时共计"+(endTime-beginTime)+"ms");
+console.log("用时共计"+(endTime-beginTime)+"ms");
 
 //或者
-var beginTime  = new Date().getTime() 
+var beginTime  = Date.now()
 for (var i = 0; i < 1000; i++) {
     for (var j = 0; j < 1000; j++) {}
   }
-var endTime  = new Date().getTime()
-console.log("排序用时共计"+(endTime-beginTime)+"ms");
+var endTime  = Date.now()
+console.log("用时共计"+(endTime-beginTime)+"ms");
 ```
-那么你肯定会问这三者的的区别
+那么聪明的你肯定会问这三者的的区别
 
 ### Date.now()与 new Date().getTime() 的区别
 它们都可以获取时间戳，但是实际上性能是不一样的（虽然差别不大，但是也算是一种性能的追求），可以做个测试
