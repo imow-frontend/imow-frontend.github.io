@@ -16,10 +16,12 @@
 <meta property="og:site_name" content="阿母工业前端组">
 <meta property="og:description" content="前言如果我们想要提高我们的前端性能,那么首先你得先只知道怎么测量你的前端性能。但是哪些前端的性能指标我们应该关注呢?在Web1.0时代当我们讨论到前端性能指标用的最多的就是page load time。到了单页应用程序越来越多的时代,单一的page load time指标已经无法完全衡量前端性能了,因为一个单页应用程序page load time可能只触发了一次,但是用户会跟程序有很多的交互,每一">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-17T08:08:30.841Z">
+<meta property="og:image" content="http://img.pandihai.com/rail-response-details.png">
+<meta property="og:updated_time" content="2019-09-18T01:05:39.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端性能优化一:性能指标">
 <meta name="twitter:description" content="前言如果我们想要提高我们的前端性能,那么首先你得先只知道怎么测量你的前端性能。但是哪些前端的性能指标我们应该关注呢?在Web1.0时代当我们讨论到前端性能指标用的最多的就是page load time。到了单页应用程序越来越多的时代,单一的page load time指标已经无法完全衡量前端性能了,因为一个单页应用程序page load time可能只触发了一次,但是用户会跟程序有很多的交互,每一">
+<meta name="twitter:image" content="http://img.pandihai.com/rail-response-details.png">
   
     <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
   
@@ -205,6 +207,85 @@
 <p>这也是非常关键的一个指标,通常如果用户能够快速的看到最重要的一块区域被渲染完成,即使其他的区域都还没有被渲染用户可能也不会注意到。</p>
 <ul>
 <li>long task:我们都知道浏览器是单线程的在响应用户的操作时通过在任务队列里面增加任务,然后一个个的执行的.这意味着如果我们有一个长任务需要使用较长的时间,那么队列中的其他任务就只能等待,响应用户的操作就会变慢,或者动画就会变卡顿。</li>
+<li>Time to interactive (TTI):这个指标表示浏览器已经渲染完了我们首屏需要显示的内容并且已经准备好接受用户的交互信息了,也标志着程序是否可用。程序暂时无法响应用户的交互有下面几个原因:<ul>
+<li>需要执行的javascript还没有执行完成。</li>
+<li>有长任务阻绝着主线程.无法给用户响应。</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>first paint (FP)/first contentful paint (FCP)</td>
+<td>程序是否正确的开始渲染</td>
+</tr>
+<tr>
+<td>First meaningful paint (FMP)</td>
+<td>用户最关注的的首屏内容显示</td>
+</tr>
+<tr>
+<td>Time to interactive (TTI)</td>
+<td>程序是否可用</td>
+</tr>
+<tr>
+<td>long task</td>
+<td>程序使用的体验(是否响应延迟,动画卡顿)</td>
+</tr>
+</tbody></table>
+<p>还有一些其他的指标比如 First Input Delay(首次接受用户响应的延迟时间) First CPU Idle(第一次CPU闲置的时间):这些指标都和上面的指标有着直接的关系。</p>
+<h3 id="用户体验"><a href="#用户体验" class="headerlink" title="用户体验"></a>用户体验</h3><p>知道了这些指标,我们要把这些指标控制在什么样的时间才能给用户带来比较好的用户的体验呢,下面有这样一张表</p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0到16ms</td>
+<td>用户希望看的动画能够流畅,动画卡顿会带来非常差的用户体验,在浏览器上每秒钟渲染60帧动画就能够保持流畅,这大约就是16ms渲染一帧，这16ms包括了浏览器要渲染新的元素到页面上需要的时间，也就是说程序有大约10ms的时间可以进行操作。</td>
+</tr>
+<tr>
+<td>0到100ms</td>
+<td>在这个时间内响应用户的交互,用户会觉得响应是非常及时的</td>
+</tr>
+<tr>
+<td>100到300ms</td>
+<td>用户会感觉到有一些延迟</td>
+</tr>
+<tr>
+<td>300到1000ms</td>
+<td>当执行一些页面加载或者页面跳转的时候,在这个时间内是一个正常的加载跳转时间</td>
+</tr>
+<tr>
+<td>1000ms或以上</td>
+<td>超过1000ms(1秒),用户会对之前的操作渐渐失去耐心和注意力</td>
+</tr>
+<tr>
+<td>10000ms或以上</td>
+<td>当你的响应超过10秒,用户会感到烦躁,然后终止之前操作</td>
+</tr>
+</tbody></table>
+<p>上面的延迟时间取决于你使用什么样的网络和设备,比如你使用的电脑和wifi网络,用户在1000ms是一个比较现实的目标。但是当你设备是手机网络只有3G的时候在5000ms内加载才是更现实的目标。</p>
+<h4 id="响应时间-处理响应用户的操作在50ms以内"><a href="#响应时间-处理响应用户的操作在50ms以内" class="headerlink" title="响应时间:处理响应用户的操作在50ms以内"></a>响应时间:处理响应用户的操作在50ms以内</h4><p>在大多数的时间里，用户在使用程序时大多数的时间都在等待网站响应他们的操作比如点击一个按钮,在文本框中输入内容,而不是等待网站加载。那么网站比较理想的响应用户时间是在100ms以内。</p>
+<h5 id="100ms-不是50ms吗"><a href="#100ms-不是50ms吗" class="headerlink" title="100ms?不是50ms吗?"></a>100ms?不是50ms吗?</h5><p>我们的目标是在100ms以内响应用户的操作,那为什么处理用户的响应时间只有50ms?因为在我们接受到用户的输入时,可能会有别的任务正在执行.比如我们接受到用户在文本框中输入了一个A,这个时候浏览器正在执行别的任务,浏览器会把这个操作先加入到任务队列里,等浏览器执行完之前的任务才会去处理用户的响应。那么保守的估计为了让用户在100ms以内获得响应,我们的处理用户响应的执行时间就是50ms。<br><img src="http://img.pandihai.com/rail-response-details.png" alt="响应时间"></p>
+<h4 id="动画-生产每一帧动画的时间在10ms左右"><a href="#动画-生产每一帧动画的时间在10ms左右" class="headerlink" title="动画:生产每一帧动画的时间在10ms左右"></a>动画:生产每一帧动画的时间在10ms左右</h4><p>理论上来说只要没16ms渲染一帧,动画就会看起来是流畅的,但是浏览器大约需要6ms的时间来将每一帧渲染到画面上.因此产生每一帧动画的时间留给程序的大约就10ms左右。</p>
+<h4 id="主线程闲置时间越多越好"><a href="#主线程闲置时间越多越好" class="headerlink" title="主线程闲置时间越多越好"></a>主线程闲置时间越多越好</h4><p>主线程能够有尽可能多的闲置时间,那么当产生用户交互时就可以立马给用户响应。当主线程闲置时,浏览器会有很多的内部程序需要执行,比如闲置GC等。</p>
+<h4 id="主要内容渲染完成且程序可交互时间在5秒之内"><a href="#主要内容渲染完成且程序可交互时间在5秒之内" class="headerlink" title="主要内容渲染完成且程序可交互时间在5秒之内"></a>主要内容渲染完成且程序可交互时间在5秒之内</h4><p>当页面加载缓慢,用户会失去耐心。网站的加载和响应速度直接影响用户的体验。</p>
+<h3 id="如何测试这些指标"><a href="#如何测试这些指标" class="headerlink" title="如何测试这些指标"></a>如何测试这些指标</h3><h4 id="使用测试工具或者网站"><a href="#使用测试工具或者网站" class="headerlink" title="使用测试工具或者网站"></a>使用测试工具或者网站</h4><ul>
+<li>Chrome DevTools-Audits</li>
+<li><a href="https://webpagetest.org/easy" target="_blank" rel="noopener">WebPageTest</a></li>
+</ul>
+<h4 id="在真实的用户环境获得这些指标"><a href="#在真实的用户环境获得这些指标" class="headerlink" title="在真实的用户环境获得这些指标"></a>在真实的用户环境获得这些指标</h4><p>在介绍如何在用户真实环境中或者这些指标之前先介绍一些API</p>
+<ul>
+<li><a href="https://www.w3.org/TR/user-timing/#dom-performance-mark" target="_blank" rel="noopener">performance.mark</a>:创建给定标记的一个timestamp。</li>
+<li><a href="https://www.w3.org/TR/user-timing/#dom-performance-measure" target="_blank" rel="noopener">performance.measure</a>:两个mark之间所经历的时间</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver" target="_blank" rel="noopener">PerformanceObserver</a>:PerformanceObserver接口用于监控性能,可以根据传入的<a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry/entryType" target="_blank" rel="noopener">监控事件</a>返回对应的<a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry" target="_blank" rel="noopener">PerformanceEntry</a>对象。</li>
 </ul>
 
       
@@ -293,7 +374,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户体验"><span class="nav-number">1.1.</span> <span class="nav-text">用户体验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#响应时间-处理响应用户的操作在50ms以内"><span class="nav-number">1.1.1.</span> <span class="nav-text">响应时间:处理响应用户的操作在50ms以内</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#100ms-不是50ms吗"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">100ms?不是50ms吗?</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动画-生产每一帧动画的时间在10ms左右"><span class="nav-number">1.1.2.</span> <span class="nav-text">动画:生产每一帧动画的时间在10ms左右</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主线程闲置时间越多越好"><span class="nav-number">1.1.3.</span> <span class="nav-text">主线程闲置时间越多越好</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主要内容渲染完成且程序可交互时间在5秒之内"><span class="nav-number">1.1.4.</span> <span class="nav-text">主要内容渲染完成且程序可交互时间在5秒之内</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何测试这些指标"><span class="nav-number">1.2.</span> <span class="nav-text">如何测试这些指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用测试工具或者网站"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用测试工具或者网站</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在真实的用户环境获得这些指标"><span class="nav-number">1.2.2.</span> <span class="nav-text">在真实的用户环境获得这些指标</span></a></li></ol></li></ol></li></ol>
     
     </div>
   </aside>
