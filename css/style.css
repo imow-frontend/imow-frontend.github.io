@@ -316,6 +316,7 @@ body {
   }
 }
 .article-date,
+.article-author,
 .article-category-link,
 .article-views,
 .article-edit,
@@ -787,6 +788,22 @@ body {
   }
 }
 .article-date:hover {
+  color: #fb6d19;
+}
+.article-author {
+  text-align: center;
+  font-weight: normal;
+}
+.article-author:before {
+  font-family: "FontAwesome";
+  content: "@";
+}
+@media screen and (max-width: 479px) {
+  .article-author:before {
+    display: none;
+  }
+}
+.article-author:hover {
   color: #fb6d19;
 }
 .article-category {

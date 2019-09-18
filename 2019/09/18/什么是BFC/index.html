@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>什么是bfc | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="css">
+  
+  
+  
+  
+  <meta name="description" content="前言对于BFC的概念以及应用场景一直都不是很明白，今天着重去了解了一下，做了以下总结。 什么是BFCBFC（Block Formatting Context）直译为“块级格式化范围”。是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用当涉及到可视化布局的时候，Block Formatting Context提供了一个环境，HTML元素在这">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是BFC">
+<meta property="og:url" content="http://yoursite.com/2019/09/18/什么是BFC/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="前言对于BFC的概念以及应用场景一直都不是很明白，今天着重去了解了一下，做了以下总结。 什么是BFCBFC（Block Formatting Context）直译为“块级格式化范围”。是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用当涉及到可视化布局的时候，Block Formatting Context提供了一个环境，HTML元素在这">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f5c5d5bf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f5a0b8c8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f9541efe?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f987a8e6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f9ada21f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/10/14/16672a6717d1c1ab?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/4/160bfae723e59a6f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/4/160bfae6ea1917ce?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:updated_time" content="2019-09-18T09:19:51.206Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="什么是BFC">
+<meta name="twitter:description" content="前言对于BFC的概念以及应用场景一直都不是很明白，今天着重去了解了一下，做了以下总结。 什么是BFCBFC（Block Formatting Context）直译为“块级格式化范围”。是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用当涉及到可视化布局的时候，Block Formatting Context提供了一个环境，HTML元素在这">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f5c5d5bf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-什么是BFC" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      什么是BFC
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/09/18/什么是BFC/" class="article-date">
+	  <time datetime="2019-09-18T01:48:56.000Z" itemprop="datePublished">2019-09-18</time>
+	</a>
+
+      
+      
+<a href="/2019/09/18/什么是BFC/" class="article-author">
+刘涛
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>对于BFC的概念以及应用场景一直都不是很明白，今天着重去了解了一下，做了以下总结。</p>
+<h2 id="什么是BFC"><a href="#什么是BFC" class="headerlink" title="什么是BFC"></a>什么是BFC</h2><p>BFC（Block Formatting Context）直译为“块级格式化范围”。是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用当涉及到可视化布局的时候，Block Formatting Context提供了一个环境，HTML元素在这个环境中按照一定规则进行布局。一个环境中的元素不会影响到其它环境中的布局。比如浮动元素会形成BFC，浮动元素内部子元素的主要受该浮动元素影响，两个浮动元素之间是互不影响的。这里有点类似一个BFC就是一个独立的行政单位的意思。也可以说BFC就是一个作用范围。可以把它理解成是一个独立的容器，并且这个容器的里box的布局，与这个容器外的毫不相干。</p>
+<h2 id="触发BFC"><a href="#触发BFC" class="headerlink" title="触发BFC"></a>触发BFC</h2><ol>
+<li>float的值不能为none</li>
+<li>overflow的值不能为visible</li>
+<li>display的值为table-cell, table-caption, inline-block中的任何一个</li>
+<li>position的值不为relative和static </li>
+</ol>
+<h2 id="BFC的约束条件"><a href="#BFC的约束条件" class="headerlink" title="BFC的约束条件"></a>BFC的约束条件</h2><ol>
+<li>内部的Box会在垂直方向上一个接一个的放置</li>
+<li>垂直方向的距离有margin决定(属于同一个BFC的两个相邻Box的margin会发生重叠，与方向无关)</li>
+<li>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此</li>
+<li>BFC的区域不会与float的元素区域重叠</li>
+<li>计算BFC的高度时，浮动子元素也参与计算</li>
+<li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素，反之亦然</li>
+</ol>
+<h2 id="BFC的特性"><a href="#BFC的特性" class="headerlink" title="BFC的特性"></a>BFC的特性</h2><h3 id="特性1：BFC会阻止垂直外边距折叠"><a href="#特性1：BFC会阻止垂直外边距折叠" class="headerlink" title="特性1：BFC会阻止垂直外边距折叠"></a>特性1：BFC会阻止垂直外边距折叠</h3><p>  <strong>按照BFC的定义，只有同属于一个BFC时，两个元素才有可能发生垂直margin的重叠</strong>，这个包括相邻元素或者嵌套元素，只要他们之间没有阻挡（<strong>比如边框、非空内容、padding等</strong>）就会发生margin重叠。</p>
+<h4 id="①相邻兄弟元素margin重叠问题"><a href="#①相邻兄弟元素margin重叠问题" class="headerlink" title="①相邻兄弟元素margin重叠问题"></a>①相邻兄弟元素margin重叠问题</h4>  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  &lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">  <span class="selector-tag">p</span>&#123;</span><br><span class="line">     <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">     <span class="attribute">background</span>: <span class="number">#888</span>;</span><br><span class="line">     <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">     <span class="attribute">line-height</span>: <span class="number">100px</span>;</span><br><span class="line">     <span class="attribute">text-align</span>:center;</span><br><span class="line">     <span class="attribute">margin</span>: <span class="number">100px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">    &lt;p&gt;ABC&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;abc&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f5c5d5bf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="相邻兄弟元素margin重叠问题"></p>
+<p>  上面例中两个P元素之间距离本该为200px,然而实际上只有100px,发生了margin重叠。遇到这种情形，我们如何处理？<strong>只需要在p外面包裹一层容器，并触发该容器生成一个BFC。那么两个P便不属于同一个BFC，就不会发生margin重叠了。</strong></p>
+<p>  <strong>解决方案</strong><br>   <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">  &lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">  <span class="selector-tag">p</span>&#123;</span><br><span class="line">     <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">     <span class="attribute">background</span>: <span class="number">#888</span>;</span><br><span class="line">     <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">     <span class="attribute">line-height</span>: <span class="number">100px</span>;</span><br><span class="line">     <span class="attribute">text-align</span>:center;</span><br><span class="line">     <span class="attribute">margin</span>: <span class="number">100px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="selector-class">.wrap</span>&#123;</span><br><span class="line">    <span class="attribute">overflow</span>:hidden;</span><br><span class="line">  &#125;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">   &lt;p&gt;ABC&lt;/p&gt;</span><br><span class="line">  &lt;div class="wrap"&gt;</span><br><span class="line">    &lt;p&gt;abc&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure></p>
+<p>  <img src="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f5a0b8c8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="相邻兄弟元素margin重叠问题的解决方案"></p>
+<h4 id="②父子元素margin重叠问题"><a href="#②父子元素margin重叠问题" class="headerlink" title="②父子元素margin重叠问题"></a>②父子元素margin重叠问题</h4>   <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    &lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">     <span class="selector-class">.box</span>&#123;</span><br><span class="line">        <span class="attribute">width</span>:<span class="number">100px</span>;</span><br><span class="line">        <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">        <span class="attribute">background</span>:<span class="number">#ccc</span>;</span><br><span class="line">        &#125;</span><br><span class="line">     <span class="selector-class">.wrap</span> &#123;</span><br><span class="line">       <span class="attribute">background</span>:yellow;</span><br><span class="line">       &#125;</span><br><span class="line">     <span class="selector-class">.wrap</span> <span class="selector-tag">h1</span>&#123;</span><br><span class="line">        <span class="attribute">background</span>:pink;</span><br><span class="line">        <span class="attribute">margin</span>:<span class="number">40px</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">&lt;div class="box"&gt;box&lt;/div&gt;</span><br><span class="line">&lt;div class="wrap"&gt;</span><br><span class="line">  &lt;h1&gt;h1&lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f9541efe?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="父子元素margin重叠问题"></p>
+<p>  <strong>解决方案</strong><br>   上图wrap元素与h1元素之间l理论上本该有个40px的上下margin值,然而实际上父子元素并没有存在margin值，与此同时，两个div元素的间距为40px。遇到这种情形，我们如何处理？处理方法其实有很多，<strong>在wrap元素中添加:overflow:hidden;或者overflow：auto；使其父元素形成一个BFC；也可以在wrap元素中添加border：1px solid；或是padding：1px；</strong>这些都可以有效解决父子元素margin重叠问题。<br><img src="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f987a8e6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="父子元素margin重叠问题解决方案"></p>
+<h3 id="特性2：BFC不会重叠浮动元素"><a href="#特性2：BFC不会重叠浮动元素" class="headerlink" title="特性2：BFC不会重叠浮动元素"></a>特性2：BFC不会重叠浮动元素</h3><p>如果一个浮动元素后面跟着一个非浮动的元素，那么就会产生一个覆盖的现象，很多自适应的两栏布局就是这么做的。比如下图的效果，参考例子</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line"><span class="selector-class">.box1</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box2</span>&#123;<span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">&lt;div class="box1"&gt;我是一个左浮动的元素&lt;/div&gt;</span><br><span class="line">&lt;div class="box2"&gt;喂喂喂!大家不要生气嘛，生气会犯嗔戒的。悟空你也太调皮了，</span><br><span class="line">我跟你说过叫你不要乱扔东西，你怎么又……你看，我还没说完你就把棍子给扔掉了!</span><br><span class="line">月光宝盒是宝物，你把它扔掉会污染环境，要是砸到小朋友怎么办，就算砸不到小朋友，</span><br><span class="line">砸到花花草草也是不对的。&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-gold-cdn.xitu.io/2018/10/14/16672a66f9ada21f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="BFC不会重叠浮动元素1"></p>
+<p>上图中，文字围绕着浮动元素排列，不过在这里，这显然不是我们想要的。此时我们可以<strong>为.box2元素的样式加上overflow:hidden；使其建立一个BFC,让其内容消除对外界浮动元素的影响。</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/10/14/16672a6717d1c1ab?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="BFC不会重叠浮动元素2"></p>
+<p>这个方法可以用来实现两列自适应布局，效果不错，此时左边的宽度固定，右边的内容自适应宽度。如果我们改变文字的大小或者左边浮动元素的大小，两栏布局的结构依然没有改变！</p>
+<h3 id="特性3：BFC可以包含浮动—-清除浮动"><a href="#特性3：BFC可以包含浮动—-清除浮动" class="headerlink" title="特性3：BFC可以包含浮动—-清除浮动"></a>特性3：BFC可以包含浮动—-清除浮动</h3><p>我们都知道浮动会脱离文档流，接下来我们看看下面的例子：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">    <span class="selector-class">.par</span> &#123;</span><br><span class="line">        <span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#fcc</span>;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.child</span> &#123;</span><br><span class="line">        <span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#f66</span>;</span><br><span class="line">        <span class="attribute">width</span>:<span class="number">100px</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">        <span class="attribute">float</span>: left;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">    &lt;div class="par"&gt;</span><br><span class="line">        &lt;div class="child"&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div class="child"&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/4/160bfae723e59a6f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="清除浮动1"></p>
+<p>由于容器内两个div元素浮动，脱离了文档流，父容器内容宽度为零（即发生高度塌陷），未能将子元素包裹住。解决这个问题，只需要把把父元素变成一个BFC就行了。常用的办法是给父元素设置overflow:hidden</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/4/160bfae6ea1917ce?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="清除浮动2"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/09/18/什么是BFC/" target="_blank" title="什么是BFC">http://yoursite.com/2019/09/18/什么是BFC/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/17/使用console进行-性能测试-和-计算代码运行时间/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用console进行 性能测试 和 计算代码运行时间</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是BFC"><span class="nav-number">2.</span> <span class="nav-text">什么是BFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发BFC"><span class="nav-number">3.</span> <span class="nav-text">触发BFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC的约束条件"><span class="nav-number">4.</span> <span class="nav-text">BFC的约束条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC的特性"><span class="nav-number">5.</span> <span class="nav-text">BFC的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特性1：BFC会阻止垂直外边距折叠"><span class="nav-number">5.1.</span> <span class="nav-text">特性1：BFC会阻止垂直外边距折叠</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#①相邻兄弟元素margin重叠问题"><span class="nav-number">5.1.1.</span> <span class="nav-text">①相邻兄弟元素margin重叠问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②父子元素margin重叠问题"><span class="nav-number">5.1.2.</span> <span class="nav-text">②父子元素margin重叠问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特性2：BFC不会重叠浮动元素"><span class="nav-number">5.2.</span> <span class="nav-text">特性2：BFC不会重叠浮动元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特性3：BFC可以包含浮动—-清除浮动"><span class="nav-number">5.3.</span> <span class="nav-text">特性3：BFC可以包含浮动—-清除浮动</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

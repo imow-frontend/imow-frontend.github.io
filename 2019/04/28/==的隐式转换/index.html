@@ -6,20 +6,23 @@
   <title>==的隐式转换 | 阿母工业前端组</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="js基础">
   
   
   
-  <meta name="description" content="前言==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的 1234567891011121314151617181920212223242526272829303132333435363738     对象        \        字符串   布尔值          \      /            数值1. 对象和布尔值">
+  
+  <meta name="description" content="前言==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的 探究==1234567891011121314151617181920212223242526272829303132333435363738     对象        \        字符串   布尔值          \      /            数值1. 对象">
+<meta name="keywords" content="js基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="==的隐式转换">
 <meta property="og:url" content="http://yoursite.com/2019/04/28/==的隐式转换/index.html">
 <meta property="og:site_name" content="阿母工业前端组">
-<meta property="og:description" content="前言==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的 1234567891011121314151617181920212223242526272829303132333435363738     对象        \        字符串   布尔值          \      /            数值1. 对象和布尔值">
+<meta property="og:description" content="前言==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的 探究==1234567891011121314151617181920212223242526272829303132333435363738     对象        \        字符串   布尔值          \      /            数值1. 对象">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-03T07:09:14.688Z">
+<meta property="og:updated_time" content="2019-09-18T09:22:59.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="==的隐式转换">
-<meta name="twitter:description" content="前言==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的 1234567891011121314151617181920212223242526272829303132333435363738     对象        \        字符串   布尔值          \      /            数值1. 对象和布尔值">
+<meta name="twitter:description" content="前言==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的 探究==1234567891011121314151617181920212223242526272829303132333435363738     对象        \        字符串   布尔值          \      /            数值1. 对象">
   
     <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
   
@@ -180,6 +183,13 @@
 	</a>
 
       
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+<a href="/2019/04/28/==的隐式转换/" class="article-author">
+胡豪
+</a>
+
       
 	<a class="article-views">
 	<span id="busuanzi_container_page_pv">
@@ -193,7 +203,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">     对象</span><br><span class="line">        \</span><br><span class="line">        字符串   布尔值</span><br><span class="line">          \      /</span><br><span class="line">            数值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 对象和布尔值比较</span><br><span class="line">对象和布尔值进行比较时，对象先转换为字符串，然后再转换为数字，布尔值直接转换为数字</span><br><span class="line">[] == <span class="literal">true</span>;  <span class="comment">//false  []转换为字符串'',然后转换为数字0,true转换为数字1，所以为false</span></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 对象和字符串比较</span><br><span class="line">对象和字符串进行比较时，对象转换为字符串，然后两者进行比较。</span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] == <span class="string">'1,2,3'</span> <span class="comment">// true  [1,2,3]转化为'1,2,3'，然后和'1,2,3'， so结果为true;</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 对象和数字比较</span><br><span class="line">对象和数字进行比较时，对象先转换为字符串，然后转换为数字，再和数字进行比较。</span><br><span class="line">[<span class="number">1</span>] == <span class="number">1</span>;  <span class="comment">// true  `对象先转换为字符串再转换为数字，二者再比较 [1] =&gt; '1' =&gt; 1 所以结果为true</span></span><br><span class="line"></span><br><span class="line"><span class="number">4.</span> 字符串和数字比较</span><br><span class="line">字符串和数字进行比较时，字符串转换成数字，二者再比较。</span><br><span class="line"><span class="string">'1'</span> == <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="number">5.</span> 字符串和布尔值比较</span><br><span class="line">字符串和布尔值进行比较时，二者全部转换成数值再比较。</span><br><span class="line"><span class="string">'1'</span> == <span class="literal">true</span>; <span class="comment">// true </span></span><br><span class="line"></span><br><span class="line"><span class="number">6.</span> 布尔值和数字比较</span><br><span class="line">布尔值和数字进行比较时，布尔转换为数字，二者比较。</span><br><span class="line"><span class="literal">true</span> == <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="number">7.</span> other</span><br><span class="line">来看一个有趣的题</span><br><span class="line">[] == <span class="literal">false</span>;</span><br><span class="line">![] == <span class="literal">false</span>;</span><br><span class="line">还有一些需要记住的，像：</span><br><span class="line"><span class="literal">undefined</span> == <span class="literal">null</span> <span class="comment">//true undefined和null 比较返回true，二者和其他值比较返回false</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">null</span>) <span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+<h2 id="探究"><a href="#探究" class="headerlink" title="探究=="></a>探究==</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">     对象</span><br><span class="line">        \</span><br><span class="line">        字符串   布尔值</span><br><span class="line">          \      /</span><br><span class="line">            数值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 对象和布尔值比较</span><br><span class="line">对象和布尔值进行比较时，对象先转换为字符串，然后再转换为数字，布尔值直接转换为数字</span><br><span class="line">[] == <span class="literal">true</span>;  <span class="comment">//false  []转换为字符串'',然后转换为数字0,true转换为数字1，所以为false</span></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 对象和字符串比较</span><br><span class="line">对象和字符串进行比较时，对象转换为字符串，然后两者进行比较。</span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] == <span class="string">'1,2,3'</span> <span class="comment">// true  [1,2,3]转化为'1,2,3'，然后和'1,2,3'， so结果为true;</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 对象和数字比较</span><br><span class="line">对象和数字进行比较时，对象先转换为字符串，然后转换为数字，再和数字进行比较。</span><br><span class="line">[<span class="number">1</span>] == <span class="number">1</span>;  <span class="comment">// true  `对象先转换为字符串再转换为数字，二者再比较 [1] =&gt; '1' =&gt; 1 所以结果为true</span></span><br><span class="line"></span><br><span class="line"><span class="number">4.</span> 字符串和数字比较</span><br><span class="line">字符串和数字进行比较时，字符串转换成数字，二者再比较。</span><br><span class="line"><span class="string">'1'</span> == <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="number">5.</span> 字符串和布尔值比较</span><br><span class="line">字符串和布尔值进行比较时，二者全部转换成数值再比较。</span><br><span class="line"><span class="string">'1'</span> == <span class="literal">true</span>; <span class="comment">// true </span></span><br><span class="line"></span><br><span class="line"><span class="number">6.</span> 布尔值和数字比较</span><br><span class="line">布尔值和数字进行比较时，布尔转换为数字，二者比较。</span><br><span class="line"><span class="literal">true</span> == <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="number">7.</span> other</span><br><span class="line">来看一个有趣的题</span><br><span class="line">[] == <span class="literal">false</span>;</span><br><span class="line">![] == <span class="literal">false</span>;</span><br><span class="line">还有一些需要记住的，像：</span><br><span class="line"><span class="literal">undefined</span> == <span class="literal">null</span> <span class="comment">//true undefined和null 比较返回true，二者和其他值比较返回false</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">null</span>) <span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="特殊等式"><a href="#特殊等式" class="headerlink" title="特殊等式"></a>特殊等式</h2><p>NaN 和 -0 在相等比较时的表现有些特别。由于NaN和自身不相等，所以必须使用ES6中的Number.isNaN(..) (或者polyfill)。而- 0 等于 0 （对于===也是如此），因此我们必须使用isNegZero(..)这样的工具函数。</p>
+<p>ES6 中新加入一个方法Object.is(..)来判断两个值是否绝对相等，可以用来处理上述所有特殊情况：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span> / <span class="string">"hello"</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">-3</span> * <span class="number">0</span>;</span><br><span class="line"><span class="built_in">Object</span>.is(a,<span class="literal">NaN</span>);   <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Object</span>.is(b,<span class="number">-0</span>);    <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Object</span>.is(b,<span class="number">0</span>);     <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>能使用 == 或 === 就尽量不要使用Object.is(..),因为前者效率更高，更为通用。Object.is(..)主要用来处理那些特殊的相等比较。</p>
+
       
     </div>
     <footer class="article-footer">
@@ -246,6 +263,8 @@
       
       
         
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+
       
 
     </footer>
@@ -275,7 +294,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探究"><span class="nav-number">2.</span> <span class="nav-text">探究==</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊等式"><span class="nav-number">3.</span> <span class="nav-text">特殊等式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol>
     
     </div>
   </aside>
