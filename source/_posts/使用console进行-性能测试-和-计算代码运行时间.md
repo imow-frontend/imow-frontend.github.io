@@ -1,11 +1,11 @@
 ---
 title: 使用console进行 性能测试 和 计算代码运行时间
 date: 2019-09-17 14:42:09
+author: 胡豪
 categories: 
 - JavaScript 
 tags:
 - 性能测试 
-author: 胡豪
 ---
 
 ## 前言
