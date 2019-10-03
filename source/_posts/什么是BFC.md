@@ -50,7 +50,7 @@ BFC（Block Formatting Context）直译为“块级格式化范围”。是 W3C 
     <p>abc</p>
 </body>
   ```
-  ![相邻兄弟元素margin重叠问题](https://user-gold-cdn.xitu.io/2018/10/14/16672a66f5c5d5bf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+  ![相邻兄弟元素margin重叠问题](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/BFC/bfc1.jpg)
 
   上面例中两个P元素之间距离本该为200px,然而实际上只有100px,发生了margin重叠。遇到这种情形，我们如何处理？**只需要在p外面包裹一层容器，并触发该容器生成一个BFC。那么两个P便不属于同一个BFC，就不会发生margin重叠了。**
 
@@ -76,7 +76,7 @@ BFC（Block Formatting Context）直译为“块级格式化范围”。是 W3C 
   </div>
 </body>
   ```
-  ![相邻兄弟元素margin重叠问题的解决方案](https://user-gold-cdn.xitu.io/2018/10/14/16672a66f5a0b8c8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+  ![相邻兄弟元素margin重叠问题的解决方案](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/BFC/bfc2.jpg)
 
   #### ②父子元素margin重叠问题
    ```css
@@ -101,11 +101,11 @@ BFC（Block Formatting Context）直译为“块级格式化范围”。是 W3C 
 </div>
 </body>
   ```
-  ![父子元素margin重叠问题](https://user-gold-cdn.xitu.io/2018/10/14/16672a66f9541efe?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+  ![父子元素margin重叠问题](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/BFC/bfc3.jpg)
 
   **解决方案**
    上图wrap元素与h1元素之间l理论上本该有个40px的上下margin值,然而实际上父子元素并没有存在margin值，与此同时，两个div元素的间距为40px。遇到这种情形，我们如何处理？处理方法其实有很多，**在wrap元素中添加:overflow:hidden;或者overflow：auto；使其父元素形成一个BFC；也可以在wrap元素中添加border：1px solid；或是padding：1px；**这些都可以有效解决父子元素margin重叠问题。
-![父子元素margin重叠问题解决方案](https://user-gold-cdn.xitu.io/2018/10/14/16672a66f987a8e6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![父子元素margin重叠问题解决方案](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/BFC/bfc4.jpg)
 
 
 ### 特性2：BFC不会重叠浮动元素
@@ -132,11 +132,11 @@ BFC（Block Formatting Context）直译为“块级格式化范围”。是 W3C 
 砸到花花草草也是不对的。</div>
 </body>
 ```
-![BFC不会重叠浮动元素1](https://user-gold-cdn.xitu.io/2018/10/14/16672a66f9ada21f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![BFC不会重叠浮动元素1](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/BFC/bfc5.jpg)
 
 上图中，文字围绕着浮动元素排列，不过在这里，这显然不是我们想要的。此时我们可以**为.box2元素的样式加上overflow:hidden；使其建立一个BFC,让其内容消除对外界浮动元素的影响。**
 
-![BFC不会重叠浮动元素2](https://user-gold-cdn.xitu.io/2018/10/14/16672a6717d1c1ab?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![BFC不会重叠浮动元素2](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/BFC/bfc6.jpg)
 
 这个方法可以用来实现两列自适应布局，效果不错，此时左边的宽度固定，右边的内容自适应宽度。如果我们改变文字的大小或者左边浮动元素的大小，两栏布局的结构依然没有改变！
 
@@ -164,9 +164,9 @@ BFC（Block Formatting Context）直译为“块级格式化范围”。是 W3C 
     </div>
 </body>
 ```
-![清除浮动1](https://user-gold-cdn.xitu.io/2018/1/4/160bfae723e59a6f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![清除浮动1](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/BFC/bfc7.jpg)
 
 由于容器内两个div元素浮动，脱离了文档流，父容器内容宽度为零（即发生高度塌陷），未能将子元素包裹住。解决这个问题，只需要把把父元素变成一个BFC就行了。常用的办法是给父元素设置overflow:hidden
 
-![清除浮动2](https://user-gold-cdn.xitu.io/2018/1/4/160bfae6ea1917ce?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![清除浮动2](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/BFC/bfc8.jpg)
 
