@@ -18,7 +18,8 @@ Javascript中代码的运行环境分为以下三种：
 
 我们可以将“执行上下文”看做当前代码的运行环境或者作用域。下面我们来看一个示例，其中包括了全局以及函数级别的执行上下文:
 
-![执行上下文](http://pic.yupoo.com/sinaweibo1623108588_v/D73p4XPz/u5GPF.png)
+![执行上下文](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blog-images/home.png)
+http://pic.yupoo.com/sinaweibo1623108588_v/D73p4XPz/u5GPF.png
 
 上图中，一共用4个执行上下文。紫色的代表全局的上下文；绿色代表person函数内的上下文；蓝色以及橙色代表person函数内的另外两个函数的上下文。注意，不管什么情况下，只存在一个全局的上下文，该上下文能被任何其它的上下文所访问到。也就是说，我们可以在person的上下文中访问到全局上下文中的sayHello变量，当然在函数firstName或者lastName中同样可以访问到该变量。
 
