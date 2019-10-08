@@ -10,13 +10,13 @@ author: 刘涛
 
 
 ## 一、理解堆栈，基本数据类型和引用数据类型
-  1.堆栈<br>
+  **1.堆栈**
     栈（stack）：系统自动分配的内存空间，内存会由系统自动释放，用来存放函数的参数值，局部变量的值等，特点是先进后出。<br>
     堆堆（heap）：系统动态分配的内存，内存大小不一，内存不会自动释放。一般由程序员分配释放，主要负责像Obejct这种变量类型的存储。<br>
-  2.基本数据类型<br>
+  **2.基本数据类型**
     概念：存放在栈内存中的简单数据段，数据大小确定，内存空间大小确定
-    6种基本数据类型：Undefined、Null、Boolean、Number、String、Symbol
-  3.引用数据类型<br>
+    6种基本数据类型：Undefined、Null、Boolean、Number、String、Symbol<br>
+  **3.引用数据类型**
     概念：存放在堆内存中的数据，如对象、数组、函数等。名存在栈内存，值存在堆内存，栈内存会提供一个引用的地址指向堆内存中的值
   
 
@@ -39,7 +39,7 @@ author: 刘涛
  console.warn(arr1);
   ```
 输出值：
-![执行上下文](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/%E6%B5%85%E6%8B%B7%E8%B4%9D.png)
+![浅拷贝](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/%E6%B5%85%E6%8B%B7%E8%B4%9D.png)
 
 
 ## 三、JavaScript深拷贝
@@ -57,7 +57,7 @@ console.warn(arr1);
   ```
   输出结果
 
-![执行上下文](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/json%E6%B7%B1%E6%8B%B7%E8%B4%9D.png)
+![JSON对象的深拷贝](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/json%E6%B7%B1%E6%8B%B7%E8%B4%9D.png)
 
 2.通过for循环递归调用
 ```JavaScript
@@ -86,7 +86,7 @@ console.warn(arr1);
   ```
     输出结果
 
-![执行上下文](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/for%E5%BE%AA%E7%8E%AF%E9%80%92%E5%BD%92%E6%B7%B1%E6%8B%B7%E8%B4%9D.jpg)
+![for循环的深拷贝](https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/for%E5%BE%AA%E7%8E%AF%E9%80%92%E5%BD%92%E6%B7%B1%E6%8B%B7%E8%B4%9D.jpg)
 
 3.封装深拷贝函数
 ```JavaScript
