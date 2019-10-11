@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>谈谈前端路由 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="前端路由">
+  
+  
+  
+  
+  <meta name="description" content="单页面应用与前端路由在传统的 Web 开发中，浏览器根据地址栏的 URL 向服务器发送一个 HTTP 请求，服务器根据 URL 返回一个 HTML 页面。这种情况下，一个 URL 对应一个 HTML 页面，一个 Web 应用包含很多 HTML 页面，这样的应用就是多页面应用；在多页面应用中，页面路由的控制由服务器负责，这种路由方式称为后端路由。 在多页面应用中，每次页面切换都需要向服务器发送一次请">
+<meta name="keywords" content="前端路由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈前端路由">
+<meta property="og:url" content="http://yoursite.com/2019/09/19/谈谈前端路由/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="单页面应用与前端路由在传统的 Web 开发中，浏览器根据地址栏的 URL 向服务器发送一个 HTTP 请求，服务器根据 URL 返回一个 HTML 页面。这种情况下，一个 URL 对应一个 HTML 页面，一个 Web 应用包含很多 HTML 页面，这样的应用就是多页面应用；在多页面应用中，页面路由的控制由服务器负责，这种路由方式称为后端路由。 在多页面应用中，每次页面切换都需要向服务器发送一次请">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-11T07:13:08.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谈谈前端路由">
+<meta name="twitter:description" content="单页面应用与前端路由在传统的 Web 开发中，浏览器根据地址栏的 URL 向服务器发送一个 HTTP 请求，服务器根据 URL 返回一个 HTML 页面。这种情况下，一个 URL 对应一个 HTML 页面，一个 Web 应用包含很多 HTML 页面，这样的应用就是多页面应用；在多页面应用中，页面路由的控制由服务器负责，这种路由方式称为后端路由。 在多页面应用中，每次页面切换都需要向服务器发送一次请">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-谈谈前端路由" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      谈谈前端路由
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/09/19/谈谈前端路由/" class="article-date">
+	  <time datetime="2019-09-19T08:57:02.000Z" itemprop="datePublished">2019-09-19</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+<a href="/2019/09/19/谈谈前端路由/" class="article-author">
+霜寒
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="单页面应用与前端路由"><a href="#单页面应用与前端路由" class="headerlink" title="单页面应用与前端路由"></a>单页面应用与前端路由</h2><p>在传统的 Web 开发中，浏览器根据地址栏的 URL 向服务器发送一个 HTTP 请求，服务器根据 URL 返回一个 HTML 页面。这种情况下，一个 URL 对应一个 HTML 页面，<br>一个 Web 应用包含很多 HTML 页面，这样的应用就是多页面应用；在多页面应用中，<strong>页面路由的控制由服务器负责</strong>，这种路由方式称为后端路由。</p>
+<p>在多页面应用中，每次页面切换都需要向服务器发送一次请求，页面使用的静态资源也需要重新加载，存在一定的浪费。而且，页面的整体刷新对用户体验也有影响，因为不同页面<br>间往往存在共同的部分，例如导航栏、侧边栏等，页面整体刷新也会导致公共部分的刷新。</p>
+<p>有没有一种方式让 Web 应用只是看起来像多页面应用，也就是说 URL 的变化可以引起页面内容的变化，但不会向服务器发送新的请求哪？满足这种条件的 Web 应用就是单页面<br>应用（Single Page Application，简称 SPA）。单页面应用虽然名为”单页“，但视觉上的感受仍然是多页面，因为 URL 发生变化，页面上的内容也会变化，但这只是逻辑上的多页面，实际上无论 URL 如何变化，对应的 HTML 文件都是同一个，这也是单页面应用名字的由来。在单页面应用中，<strong>URL 发生变化并不会向服务器发送新的请求</strong>，所以”逻辑页面“的变化只能由前端负责，这种方式称为前端路由。</p>
+<h2 id="前端路由的实现"><a href="#前端路由的实现" class="headerlink" title="前端路由的实现"></a>前端路由的实现</h2><p><strong>路由就是 URL 到函数的映射</strong>，这个是前端路由的原理。如果做到在 URL 发生变化的时候不向服务器发送请求，而是去执行一个控制 UI 组件的函数哪？那就不得不说说 hash 和 history 这两种实现方案了。</p>
+<h3 id="基于-hash"><a href="#基于-hash" class="headerlink" title="基于 hash"></a>基于 hash</h3><p>在一个 URL 的组成中，<code>#</code>号包括<code>#</code>号后边的部分称为 hash。在浏览器中，可以通过<code>location.hash</code>获取到。<code>#</code>代表网页中的一个位置，其右边的字符，就是该位置的标识符。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// #title 是 hash</span><br><span class="line">http://www.example.com/index.html#title</span><br></pre></td></tr></table></figure>
+
+<p><code>#</code>号是用来指导浏览器动作的，对服务器完全不起作用，HTTP 请求不会带上<code>#</code>号以及它后边的内容。单单改变<code>#</code>号后边的内容，浏览器只会滚动到指定的位置，不会重新加载网页。而且改变 hash 还会改变浏览器的历史记录。我们可以通过<code>onhashchange</code>监听到 hash 的改变来不刷新浏览器触发视图的更新。代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>white<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#yellow"</span>&gt;</span>yellow<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#green"</span>&gt;</span>green<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">这是页面的内容</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Router</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.routes = &#123;&#125;;</span><br><span class="line">  <span class="keyword">this</span>.currentUrl = <span class="string">""</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Router.prototype.route = <span class="function"><span class="keyword">function</span>(<span class="params">path, callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.routes[path] =</span><br><span class="line">    callback ||</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"请为路由绑定处理方法"</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Router.prototype.refresh = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"触发一次 hashchange，hash值为"</span>, location.hash);</span><br><span class="line">  <span class="keyword">this</span>.currentUrl = <span class="string">"/"</span> + location.hash.slice(<span class="number">1</span>);</span><br><span class="line">  <span class="comment">// 执行当前路由绑定的方法</span></span><br><span class="line">  <span class="keyword">this</span>.routes[<span class="keyword">this</span>.currentUrl]();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Router.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">"DOMContentLoaded"</span>, <span class="keyword">this</span>.refresh.bind(<span class="keyword">this</span>), <span class="literal">false</span>);</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">"hashchange"</span>, <span class="keyword">this</span>.refresh.bind(<span class="keyword">this</span>), <span class="literal">false</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.Router = <span class="keyword">new</span> Router();</span><br><span class="line"><span class="built_in">window</span>.Router.init();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> content = <span class="built_in">document</span>.querySelector(<span class="string">"body"</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeBgColor</span>(<span class="params">color</span>) </span>&#123;</span><br><span class="line">  content.style.backgroundColor = color;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Router.route(<span class="string">"/"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  changeBgColor(<span class="string">"white"</span>);</span><br><span class="line">&#125;);</span><br><span class="line">Router.route(<span class="string">"/yellow"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  changeBgColor(<span class="string">"yellow"</span>);</span><br><span class="line">&#125;);</span><br><span class="line">Router.route(<span class="string">"/green"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  changeBgColor(<span class="string">"green"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="基于-history-模式"><a href="#基于-history-模式" class="headerlink" title="基于 history 模式"></a>基于 history 模式</h3><p>在 HTML5 规范中，history新增了一下几个 API：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">history.pushState();    <span class="comment">// 添加新的状态到历史状态栈</span></span><br><span class="line">history.replaceState(); <span class="comment">// 用新的状态代替当前状态</span></span><br><span class="line">history.state           <span class="comment">// 返回当前状态对象</span></span><br></pre></td></tr></table></figure>
+
+<p>通过上面两个操作状态的 API，也能够做到：<strong>改变 url 的同时，不刷新页面</strong>。所以 history 也具备实现路由控制的潜力。仅仅是改变 url 不刷新页面还不够，还要能够监听到 url 的变化。对于 hash 来说，hash 的改变可以出发 onhashchange 事件，history 并没有这样的事件可以监听。然而，对于一个应用来说，改变一个 url 只有下面三种途径：</p>
+<ul>
+<li>点击浏览器的前进或者后退</li>
+<li>点击 a 标签</li>
+<li>在 JS 代码中直接修改路由</li>
+</ul>
+<p>第 2 种和第 3 种途径可以看成是一种，因为 a 标签的默认事件可以被禁止，进而调用 js 方法。关键是第 1 种，HTML5 规范种新增了一个 onpopstate 事件，通过它便可以监听到前进或者后退的按钮点击。要特别注意的是：<strong>调用<code>history.pushState</code>和<code>history.replaceState</code>并不会触发 onpopstate 事件</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 页面加载完不会触发 hashchange，这里主动触发一次 hashchange 事件</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, onLoad)</span><br><span class="line"><span class="comment">// 监听路由变化</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'popstate'</span>, onPopState)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由视图</span></span><br><span class="line"><span class="keyword">var</span> routerView = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onLoad</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  routerView = <span class="built_in">document</span>.querySelector(<span class="string">'#routeView'</span>)</span><br><span class="line">  onPopState()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 拦截 &lt;a&gt; 标签点击事件默认行为， 点击时使用 pushState 修改 URL并更新手动 UI，从而实现点击链接更新 URL 和 UI 的效果。</span></span><br><span class="line">  <span class="keyword">var</span> linkList = <span class="built_in">document</span>.querySelectorAll(<span class="string">'a[href]'</span>)</span><br><span class="line">  linkList.forEach(<span class="function"><span class="params">el</span> =&gt;</span> el.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    e.preventDefault()</span><br><span class="line">    history.pushState(<span class="literal">null</span>, <span class="string">''</span>, el.getAttribute(<span class="string">'href'</span>))</span><br><span class="line">    onPopState()</span><br><span class="line">  &#125;))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由变化时，根据路由渲染对应 UI</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onPopState</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (location.pathname) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'/home'</span>:</span><br><span class="line">      routerView.innerHTML = <span class="string">'Home'</span></span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">case</span> <span class="string">'/about'</span>:</span><br><span class="line">      routerView.innerHTML = <span class="string">'About'</span></span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="hash-vs-history"><a href="#hash-vs-history" class="headerlink" title="hash vs history"></a>hash vs history</h3><p>hash 模式下，每个 url 都会带有<code>#</code>号，看起来可能不太友好。但是，hash 模式兼容 IE8 及其以上的浏览器。history 模式使用了 HTML5 里边新的 API，看起来会比较友好。但是，仅仅有前端的参与还是不够的，需要后端进行配置，前端的路由要和后端的路由要匹配起来，在刷新浏览器的时候会给后端发送请求，这个时候后台需要对请求的 url，做一个捕捉，将后端不存在的 url，重定向到指定路由。</p>
+<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><ul>
+<li><a href="https://www.cnblogs.com/m2maomao/p/10611983.html" target="_blank" rel="noopener">URL 中的 hash</a></li>
+<li><a href="https://book.douban.com/subject/30210697/" target="_blank" rel="noopener">React 进阶之路</a></li>
+<li><a href="https://github.com/youngwind/blog/issues/109" target="_blank" rel="noopener">单页面应用路由实现原理</a></li>
+<li><a href="https://www.jianshu.com/p/3fcae6a4968f?open_source=weibo_search" target="_blank" rel="noopener">hash 和 history 两种模式的区别</a></li>
+<li><a href="https://github.com/whinc/blog/issues/13" target="_blank" rel="noopener">前端路由原理解析和实现</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/09/19/谈谈前端路由/" target="_blank" title="谈谈前端路由">http://yoursite.com/2019/09/19/谈谈前端路由/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端路由/">前端路由</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/24/对于Javascript执行上下文的理解/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          对于Javascript执行上下文的理解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/18/什么是BFC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">什么是BFC</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#单页面应用与前端路由"><span class="nav-number">1.</span> <span class="nav-text">单页面应用与前端路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端路由的实现"><span class="nav-number">2.</span> <span class="nav-text">前端路由的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于-hash"><span class="nav-number">2.1.</span> <span class="nav-text">基于 hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于-history-模式"><span class="nav-number">2.2.</span> <span class="nav-text">基于 history 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-vs-history"><span class="nav-number">2.3.</span> <span class="nav-text">hash vs history</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考内容"><span class="nav-number">3.</span> <span class="nav-text">参考内容</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

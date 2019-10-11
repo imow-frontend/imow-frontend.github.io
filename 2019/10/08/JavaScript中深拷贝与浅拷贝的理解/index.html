@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>javascript中深拷贝与浅拷贝的理解 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="javascript">
+  
+  
+  
+  
+  <meta name="description" content="前言之所以会出现了深拷贝和浅拷贝，究其根本是因为JS种的变量包含了不同类型的数据值：基本类型和引用类型；同时其中变量的存储方式也不用Object属于堆内存的储存方式；并且JS的值的传递方式如值传递和址传递的会出现不同，所以才会出现这一系列的问题，因此才会使用深拷贝和浅拷贝来解决这些问题。 一、理解堆栈，基本数据类型和引用数据类型  1.堆栈    栈（stack）：系统自动分配的内存空间，内存会由">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中深拷贝与浅拷贝的理解">
+<meta property="og:url" content="http://yoursite.com/2019/10/08/JavaScript中深拷贝与浅拷贝的理解/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="前言之所以会出现了深拷贝和浅拷贝，究其根本是因为JS种的变量包含了不同类型的数据值：基本类型和引用类型；同时其中变量的存储方式也不用Object属于堆内存的储存方式；并且JS的值的传递方式如值传递和址传递的会出现不同，所以才会出现这一系列的问题，因此才会使用深拷贝和浅拷贝来解决这些问题。 一、理解堆栈，基本数据类型和引用数据类型  1.堆栈    栈（stack）：系统自动分配的内存空间，内存会由">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/%E6%B5%85%E6%8B%B7%E8%B4%9D.png">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/json%E6%B7%B1%E6%8B%B7%E8%B4%9D.png">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/for%E5%BE%AA%E7%8E%AF%E9%80%92%E5%BD%92%E6%B7%B1%E6%8B%B7%E8%B4%9D.jpg">
+<meta property="og:updated_time" content="2019-10-11T07:13:08.408Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript中深拷贝与浅拷贝的理解">
+<meta name="twitter:description" content="前言之所以会出现了深拷贝和浅拷贝，究其根本是因为JS种的变量包含了不同类型的数据值：基本类型和引用类型；同时其中变量的存储方式也不用Object属于堆内存的储存方式；并且JS的值的传递方式如值传递和址传递的会出现不同，所以才会出现这一系列的问题，因此才会使用深拷贝和浅拷贝来解决这些问题。 一、理解堆栈，基本数据类型和引用数据类型  1.堆栈    栈（stack）：系统自动分配的内存空间，内存会由">
+<meta name="twitter:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/%E6%B5%85%E6%8B%B7%E8%B4%9D.png">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-JavaScript中深拷贝与浅拷贝的理解" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript中深拷贝与浅拷贝的理解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/10/08/JavaScript中深拷贝与浅拷贝的理解/" class="article-date">
+	  <time datetime="2019-10-08T01:08:15.000Z" itemprop="datePublished">2019-10-08</time>
+	</a>
+
+      
+      
+<a href="/2019/10/08/JavaScript中深拷贝与浅拷贝的理解/" class="article-author">
+刘涛
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之所以会出现了深拷贝和浅拷贝，究其根本是因为JS种的变量包含了不同类型的数据值：基本类型和引用类型；同时其中变量的存储方式也不用Object属于堆内存的储存方式；并且JS的值的传递方式如值传递和址传递的会出现不同，所以才会出现这一系列的问题，因此才会使用深拷贝和浅拷贝来解决这些问题。</p>
+<h2 id="一、理解堆栈，基本数据类型和引用数据类型"><a href="#一、理解堆栈，基本数据类型和引用数据类型" class="headerlink" title="一、理解堆栈，基本数据类型和引用数据类型"></a>一、理解堆栈，基本数据类型和引用数据类型</h2><p>  <strong>1.堆栈</strong><br>    栈（stack）：系统自动分配的内存空间，内存会由系统自动释放，用来存放函数的参数值，局部变量的值等，特点是先进后出。<br><br>    堆堆（heap）：系统动态分配的内存，内存大小不一，内存不会自动释放。一般由程序员分配释放，主要负责像Obejct这种变量类型的存储。<br><br>  <strong>2.基本数据类型</strong><br>    概念：存放在栈内存中的简单数据段，数据大小确定，内存空间大小确定<br>    6种基本数据类型：Undefined、Null、Boolean、Number、String、Symbol<br><br>  <strong>3.引用数据类型</strong><br>    概念：存放在堆内存中的数据，如对象、数组、函数等。名存在栈内存，值存在堆内存，栈内存会提供一个引用的地址指向堆内存中的值</p>
+<h2 id="二、JavaScript浅拷贝"><a href="#二、JavaScript浅拷贝" class="headerlink" title="二、JavaScript浅拷贝"></a>二、JavaScript浅拷贝</h2><p>浅拷贝：只复制一层对象属性，可以理解为，只复制对象的基本属性类型，而基本属性类型是存放在栈内存中的，可以直接修改访问的，所以当浅拷贝时，拷贝的对象只是拷贝了原对象的属性，而值都是指向同一个栈内存中的数据，当对象属性值发生修改时，原对象也会被修改。如下示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr1 = &#123;</span><br><span class="line">       color:<span class="string">'red'</span>,</span><br><span class="line">       name:<span class="string">'apple'</span>,</span><br><span class="line">       weight:<span class="string">'100g'</span>,</span><br><span class="line">               detail:&#123;</span><br><span class="line">               big:<span class="string">'true'</span>,</span><br><span class="line">               eating:<span class="string">'no'</span></span><br><span class="line">               &#125;</span><br><span class="line">     &#125;;</span><br><span class="line"><span class="keyword">let</span> arr2;</span><br><span class="line">arr2 = arr1;</span><br><span class="line">arr2.color = <span class="string">'black'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr2);  </span><br><span class="line"><span class="built_in">console</span>.warn(arr1);</span><br></pre></td></tr></table></figure>
+
+<p>输出值：<br><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/%E6%B5%85%E6%8B%B7%E8%B4%9D.png" alt="浅拷贝"></p>
+<h2 id="三、JavaScript深拷贝"><a href="#三、JavaScript深拷贝" class="headerlink" title="三、JavaScript深拷贝"></a>三、JavaScript深拷贝</h2><p>深拷贝：它不仅将原对象的各个属性逐个复制出去，而且将原对象各个属性所包含的对象也依次采用深复制的方法递归复制到新对象上。这就不会存在上面 obj 和 shallowObj 的 arr 属性指向同一个对象的问题。这是我从某官网看来的解释，我感觉挺绕的，结合对象来看，深拷贝存在于对象这种引用类型中，而引用类型的数据是存在堆内存上的，变量保存的是一个指针，这个指针指向另一个位置。当需要访问引用类型（如对象，数组等）的值时，首先从栈中获得该对象的地址指针，然后再从堆内存中取得所需的数据。深拷贝可以看做是在堆内存中新开辟了一个内存空间，复制后的对象的属性所指的指针会指向新开辟的内存空间的地址。所以复制后的对象对属性值进行修改不会影响原对象的属性值。</p>
+<h2 id="四、实现深拷贝的方式"><a href="#四、实现深拷贝的方式" class="headerlink" title="四、实现深拷贝的方式"></a>四、实现深拷贝的方式</h2><p>1.借用JSON对象的 parse 和 stringify(接上面的例子)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">let</span> arr3 = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(arr1));</span><br><span class="line">arr3.color=<span class="string">"balck"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr3);</span><br><span class="line"><span class="built_in">console</span>.warn(arr1);</span><br></pre></td></tr></table></figure>
+
+<p>  输出结果</p>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/json%E6%B7%B1%E6%8B%B7%E8%B4%9D.png" alt="JSON对象的深拷贝"></p>
+<p>2.通过for循环递归调用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">          <span class="comment">//判断obj是否是数组</span></span><br><span class="line">       <span class="keyword">let</span> objClone = <span class="built_in">Array</span>.isArray(obj)?[]:&#123;&#125;;  </span><br><span class="line">       <span class="keyword">if</span>(obj &amp;&amp; <span class="keyword">typeof</span> obj===<span class="string">"object"</span>)&#123;</span><br><span class="line">           <span class="keyword">for</span>(key <span class="keyword">in</span> obj)&#123;</span><br><span class="line">               <span class="keyword">if</span>(obj.hasOwnProperty(key))&#123;</span><br><span class="line">                   <span class="comment">//判断ojb子元素是否为对象，如果是，递归复制</span></span><br><span class="line">                   <span class="keyword">if</span>(obj[key]&amp;&amp;<span class="keyword">typeof</span> obj[key] ===<span class="string">"object"</span>)&#123;</span><br><span class="line">                       objClone[key] = deepClone(obj[key]);</span><br><span class="line">                   &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                       <span class="comment">//如果不是，简单复制</span></span><br><span class="line">                       objClone[key] = obj[key];</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> objClone;</span><br><span class="line">   &#125; </span><br><span class="line">   <span class="keyword">var</span> arr4 = deepClone(arr1);</span><br><span class="line">   arr4.name=<span class="string">'bananer'</span>;</span><br><span class="line">   <span class="built_in">console</span>.log(arr4);</span><br><span class="line">   <span class="built_in">console</span>.warn(arr1);</span><br></pre></td></tr></table></figure>
+
+<pre><code>输出结果</code></pre><p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/js%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/for%E5%BE%AA%E7%8E%AF%E9%80%92%E5%BD%92%E6%B7%B1%E6%8B%B7%E8%B4%9D.jpg" alt="for循环的深拷贝"></p>
+<p>3.封装深拷贝函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> objClone = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span>(obj &amp;&amp; <span class="keyword">typeof</span> obj === <span class="string">"object"</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">            <span class="keyword">if</span>(obj.hasOwnProperty(key)) &#123;</span><br><span class="line">                 <span class="comment">// 判断 obj 是否是对象,如果是，递归复制</span></span><br><span class="line">                 <span class="keyword">if</span>(obj[key] &amp;&amp; <span class="keyword">typeof</span> obj[key] === <span class="string">"object"</span>) &#123;</span><br><span class="line">                      objClone[key] = deepClone(obj[key]);</span><br><span class="line">                 &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                      <span class="comment">// 如果不是</span></span><br><span class="line">                      objClone[key] = obj[key];</span><br><span class="line">                 &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;      </span><br><span class="line">    <span class="keyword">return</span> objClone</span><br><span class="line">&#125;         </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],</span><br><span class="line">     b = deepClone(a);</span><br><span class="line">a[<span class="number">0</span>] = <span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a,b)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/10/08/JavaScript中深拷贝与浅拷贝的理解/" target="_blank" title="JavaScript中深拷贝与浅拷贝的理解">http://yoursite.com/2019/10/08/JavaScript中深拷贝与浅拷贝的理解/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/07/闭包的概念与应用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">闭包的概念与应用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、理解堆栈，基本数据类型和引用数据类型"><span class="nav-number">2.</span> <span class="nav-text">一、理解堆栈，基本数据类型和引用数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、JavaScript浅拷贝"><span class="nav-number">3.</span> <span class="nav-text">二、JavaScript浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、JavaScript深拷贝"><span class="nav-number">4.</span> <span class="nav-text">三、JavaScript深拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、实现深拷贝的方式"><span class="nav-number">5.</span> <span class="nav-text">四、实现深拷贝的方式</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
