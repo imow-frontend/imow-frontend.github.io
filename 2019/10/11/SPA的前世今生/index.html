@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>spa的前世今生 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="js基础">
+  
+  
+  
+  
+  <meta name="description" content="前言SPA(Single Page Application)，即单页应用，想必现在的前端对其早已耳熟能详，今天就来说道说道，SPA 的前世今生。 多页面应用（MultiPage Application，MPA）为什么先说多页面，因为传统网站都是多页面的，从大学第一次做网页，到工作使用 JQ 库，一个个 html 页面拼凑而成的网站都是多页面的。每一次页面跳转的时候，后台服务器都会给返回一个新的 h">
+<meta name="keywords" content="js基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SPA的前世今生">
+<meta property="og:url" content="http://yoursite.com/2019/10/11/SPA的前世今生/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="前言SPA(Single Page Application)，即单页应用，想必现在的前端对其早已耳熟能详，今天就来说道说道，SPA 的前世今生。 多页面应用（MultiPage Application，MPA）为什么先说多页面，因为传统网站都是多页面的，从大学第一次做网页，到工作使用 JQ 库，一个个 html 页面拼凑而成的网站都是多页面的。每一次页面跳转的时候，后台服务器都会给返回一个新的 h">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://tva3.sinaimg.cn/large/b535b7d3ly1g874l3qw95j20j7096dio.jpg">
+<meta property="og:image" content="http://tva3.sinaimg.cn/large/b535b7d3ly1g8747ayh6oj20go089gld.jpg">
+<meta property="og:image" content="http://tva4.sinaimg.cn/large/b535b7d3ly1g874l3vsyyj20ji08i0vd.jpg">
+<meta property="og:image" content="http://tvax4.sinaimg.cn/large/b535b7d3ly1g878knhv7vj20go08v0se.jpg">
+<meta property="og:updated_time" content="2019-10-22T12:11:39.775Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SPA的前世今生">
+<meta name="twitter:description" content="前言SPA(Single Page Application)，即单页应用，想必现在的前端对其早已耳熟能详，今天就来说道说道，SPA 的前世今生。 多页面应用（MultiPage Application，MPA）为什么先说多页面，因为传统网站都是多页面的，从大学第一次做网页，到工作使用 JQ 库，一个个 html 页面拼凑而成的网站都是多页面的。每一次页面跳转的时候，后台服务器都会给返回一个新的 h">
+<meta name="twitter:image" content="http://tva3.sinaimg.cn/large/b535b7d3ly1g874l3qw95j20j7096dio.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-SPA的前世今生" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      SPA的前世今生
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/10/11/SPA的前世今生/" class="article-date">
+	  <time datetime="2019-10-11T07:24:55.000Z" itemprop="datePublished">2019-10-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+<a href="/2019/10/11/SPA的前世今生/" class="article-author">
+胡豪
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>SPA(Single Page Application)，即单页应用，想必现在的前端对其早已耳熟能详，今天就来说道说道，SPA 的前世今生。</p>
+<h2 id="多页面应用（MultiPage-Application，MPA）"><a href="#多页面应用（MultiPage-Application，MPA）" class="headerlink" title="多页面应用（MultiPage Application，MPA）"></a>多页面应用（MultiPage Application，MPA）</h2><p>为什么先说多页面，因为传统网站都是多页面的，从大学第一次做网页，到工作使用 JQ 库，一个个 html 页面拼凑而成的网站都是多页面的。<br><br>每一次页面跳转的时候，后台服务器都会给返回一个新的 html 文档，这种类型的网站也就是多页网站，也叫做多页应用。<br><br>多页面跳转刷新所有资源，每个公共资源(js、css 等)需选择性重新加载。<br></p>
+<p><img src="http://tva3.sinaimg.cn/large/b535b7d3ly1g874l3qw95j20j7096dio.jpg" alt="多页面应用"></p>
+<p>页面结构如图：<br><img src="http://tva3.sinaimg.cn/large/b535b7d3ly1g8747ayh6oj20go089gld.jpg" alt="多页面应用结构视图"></p>
+<h3 id="为什么多页应用的首屏时间快？"><a href="#为什么多页应用的首屏时间快？" class="headerlink" title="为什么多页应用的首屏时间快？"></a>为什么多页应用的首屏时间快？</h3><p>首屏时间叫做页面首个屏幕的内容展现的时间，当我们访问页面的时候，服务器返回一个 html，页面就会展示出来，这个过程只经历了一个 HTTP 请求，所以页面展示的速度非常快。</p>
+<h3 id="为什么搜索引擎优化效果好（SEO）？"><a href="#为什么搜索引擎优化效果好（SEO）？" class="headerlink" title="为什么搜索引擎优化效果好（SEO）？"></a>为什么搜索引擎优化效果好（SEO）？</h3><p>搜索引擎在做网页排名的时候，要根据网页内容才能给网页权重，来进行网页的排名。搜索引擎是可以识别 html 内容的，而我们每个页面所有的内容都放在 Html 中，所以这种多页应用，seo 排名效果好。</p>
+<h3 id="但是它也有缺点，就是切换慢"><a href="#但是它也有缺点，就是切换慢" class="headerlink" title="但是它也有缺点，就是切换慢"></a>但是它也有缺点，就是切换慢</h3><p>因为每次跳转都需要发出一个 http 请求，如果网络比较慢，在页面之间来回跳转时，就会发现明显的卡顿。<br>新的需求促进新的技术诞生，随着业务量变大功能的复杂，前端对页面性能的要求越来越高，随之而来的就是单页面的应用。</p>
+<h2 id="单页应用（SinglePage-Web-Application，SPA）"><a href="#单页应用（SinglePage-Web-Application，SPA）" class="headerlink" title="单页应用（SinglePage Web Application，SPA）"></a>单页应用（SinglePage Web Application，SPA）</h2><p>第一次进入页面的时候会请求一个 html 文件，刷新清除一下。页面切换，也不是传统的请求另一个页面的 html,而是通过路由，改变组件，此时路径也相应变化，但是并没有新的 html 文件请求，页面内容也变化了。<br>原理是：JS 会感知到 url 的变化，通过这一点，可以用 js 动态的将当前页面的内容清除掉，然后将下一个页面的内容挂载到当前页面上，这个时候的路由不是后端来做了，而是前端来做，判断页面到底是显示哪个组件，清除不需要的，显示需要的组件。这种过程就是单页应用，每次跳转的时候不需要再请求 html 文件了。</p>
+<p><img src="http://tva4.sinaimg.cn/large/b535b7d3ly1g874l3vsyyj20ji08i0vd.jpg" alt="单页面应用"></p>
+<p>页面结构如图：<br><img src="http://tvax4.sinaimg.cn/large/b535b7d3ly1g878knhv7vj20go08v0se.jpg" alt="单页面应用结构图"></p>
+<h3 id="为什么页面切换快？"><a href="#为什么页面切换快？" class="headerlink" title="为什么页面切换快？"></a>为什么页面切换快？</h3><p>页面每次切换跳转时，并不需要做 html 文件的请求，这样就节约了很多 http 发送时延，我们在切换页面的时候速度很快。</p>
+<h3 id="缺点：首屏时间慢，SEO-差"><a href="#缺点：首屏时间慢，SEO-差" class="headerlink" title="缺点：首屏时间慢，SEO 差"></a>缺点：首屏时间慢，SEO 差</h3><p>单页应用的首屏时间慢，首屏时需要请求一次 html，同时还要发送一次 js 请求，两次请求回来了，首屏才会展示出来。相对于多页应用，首屏时间慢。<br>SEO 效果差，因为搜索引擎只认识 html 里的内容，不认识 js 的内容，而单页应用的内容都是靠 js 渲染生成出来的，搜索引擎不识别这部分内容，也就不会给一个好的排名，会导致单页应用做出来的网页在百度和谷歌上的排名差。</p>
+<h3 id="优缺点，必有解决的对策"><a href="#优缺点，必有解决的对策" class="headerlink" title="优缺点，必有解决的对策"></a>优缺点，必有解决的对策</h3><p>比如说服务器端渲染技术(如 SSR)可以解决 SEO 问题，通过这些技术可以完美解决这些缺点，解决完这些问题，实际上单页面应用对于前端来说是非常完美的页面开发解决方案。</p>
+<h2 id="具体对比分析："><a href="#具体对比分析：" class="headerlink" title="具体对比分析："></a>具体对比分析：</h2><table>
+  <tr>
+    <th> </th>
+    <th>多页应用模式MPA</th>
+    <th>单页应用模式SPA</th>
+  </tr>
+  <tr>
+    <td>组成</td> 
+    <td>多个完整页面构成</td>
+    <td>一个外壳页面和多个页面片段组成</td>
+  </tr>
+  <tr>
+    <td>资源共用(css,js)</td>
+    <td>不共用，每个页面都需要加载</td>
+    <td>共用，只需在外壳部分加载</td> 
+  </tr>
+  <tr>
+    <td>刷新方式</td>
+    <td>整页刷新</td>
+    <td>页面局部刷新或更改</td> 
+  </tr>
+ <tr>
+    <td>URL模式</td>
+    <td>http://xxx/page1.html 和 http://xxx/page2.html</td>
+    <td>http://xxx/shell.html#page1 和 http://xxx/shell.html#page2</td> 
+  </tr>
+  <tr>
+    <td>用户体验</td>
+    <td>页面间切换加载慢，不流畅，用户体验差，特别是在移动设备上</td>
+    <td>页面片段间的切换快，用户体验好，包括在移动设备上</td> 
+  </tr>
+  <tr>
+    <td>能否实现转场动画</td>
+    <td>无法实现</td>
+    <td>容易实现（手机app动效）</td> 
+  </tr>
+  <tr>
+    <td>页面间传递数据</td>
+    <td>依赖URL、cookie或者localstorage，实现麻烦</td>
+    <td>因为在一个页面内，页面间传递数据很容易实现(父子之间传值，或vuex或storage之类)</td> 
+  </tr>
+  <tr>
+    <td>搜索引擎优化（SEO）</td>
+    <td>可以直接做</td>
+    <td>不利于SEO检索，可利用SSR来实现</td> 
+  </tr>
+  <tr>
+    <td>特别适用的范围</td>
+    <td>需要对搜索引擎友好的网站</td>
+    <td>对体验要求高的应用，特别是移动应用 购物网站</td> 
+  </tr>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/10/11/SPA的前世今生/" target="_blank" title="SPA的前世今生">http://yoursite.com/2019/10/11/SPA的前世今生/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/08/JavaScript中深拷贝与浅拷贝的理解/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript中深拷贝与浅拷贝的理解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多页面应用（MultiPage-Application，MPA）"><span class="nav-number">2.</span> <span class="nav-text">多页面应用（MultiPage Application，MPA）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么多页应用的首屏时间快？"><span class="nav-number">2.1.</span> <span class="nav-text">为什么多页应用的首屏时间快？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么搜索引擎优化效果好（SEO）？"><span class="nav-number">2.2.</span> <span class="nav-text">为什么搜索引擎优化效果好（SEO）？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#但是它也有缺点，就是切换慢"><span class="nav-number">2.3.</span> <span class="nav-text">但是它也有缺点，就是切换慢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单页应用（SinglePage-Web-Application，SPA）"><span class="nav-number">3.</span> <span class="nav-text">单页应用（SinglePage Web Application，SPA）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么页面切换快？"><span class="nav-number">3.1.</span> <span class="nav-text">为什么页面切换快？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点：首屏时间慢，SEO-差"><span class="nav-number">3.2.</span> <span class="nav-text">缺点：首屏时间慢，SEO 差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点，必有解决的对策"><span class="nav-number">3.3.</span> <span class="nav-text">优缺点，必有解决的对策</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体对比分析："><span class="nav-number">4.</span> <span class="nav-text">具体对比分析：</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
