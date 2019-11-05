@@ -1,7 +1,12 @@
 ---
 title: vue双向数据绑定原理
 date: 2019-10-30 13:57:52
+author: 胡豪
+categories:
+  - JavaScript
+  - vue
 tags:
+  - vue 
 ---
 
 ## 首先我们要了解Object.defineProperty()
