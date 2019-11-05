@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>如何在nuxt中使用vuex做登陆管理 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="SSRNuxt">
+  
+  
+  
+  
+  <meta name="description" content="前言在vue中vuex可以拿来做状态管理，今天记录下在nuxt框架下如何使用vuex实现项目中的登陆状态的管理 Vuex用token进行验证登录,根据约定,把token放在header中根目录下创建一个store文件夹，在store中创建一个index.js 简述VuexVuex是单项数据流，利用Vuex做状态管理，可以对数据更好地追踪与bug发现    state 初始化状态   gatter">
+<meta name="keywords" content="SSR,Nuxt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在nuxt中使用Vuex做登陆管理">
+<meta property="og:url" content="http://yoursite.com/2019/11/04/如何在nuxt中使用Vuex做登陆管理/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="前言在vue中vuex可以拿来做状态管理，今天记录下在nuxt框架下如何使用vuex实现项目中的登陆状态的管理 Vuex用token进行验证登录,根据约定,把token放在header中根目录下创建一个store文件夹，在store中创建一个index.js 简述VuexVuex是单项数据流，利用Vuex做状态管理，可以对数据更好地追踪与bug发现    state 初始化状态   gatter">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-04T08:03:13.952Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在nuxt中使用Vuex做登陆管理">
+<meta name="twitter:description" content="前言在vue中vuex可以拿来做状态管理，今天记录下在nuxt框架下如何使用vuex实现项目中的登陆状态的管理 Vuex用token进行验证登录,根据约定,把token放在header中根目录下创建一个store文件夹，在store中创建一个index.js 简述VuexVuex是单项数据流，利用Vuex做状态管理，可以对数据更好地追踪与bug发现    state 初始化状态   gatter">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-如何在nuxt中使用Vuex做登陆管理" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      如何在nuxt中使用Vuex做登陆管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/11/04/如何在nuxt中使用Vuex做登陆管理/" class="article-date">
+	  <time datetime="2019-11-04T02:45:08.000Z" itemprop="datePublished">2019-11-04</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a><a class="article-category-link" href="/categories/JavaScript/vue/">vue</a>
+
+      
+<a href="/2019/11/04/如何在nuxt中使用Vuex做登陆管理/" class="article-author">
+胡豪
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在vue中vuex可以拿来做状态管理，今天记录下在nuxt框架下如何使用vuex实现项目中的登陆状态的管理</p>
+<h2 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h2><p>用token进行验证登录,根据约定,把token放在header中<br>根目录下创建一个store文件夹，在store中创建一个index.js</p>
+<h3 id="简述Vuex"><a href="#简述Vuex" class="headerlink" title="简述Vuex"></a>简述Vuex</h3><p>Vuex是单项数据流，利用Vuex做状态管理，可以对数据更好地追踪与bug发现  </p>
+<ul>
+<li>state 初始化状态  </li>
+<li>gatter 对数据的过滤操作</li>
+<li>mutations 进行业务逻辑操作，它是同步的</li>
+<li>action 如果需要异步操作，可以写在action中</li>
+</ul>
+<h3 id="store-index-js"><a href="#store-index-js" class="headerlink" title="/store/index.js"></a>/store/index.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">"vue"</span>;</span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">"vuex"</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">"axios"</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">  <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">      user: &#123;</span><br><span class="line">        isLogin: <span class="literal">false</span>,</span><br><span class="line">        userInfo: <span class="string">""</span>,</span><br><span class="line">        token: <span class="string">""</span>,</span><br><span class="line">        ticket: <span class="string">""</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    mutations: &#123;</span><br><span class="line">      login(state, data) &#123; </span><br><span class="line">        state.user.isLogin = <span class="literal">true</span>;</span><br><span class="line">        state.user.userInfo = data.userInfo;</span><br><span class="line">        state.user.userInfo.token = data.token;</span><br><span class="line">        axios.defaults.headers.common[<span class="string">"Authorization"</span>] = data.token;      </span><br><span class="line">      &#125;,</span><br><span class="line">      loginout(state) &#123;</span><br><span class="line">        state.user.isLogin = <span class="literal">false</span>;</span><br><span class="line">        state.user.userInfo = <span class="string">""</span>;</span><br><span class="line">        axios.defaults.headers.common[<span class="string">"Authorization"</span>] = <span class="string">"undefined"</span>;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 设置用户 openId 对应的 key</span></span><br><span class="line">      setTicket(state, data) &#123;</span><br><span class="line">        state.user.ticket = data;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;</span><br><span class="line">      nuxtServerInit(&#123; commit &#125;, &#123; req &#125;) &#123; </span><br><span class="line">        <span class="keyword">if</span> (req.session) &#123;</span><br><span class="line">          <span class="keyword">if</span> (req.session.authUser) &#123;</span><br><span class="line">            commit(<span class="string">"login"</span>, req.session.authUser);</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (req.session.ticket) &#123;</span><br><span class="line">            commit(<span class="string">"setTicket"</span>, req.session.ticket);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store;</span><br></pre></td></tr></table></figure>
+
+<h2 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a>middleware</h2><p>官方文档: <a href="https://zh.nuxtjs.org/guide/routing/#%E4%B8%AD%E9%97%B4%E4%BB%B6" target="_blank" rel="noopener">https://zh.nuxtjs.org/guide/routing#%E4%B8%AD%E9%97%B4%E4%BB%B6</a><br>利用middleware实现不登录无法访问</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">&#123; store,redirect &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//用户未登录就跳转登录页</span></span><br><span class="line">  <span class="keyword">if</span>(!store.state.user.isLogin)&#123;</span><br><span class="line">    redirect(<span class="string">'/login'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在组件中使用<code>middleware: &#39;mustLogin&#39;, data() {return {}}</code></p>
+<h2 id="登陆组件login"><a href="#登陆组件login" class="headerlink" title="登陆组件login"></a>登陆组件login</h2><p>登陆页，接口验证成功后，更新store存储的状态 <code>this.$store.commit(&quot;login&quot;, result.data);</code></p>
+<p>完整代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  <span class="keyword">async</span> submitForm(formName) &#123;</span><br><span class="line">    <span class="keyword">const</span> account = <span class="keyword">this</span>.loginForm.account;</span><br><span class="line">    <span class="keyword">const</span> password = <span class="keyword">this</span>.loginForm.password;</span><br><span class="line">    <span class="keyword">this</span>.$refs[formName].validate(<span class="keyword">async</span> valid =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">        <span class="keyword">let</span> result = <span class="keyword">await</span> login(account, password);</span><br><span class="line">        <span class="keyword">if</span> (result.success) &#123;</span><br><span class="line">          <span class="comment">// 登录成功</span></span><br><span class="line">          <span class="keyword">this</span>.$store.commit(<span class="string">"login"</span>, result.data);</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">window</span>.history.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.$router.go(<span class="number">-1</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.$router.push(<span class="string">"/"</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          MessageBox(&#123;</span><br><span class="line">            type: <span class="string">"error"</span>,</span><br><span class="line">            title: <span class="string">"登录信息"</span>,</span><br><span class="line">            message: result.message</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="登出组件login"><a href="#登出组件login" class="headerlink" title="登出组件login"></a>登出组件login</h2><p>点击退出按钮，接口发送退出请求，更新store存储的状态 <code>this.$store.commit(&quot;loginout&quot;,null);</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-if</span>=<span class="string">"$store.state.user.isLogin"</span> @<span class="attr">click</span>=<span class="string">"loginOut"</span>&gt;</span>退出<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  <span class="keyword">async</span> loginOut() &#123; </span><br><span class="line">    <span class="keyword">await</span> loginOut();</span><br><span class="line">    <span class="keyword">this</span>.$store.commit(<span class="string">"loginout"</span>,<span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">this</span>.$router.push(<span class="string">"/"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此,就是nuxt中使用Vuex的整个流程,具体不同的地方就需要在项目中针对性地去调整修改。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/11/04/如何在nuxt中使用Vuex做登陆管理/" target="_blank" title="如何在nuxt中使用Vuex做登陆管理">http://yoursite.com/2019/11/04/如何在nuxt中使用Vuex做登陆管理/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nuxt/">Nuxt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSR/">SSR</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/30/vue双向数据绑定原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">vue双向数据绑定原理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vuex"><span class="nav-number">2.</span> <span class="nav-text">Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述Vuex"><span class="nav-number">2.1.</span> <span class="nav-text">简述Vuex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#store-index-js"><span class="nav-number">2.2.</span> <span class="nav-text">/store/index.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#middleware"><span class="nav-number">3.</span> <span class="nav-text">middleware</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登陆组件login"><span class="nav-number">4.</span> <span class="nav-text">登陆组件login</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登出组件login"><span class="nav-number">5.</span> <span class="nav-text">登出组件login</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

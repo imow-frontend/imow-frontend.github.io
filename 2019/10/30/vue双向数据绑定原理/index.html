@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>vue双向数据绑定原理 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="vue">
+  
+  
+  
+  
+  <meta name="description" content="首先我们要了解Object.defineProperty()一、Object.defineProperty()的作用就是直接在一个对象上定义一个新属性，或者修改一个已经存在的属性 1.1 属性描述符通过Object.defineProperty()为对象定义属性，有两种形式，且不能混合使用，分别为数据描述符，存取描述符，下面分别描述下两者的区别： 数据描述符 –特有的两个属性（value,writ">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue双向数据绑定原理">
+<meta property="og:url" content="http://yoursite.com/2019/10/30/vue双向数据绑定原理/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="首先我们要了解Object.defineProperty()一、Object.defineProperty()的作用就是直接在一个对象上定义一个新属性，或者修改一个已经存在的属性 1.1 属性描述符通过Object.defineProperty()为对象定义属性，有两种形式，且不能混合使用，分别为数据描述符，存取描述符，下面分别描述下两者的区别： 数据描述符 –特有的两个属性（value,writ">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-04T08:03:51.223Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue双向数据绑定原理">
+<meta name="twitter:description" content="首先我们要了解Object.defineProperty()一、Object.defineProperty()的作用就是直接在一个对象上定义一个新属性，或者修改一个已经存在的属性 1.1 属性描述符通过Object.defineProperty()为对象定义属性，有两种形式，且不能混合使用，分别为数据描述符，存取描述符，下面分别描述下两者的区别： 数据描述符 –特有的两个属性（value,writ">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-vue双向数据绑定原理" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      vue双向数据绑定原理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/10/30/vue双向数据绑定原理/" class="article-date">
+	  <time datetime="2019-10-30T05:57:52.000Z" itemprop="datePublished">2019-10-30</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a><a class="article-category-link" href="/categories/JavaScript/vue/">vue</a>
+
+      
+<a href="/2019/10/30/vue双向数据绑定原理/" class="article-author">
+胡豪
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="首先我们要了解Object-defineProperty"><a href="#首先我们要了解Object-defineProperty" class="headerlink" title="首先我们要了解Object.defineProperty()"></a>首先我们要了解Object.defineProperty()</h2><p>一、Object.defineProperty()的作用就是直接在一个对象上定义一个新属性，或者修改一个已经存在的属性</p>
+<p>1.1 属性描述符<br>通过Object.defineProperty()为对象定义属性，有两种形式，且不能混合使用，分别为数据描述符，存取描述符，下面分别描述下两者的区别：</p>
+<p>数据描述符 –特有的两个属性（value,writable）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> Person = &#123;&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(Person, <span class="string">'name'</span>, &#123;</span><br><span class="line">   value: <span class="string">'jack'</span>,</span><br><span class="line">   writable: <span class="literal">true</span> <span class="comment">// 是否可以改变</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>get</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>set</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>writable</td>
+<td>false</td>
+</tr>
+<tr>
+<td>enumerable</td>
+<td>false</td>
+</tr>
+<tr>
+<td>configurable</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<p>二、什么是 getter 和 setter<br>getter 是一种获得属性值的方法，setter 是一种设置属性值的方法<br>getter 负责查询值，它不带任何参数，setter 则负责设置键值，值是以参数的形式传递，在他的函数体中，一切的 return 都是无效的<br>get/set 访问器不是对象的属性，而是属性的特性，特性只有内部才用，因此在 javaScript 中不能直接访问他们，为了表示特性是内部值用两队中括号括起来表示如[[Value]]<br>对象的属性又可分为对象属性和访问器属性</p>
+<h2 id="set-get"><a href="#set-get" class="headerlink" title="set/get"></a>set/get</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  _name: <span class="string">""</span>,</span><br><span class="line">  <span class="keyword">get</span> name() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._name;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">set</span> name(n) &#123;</span><br><span class="line">    <span class="keyword">this</span>._name = n;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">person.name; <span class="comment">// 输出 --&gt; ''</span></span><br><span class="line">person.name = <span class="string">"xiaoming"</span>;</span><br><span class="line">person.name; <span class="comment">// 输出 --&gt; xiaoming</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="存取描述符-–是由一对-getter、setter-函数功能来描述的属性"><a href="#存取描述符-–是由一对-getter、setter-函数功能来描述的属性" class="headerlink" title="存取描述符 –是由一对 getter、setter 函数功能来描述的属性"></a>存取描述符 –是由一对 getter、setter 函数功能来描述的属性</h2><p>get：一个给属性提供getter的方法，如果没有getter则为undefined。该方法返回值被用作属性值。默认为undefined。<br>set：一个给属性提供setter的方法，如果没有setter则为undefined。该方法将接受唯一参数，并将该参数的新值分配给该属性。默认值为undefined。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var person = function() &#123;</span><br><span class="line">    var _name = &apos; &apos;;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    Object.defineProperty(obj, &apos;name&apos;, &#123;</span><br><span class="line">        configurable: true,</span><br><span class="line">        enumerable: true,</span><br><span class="line">        get: function() &#123;</span><br><span class="line">            return _name;</span><br><span class="line">        &#125;,</span><br><span class="line">        set: function(n) &#123;</span><br><span class="line">            _name = n;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return obj;</span><br><span class="line">&#125;();</span><br><span class="line">person.name = &quot;xiaoming&quot;;</span><br><span class="line">person.name // 输出 --&gt; xiaoming</span><br></pre></td></tr></table></figure>
+
+<h2 id="vue-的双项数据绑定原理"><a href="#vue-的双项数据绑定原理" class="headerlink" title="vue 的双项数据绑定原理"></a>vue 的双项数据绑定原理</h2><p>vue.js 则是采用数据劫持结合发布者-订阅者模式的方式，通过 Object.defineProperty()来劫持各个属性的 setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。我们先来看 Object.defineProperty()这个方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">"name"</span>, &#123;</span><br><span class="line">  <span class="keyword">get</span>: function() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我被获取了"</span>);</span><br><span class="line">    <span class="keyword">return</span> val;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">set</span>: function(newVal) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我被设置了"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">obj.name = <span class="string">"fei"</span>; <span class="comment">//在给obj设置name属性的时候，触发了set这个方法</span></span><br><span class="line"><span class="keyword">var</span> val = obj.name; <span class="comment">//在得到obj的name属性，会触发get方法</span></span><br></pre></td></tr></table></figure>
+
+<p>vue 是通过数据劫持的方式来做数据绑定的，其中最核心的方法便是通过 Object.defineProperty()来实现对属性的劫持，那么在设置或者获取的时候我们就可以在 get 或者 set 方法里假如其他的触发函数，达到监听数据变动的目的，无疑这个方法是本文中最重要、最基础的内容之一。</p>
+<h2 id="实现最简单的双向绑定"><a href="#实现最简单的双向绑定" class="headerlink" title="实现最简单的双向绑定"></a>实现最简单的双向绑定</h2><p>通过 Object.defineProperty()可以实现数据劫持，是的属性在赋值的时候触发 set 方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=<span class="string">"demo"</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> id=<span class="string">"inp"</span>&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        <span class="keyword">var</span> obj  = &#123;&#125;;</span><br><span class="line">        <span class="keyword">var</span> demo = <span class="built_in">document</span>.querySelector(<span class="string">'#demo'</span>)</span><br><span class="line">        <span class="keyword">var</span> inp = <span class="built_in">document</span>.querySelector(<span class="string">'#inp'</span>)</span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(obj, <span class="string">'name'</span>, &#123;</span><br><span class="line">            <span class="keyword">get</span>: function() &#123;</span><br><span class="line">                <span class="keyword">return</span> val;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="keyword">set</span>: function (newVal) &#123;<span class="comment">//当该属性被赋值的时候触发</span></span><br><span class="line">                inp.value = newVal;</span><br><span class="line">                demo.innerHTML = newVal;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        inp.addEventListener(<span class="string">'input'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 给obj的name属性赋值，进而触发该属性的set方法</span></span><br><span class="line">            obj.name = e.target.value;</span><br><span class="line">        &#125;);</span><br><span class="line">        obj.name = <span class="string">'changme'</span>;<span class="comment">//在给obj设置name属性的时候，触发了set这个方法</span></span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="vue-代码实现"><a href="#vue-代码实现" class="headerlink" title="vue 代码实现"></a>vue 代码实现</h2><p>observer 实现，主要是给每个 vue 的属性用 Object.defineProperty()，代码如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span>(<span class="params">obj, key, val</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> dep = <span class="keyword">new</span> Dep();</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">    <span class="keyword">get</span>: function() &#123;</span><br><span class="line">      <span class="comment">//添加订阅者watcher到主题对象Dep</span></span><br><span class="line">      <span class="keyword">if</span> (Dep.target) &#123;</span><br><span class="line">        <span class="comment">// JS的浏览器单线程特性，保证这个全局变量在同一时间内，只会有同一个监听器使用</span></span><br><span class="line">        dep.addSub(Dep.target);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> val;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">set</span>: function(newVal) &#123;</span><br><span class="line">      <span class="keyword">if</span> (newVal === val) <span class="keyword">return</span>;</span><br><span class="line">      val = newVal;</span><br><span class="line">      <span class="built_in">console</span>.log(val);</span><br><span class="line">      <span class="comment">// 作为发布者发出通知</span></span><br><span class="line">      dep.notify(); <span class="comment">//通知后dep会循环调用各自的update方法更新视图</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">observe</span>(<span class="params">obj, vm</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Object</span>.keys(obj).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">    defineReactive(vm, key, obj[key]);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>未完，待续、、、</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/10/30/vue双向数据绑定原理/" target="_blank" title="vue双向数据绑定原理">http://yoursite.com/2019/10/30/vue双向数据绑定原理/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/11/04/如何在nuxt中使用Vuex做登陆管理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          如何在nuxt中使用Vuex做登陆管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/10/22/如何理解ES6中Promise/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何理解ES6中Promise</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#首先我们要了解Object-defineProperty"><span class="nav-number">1.</span> <span class="nav-text">首先我们要了解Object.defineProperty()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-get"><span class="nav-number">2.</span> <span class="nav-text">set/get</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存取描述符-–是由一对-getter、setter-函数功能来描述的属性"><span class="nav-number">3.</span> <span class="nav-text">存取描述符 –是由一对 getter、setter 函数功能来描述的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-的双项数据绑定原理"><span class="nav-number">4.</span> <span class="nav-text">vue 的双项数据绑定原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现最简单的双向绑定"><span class="nav-number">5.</span> <span class="nav-text">实现最简单的双向绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-代码实现"><span class="nav-number">6.</span> <span class="nav-text">vue 代码实现</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
