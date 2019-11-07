@@ -3,26 +3,26 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>==的隐式转换 | 阿母工业前端组</title>
+  <title>gulp入门(一) | 阿母工业前端组</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="js基础">
+  <meta name="keywords" content="gulp">
   
   
   
   
-  <meta name="description" content="前言==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的 探究==1234567891011121314151617181920212223242526272829303132333435363738     对象        \        字符串   布尔值          \      /            数值1. 对象">
-<meta name="keywords" content="js基础">
+  <meta name="description" content="前言说到前端常见的构建工具，有Webpack/Grunt/Gulp这里简述一下它们都是干什么的：Grunt 和 Gulp 是非常相似的东西，能实现的功能是一样的，当然你可能 Gulp 听的 Grunt 多，通俗的讲，可以把 Gulp 看作 Grunt 的加强版。相对于 Grunt，Gulp增加了监听文件、读写文件、流式处理的功能。Webpack 是一个打包模块化 JavaScript 的工具，在">
+<meta name="keywords" content="gulp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="==的隐式转换">
-<meta property="og:url" content="http://yoursite.com/2019/04/28/==的隐式转换/index.html">
+<meta property="og:title" content="gulp入门(一)">
+<meta property="og:url" content="http://yoursite.com/2019/11/07/gulp入门(一)/index.html">
 <meta property="og:site_name" content="阿母工业前端组">
-<meta property="og:description" content="前言==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的 探究==1234567891011121314151617181920212223242526272829303132333435363738     对象        \        字符串   布尔值          \      /            数值1. 对象">
+<meta property="og:description" content="前言说到前端常见的构建工具，有Webpack/Grunt/Gulp这里简述一下它们都是干什么的：Grunt 和 Gulp 是非常相似的东西，能实现的功能是一样的，当然你可能 Gulp 听的 Grunt 多，通俗的讲，可以把 Gulp 看作 Grunt 的加强版。相对于 Grunt，Gulp增加了监听文件、读写文件、流式处理的功能。Webpack 是一个打包模块化 JavaScript 的工具，在">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-18T09:22:59.354Z">
+<meta property="og:updated_time" content="2019-11-07T06:53:53.649Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="==的隐式转换">
-<meta name="twitter:description" content="前言==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的 探究==1234567891011121314151617181920212223242526272829303132333435363738     对象        \        字符串   布尔值          \      /            数值1. 对象">
+<meta name="twitter:title" content="gulp入门(一)">
+<meta name="twitter:description" content="前言说到前端常见的构建工具，有Webpack/Grunt/Gulp这里简述一下它们都是干什么的：Grunt 和 Gulp 是非常相似的东西，能实现的功能是一样的，当然你可能 Gulp 听的 Grunt 多，通俗的讲，可以把 Gulp 看作 Grunt 的加强版。相对于 Grunt，Gulp增加了监听文件、读写文件、流式处理的功能。Webpack 是一个打包模块化 JavaScript 的工具，在">
   
     <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
   
@@ -162,7 +162,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-==的隐式转换" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-gulp入门(一)" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -170,7 +170,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      ==的隐式转换
+      gulp入门(一)
     </h1>
   
 
@@ -178,15 +178,15 @@
     
     <div class="article-meta">
       
-	<a href="/2019/04/28/==的隐式转换/" class="article-date">
-	  <time datetime="2019-04-28T01:13:40.000Z" itemprop="datePublished">2019-04-28</time>
+	<a href="/2019/11/07/gulp入门(一)/" class="article-date">
+	  <time datetime="2019-11-07T05:31:50.000Z" itemprop="datePublished">2019-11-07</time>
 	</a>
 
       
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/gulp/">gulp</a>
 
       
-<a href="/2019/04/28/==的隐式转换/" class="article-author">
+<a href="/2019/11/07/gulp入门(一)/" class="article-author">
 胡豪
 </a>
 
@@ -202,14 +202,47 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>==在js中用到的很多，大家都知道两个等于号只判断值，===值和类型都会判断，接下来我们就来看看==是如何判断的</p>
-<h2 id="探究"><a href="#探究" class="headerlink" title="探究=="></a>探究==</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">     对象</span><br><span class="line">        \</span><br><span class="line">        字符串   布尔值</span><br><span class="line">          \      /</span><br><span class="line">            数值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 对象和布尔值比较</span><br><span class="line">对象和布尔值进行比较时，对象先转换为字符串，然后再转换为数字，布尔值直接转换为数字</span><br><span class="line">[] == <span class="literal">true</span>;  <span class="comment">//false  []转换为字符串'',然后转换为数字0,true转换为数字1，所以为false</span></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 对象和字符串比较</span><br><span class="line">对象和字符串进行比较时，对象转换为字符串，然后两者进行比较。</span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] == <span class="string">'1,2,3'</span> <span class="comment">// true  [1,2,3]转化为'1,2,3'，然后和'1,2,3'， so结果为true;</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 对象和数字比较</span><br><span class="line">对象和数字进行比较时，对象先转换为字符串，然后转换为数字，再和数字进行比较。</span><br><span class="line">[<span class="number">1</span>] == <span class="number">1</span>;  <span class="comment">// true  `对象先转换为字符串再转换为数字，二者再比较 [1] =&gt; '1' =&gt; 1 所以结果为true</span></span><br><span class="line"></span><br><span class="line"><span class="number">4.</span> 字符串和数字比较</span><br><span class="line">字符串和数字进行比较时，字符串转换成数字，二者再比较。</span><br><span class="line"><span class="string">'1'</span> == <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="number">5.</span> 字符串和布尔值比较</span><br><span class="line">字符串和布尔值进行比较时，二者全部转换成数值再比较。</span><br><span class="line"><span class="string">'1'</span> == <span class="literal">true</span>; <span class="comment">// true </span></span><br><span class="line"></span><br><span class="line"><span class="number">6.</span> 布尔值和数字比较</span><br><span class="line">布尔值和数字进行比较时，布尔转换为数字，二者比较。</span><br><span class="line"><span class="literal">true</span> == <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="number">7.</span> other</span><br><span class="line">来看一个有趣的题</span><br><span class="line">[] == <span class="literal">false</span>;</span><br><span class="line">![] == <span class="literal">false</span>;</span><br><span class="line">还有一些需要记住的，像：</span><br><span class="line"><span class="literal">undefined</span> == <span class="literal">null</span> <span class="comment">//true undefined和null 比较返回true，二者和其他值比较返回false</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">null</span>) <span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说到前端常见的构建工具，有Webpack/Grunt/Gulp<br>这里简述一下它们都是干什么的：<br>Grunt 和 Gulp 是非常相似的东西，能实现的功能是一样的，当然你可能 Gulp 听的 Grunt 多，通俗的讲，可以把 Gulp 看作 Grunt 的加强版。相对于 Grunt，Gulp增加了监听文件、读写文件、流式处理的功能。<br>Webpack 是一个打包模块化 JavaScript 的工具，在 Webpack 里一切文件皆模块(JavaScript、CSS、SCSS、图片、模板)，通过 Loader 转换文件，通过 Plugin 注入钩子，最后输出由多个模块组合成的文件。经过 Webpack 的处理，最终会输出浏览器能使用的静态资源。使用Vue的小伙伴再熟悉不过，Webpack 专注于构建模块化项目。Webpack的缺点也很明显是只能用于采用模块化开发的项目。<br>今天重点讲gulp；</p>
+<h2 id="Gulp是什么？"><a href="#Gulp是什么？" class="headerlink" title="Gulp是什么？"></a>Gulp是什么？</h2><p>Gulp是前端自动化的工具，它能用来做很多很多繁琐的事情，大大便利了前端开发工作流程</p>
+<ol>
+<li>搭建web服务器</li>
+<li>使用预处理器Sass，Less</li>
+<li>压缩优化，可以压缩JS CSS Html 图片</li>
+<li>自动将更新变化的代码实时显示在浏览器</li>
+<li>前端测试<br>…… </li>
+</ol>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><p>Gulp 是一个基于流的自动化构建工具。 除了可以管理和执行任务，还支持监听文件、读写文件。Gulp 被设计得非常简单，只通过下面5种个方法就可以胜任几乎所有构建场景：</p>
+<ul>
+<li>通过 gulp.task 注册一个任务；</li>
+<li>通过 gulp.run 执行任务；</li>
+<li>通过 gulp.watch 监听文件变化；</li>
+<li>通过 gulp.src 读取文件；</li>
+<li>通过 gulp.dest 写文件。</li>
+</ul>
+<h2 id="如何写"><a href="#如何写" class="headerlink" title="如何写"></a>如何写</h2><p>首先创建 gulpfile 文件<br>利用任何文本编辑器在项目大的根目录下创建一个名为 gulpfile.js 的文件<br>各个API就不讲了，官网都有，<a href="https://www.gulpjs.com.cn/docs/api/concepts/" target="_blank" rel="noopener">Gulp官网直通车</a> </p>
+<ol>
+<li><p>项目初始化 <code>npm init</code> </p>
+</li>
+<li><p>安装全局gulp </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp -g <span class="comment">//全局安装</span></span><br><span class="line">npm install gulp --save-dev <span class="comment">//本地安装并加入package.json</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这里用了一个gulp插件 gulp-uglify，安装 <code>npm i gulp-uglify -D</code></p>
+</li>
+<li><p>定义一个gulp任务<code>gulp.task(name[,deps],fn)</code>   </p>
+</li>
+</ol>
+<p>就先写个压缩 js 吧</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);<span class="comment">//全局gulp</span></span><br><span class="line"><span class="keyword">const</span> uglify = <span class="built_in">require</span>(<span class="string">"gulp-uglify"</span>); <span class="comment">//压缩js</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//压缩js文件</span></span><br><span class="line">  gulp.task(<span class="string">"script"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//找到文件</span></span><br><span class="line">    gulp</span><br><span class="line">      .src(<span class="string">"js/*.js"</span>)</span><br><span class="line">      <span class="comment">//压缩文件</span></span><br><span class="line">      .pipe(uglify())</span><br><span class="line">      <span class="comment">//保存压缩后的文件</span></span><br><span class="line">      .pipe(gulp.dest(<span class="string">"dist/js"</span>));</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
 
-<h2 id="特殊等式"><a href="#特殊等式" class="headerlink" title="特殊等式"></a>特殊等式</h2><p>NaN 和 -0 在相等比较时的表现有些特别。由于NaN和自身不相等，所以必须使用ES6中的Number.isNaN(..) (或者polyfill)。而- 0 等于 0 （对于===也是如此），因此我们必须使用isNegZero(..)这样的工具函数。</p>
-<p>ES6 中新加入一个方法Object.is(..)来判断两个值是否绝对相等，可以用来处理上述所有特殊情况：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span> / <span class="string">"hello"</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">-3</span> * <span class="number">0</span>;</span><br><span class="line"><span class="built_in">Object</span>.is(a,<span class="literal">NaN</span>);   <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Object</span>.is(b,<span class="number">-0</span>);    <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Object</span>.is(b,<span class="number">0</span>);     <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<h2 id="实践过程遇到的问题"><a href="#实践过程遇到的问题" class="headerlink" title="实践过程遇到的问题"></a>实践过程遇到的问题</h2><p>项目中js文件中不仅有我自己写的js，还有各种插件，已经压缩过的min.js文件，如上执行gulp就会报错</p>
+<ul>
+<li><p>解决方法一：先把压缩过的js文件提前剪切到dist/js文件下;执行完gulp要记得吧dist里的js覆盖原项目js文件夹；当然这种手动的方法比较麻烦还有点傻憨，使用gulp插件自动化处理更加优雅</p>
+</li>
+<li><p>解决方法二：添加gulp-if判断<br>期间我还使用过.src() 中的 ! 取非判断，但这个非还不够只能，只能屏蔽某个文件夹或者单独的js，要一个个列出来，也不够方便</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> condition = <span class="function"><span class="keyword">function</span>(<span class="params">f</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//这里网上用的是endsWith()方法虽然方便，但是是es6的方法，es5下使用indexOf实现</span></span><br><span class="line">  <span class="keyword">if</span> (f.path.indexOf(<span class="string">".min.js"</span>, f.path.length - <span class="string">".min.js"</span>.length) !== <span class="number">-1</span>) &#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//压缩js文件</span></span><br><span class="line">gulp.task(<span class="string">"jsmin"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//找到文件</span></span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">"src/js/*.js"</span>) </span><br><span class="line">    <span class="comment">//压缩文件</span></span><br><span class="line">    .pipe(gulpif(condition, uglify()))</span><br><span class="line">    <span class="comment">//保存压缩后的文件 </span></span><br><span class="line">    .pipe(gulp.dest(<span class="string">"dist/js"</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>能使用 == 或 === 就尽量不要使用Object.is(..),因为前者效率更高，更为通用。Object.is(..)主要用来处理那些特殊的相等比较。</p>
+</li>
+</ul>
 
       
     </div>
@@ -223,7 +256,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>Post link:  </strong>
-          <a href="/2019/04/28/==的隐式转换/" target="_blank" title="==的隐式转换">http://yoursite.com/2019/04/28/==的隐式转换/</a>
+          <a href="/2019/11/07/gulp入门(一)/" target="_blank" title="gulp入门(一)">http://yoursite.com/2019/11/07/gulp入门(一)/</a>
           </li>
           <li class="post-copyright-license">
             <strong>Copyright Notice:   </strong>
@@ -263,7 +296,7 @@
       
       
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gulp/">gulp</a></li></ul>
 
       
 
@@ -273,15 +306,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/01/javascript垃圾回收机制/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/11/07/add-a-new-article/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          javascript垃圾回收机制
+          add a new article
         
       </div>
     </a>
   
+  
+    <a href="/2019/11/05/网页禁止审查及一些简单禁止用户对页面操作/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">网页禁止审查及一些简单禁止用户对页面操作</div>
+    </a>
   
 </nav>
 
@@ -294,7 +332,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探究"><span class="nav-number">2.</span> <span class="nav-text">探究==</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊等式"><span class="nav-number">3.</span> <span class="nav-text">特殊等式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gulp是什么？"><span class="nav-number">2.</span> <span class="nav-text">Gulp是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速入门"><span class="nav-number">3.</span> <span class="nav-text">快速入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何写"><span class="nav-number">4.</span> <span class="nav-text">如何写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践过程遇到的问题"><span class="nav-number">5.</span> <span class="nav-text">实践过程遇到的问题</span></a></li></ol>
     
     </div>
   </aside>
