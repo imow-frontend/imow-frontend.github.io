@@ -54,8 +54,9 @@ tags:
   str.includes('Hello', 6) // false
   ```
 
-- ### 遇到运行报错
+- ### gulp4与gulp3
 
+  gulp3的写法运行遇到运行报错  
   ```js
     The following tasks did not complete: script
     Did you forget to signal async completion?
@@ -105,6 +106,16 @@ tags:
       //保存压缩后的文件
       .pipe(gulp.dest("dist/js")); 
   });
+  ```
+
+  关于gulp3与gulp4版本对于写串行方式运行任务也有不同
+  1. gulp3
+  ```js
+  gulp.task("build", ["html","cssmin","jsmin","copyImage"]);
+  ```
+  2. gulp4  
+  ```js
+  gulp.task('build',gulp.series(gulp.parallel('html','cssmin','jsmin','copyImage')));
   ```
 
 - ### 压缩图片报错
