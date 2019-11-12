@@ -36,6 +36,64 @@ Gulp 是一个基于流的自动化构建工具。 除了可以管理和执行�
 - 通过 gulp.src 读取文件；
 - 通过 gulp.dest 写文件。
 
+### 简单语法
+1. gulp.task(name[,deps],fn)
+说明：定义一个gulp任务
+name: 类型(必填)：String 指定任务的名称（不应该有空格）
+deps:类型(可选)：StringArray，该任务依赖的任务（执行name任务要先去执行的任务）
+```js
+gulp.task('A' , function(){
+   console.log('A') 
+});
+gulp.task('B' , ['A'] , function(){ //运行B之前先去运行A
+   console.log('B')
+});
+```
+
+2. gulp.src(globs[, options])
+说明：src方法指定需要处理的源文件路径，返回当前文件流至可用插件  
+
+globs: 类型(必填)：String/StringArray  需要处理的源文件匹配符路径  
+
+通配符路径匹配示例：
+　　“src/a.js”：指定具体文件；  
+　　“*”：匹配所有文件    例：src/*.js(包含src下的所有js文件)；  
+　　“**”：匹配0个或多个子文件夹    例：src/**/*.js(包含src的0个或多个子文件夹下的js文件)；  
+　　“{}”：匹配多个属性    例：src/{a,b}.js(包含a.js和b.js文件)  src/*.{jpg,png,gif}(src下的所有jpg/png/gif文件)；  
+　　“!”：排除文件    例：!src/a.js(不包含src下的a.js文件)；  
+
+options:类型(可选)：Object 三个属性 buffer read base  
+　　options.buffer：类型：Boolean  默认：true 设置为false，将返回file.content的流并且不缓冲文件，处理大文件时非常有用；  
+　　options.read：  类型：Boolean  默认：true 设置false，将不执行读取文件操作，返回null；  
+　　options.base：  类型：String  设置输出路径以某个路径的某个组成部分为基础向后拼接
+```js
+gulp.src('client/js/**/*.js') 
+  .pipe(minify())
+  .pipe(gulp.dest('build'));   
+ 
+gulp.src('client/js/**/*.js', { base: 'client' })
+  .pipe(minify())
+  .pipe(gulp.dest('build'));   
+```
+
+3. gulp.dest(path[,options])  
+说明：watch方法用于监听文件变化，一被变化就执行指定任务  
+glob：  需要处理的源文件匹配符路径。类型(必填)：String or StringArray；  
+opts：  类型(可选)：Object 具体参看https://github.com/shama/gaze；  
+tasks：  类型(必填)：StringArray 需要执行的任务的名称数组；  
+cb(event)：  类型(可选)：Function 每个文件变化执行的回调函数；
+```js
+.pipe(gulp.dest('build')); 
+```
+
+4. gulp.watch(glob[,opts],tasks) or gulp.task(glob [,opts ,cd])  
+说明：watch方法用于监听文件变化，一被变化就执行指定任务  
+glob：  需要处理的源文件匹配符路径。类型(必填)：String or StringArray；  
+opts：  类型(可选)：Object 具体参看https://github.com/shama/gaze；  
+tasks：  类型(必填)：StringArray 需要执行的任务的名称数组；  
+cb(event)：  类型(可选)：Function 每个文件变化执行的回调函数；
+
+
 ## 如何写
 首先创建 gulpfile 文件  
 利用任何文本编辑器在项目大的根目录下创建一个名为 gulpfile.js 的文件  
@@ -67,31 +125,8 @@ const uglify = require("gulp-uglify"); //压缩js
       .pipe(gulp.dest("dist/js"));
   });
 ```
+5. 运行gulp
+gulpfile统计目录下终端运行`gulp.script`
 
-## 实践过程遇到的问题
-项目中js文件中不仅有我自己写的js，还有各种插件，已经压缩过的min.js文件，如上执行gulp就会报错
 
-- 解决方法一：先把压缩过的js文件提前剪切到dist/js文件下;执行完gulp要记得吧dist里的js覆盖原项目js文件夹；当然这种手动的方法比较麻烦还有点傻憨，使用gulp插件自动化处理更加优雅
 
-- 解决方法二：添加gulp-if判断  
-  期间我还使用过.src() 中的 ! 取非判断，但这个非还不够只能，只能屏蔽某个文件夹或者单独的js，要一个个列出来，也不够方便
-
-  ```js
-  var condition = function(f) {
-    //这里网上用的是endsWith()方法虽然方便，但是是es6的方法，es5下使用indexOf实现
-    if (f.path.indexOf(".min.js", f.path.length - ".min.js".length) !== -1) { 
-      return false;
-    } 
-    return true;
-  };
-
-  //压缩js文件
-  gulp.task("jsmin", function() {
-    //找到文件
-    return gulp.src("src/js/*.js") 
-      //压缩文件
-      .pipe(gulpif(condition, uglify()))
-      //保存压缩后的文件 
-      .pipe(gulp.dest("dist/js"));
-  });
-  ```
