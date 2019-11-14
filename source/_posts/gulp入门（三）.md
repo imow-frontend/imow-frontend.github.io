@@ -22,6 +22,7 @@ const gulpif = require("gulp-if");//if条件
 const cssUglify = require('gulp-minify-css');
 const gulpclean = require("gulp-clean");//清除文件
 
+
 //过滤条件
 var conditionJs = function(f) { 
   if (f.path.indexOf(".min.js", f.path.length - ".min.js".length) !== -1) {
