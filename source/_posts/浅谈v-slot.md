@@ -5,7 +5,7 @@ author: 刘涛
 categories: 
   - vue
 tags: 
-  - vue基础
+  - vue
 ---
 
 ## 前言
