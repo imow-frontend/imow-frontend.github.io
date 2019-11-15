@@ -56,7 +56,7 @@ tags:
 
 - ### gulp4与gulp3
 
-  gulp3的写法运行遇到运行报错  
+  #### gulp3的写法运行遇到运行报错  
   ```js
     The following tasks did not complete: script
     Did you forget to signal async completion?
@@ -64,7 +64,6 @@ tags:
   主要原因是一开始装的gulp是gulp4版本，gulp3版本使用原代码就行
 
   原代码：
-
   ```js
   //压缩js文件
   gulp.task("script", function() {
@@ -108,16 +107,30 @@ tags:
   });
   ```
 
-  关于gulp3与gulp4版本对于写串行方式运行任务也有不同
-  1. gulp3
+  #### 关于gulp3与gulp4版本对于写串行方式运行任务也有不同 
+
+  gulp3，数组方式，例如：
   ```js
   gulp.task("build", ["html","cssmin","jsmin","copyImage"]);
-  ```
-  2. gulp4  
+  ``` 
+  和
+  ```js
+  gulp.task('jsmin',['js'], function () {
+    gulp.src('src/js/layer/**')
+        .pipe(gulp.dest("dist/js/layer"));
+  }))
+    ```
+  gulp4，需用`gulp.series`，例如： 
   ```js
   gulp.task('build',gulp.series(gulp.parallel('html','cssmin','jsmin','copyImage')));
   ```
-
+  和
+  ```js
+  gulp.task('jsmin',gulp.series('js', function () {
+    return gulp.src('src/js/layer/**')
+        .pipe(gulp.dest("dist/js/layer"));
+  }))
+  ```
 - ### 压缩图片报错
 待解决。。。
 暂时拷贝所有原图片  
