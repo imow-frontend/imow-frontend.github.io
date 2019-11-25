@@ -131,6 +131,18 @@ tags:
         .pipe(gulp.dest("dist/js/layer"));
   }))
   ```
-- ### 压缩图片报错
-待解决。。。
-暂时拷贝所有原图片  
+- ## 压缩图片报错
+  一开始怎么试都报错，以为自己代码写错了，后面网上找了半天代码应该没有问题
+  ```js
+  //图片压缩
+  gulp.task("imagemin",function(){
+    return gulp.src("src/img/**/*.{png,jpg,gif,ico}")
+        .pipe(imagemin())
+        .on('error', function(err){ // 报错防止中断
+          console.error(err)
+          this.emit('end');
+        })
+        .pipe(gulp.dest("dist/img"));  //放入到dist目录下面的images文件
+  })
+  ```
+  这个时候我想代码没问题，难道是依赖出问题了，我就把node_modules全删了再装一遍，图片压缩就不报错了，可以输出压缩好的图片文件。  
