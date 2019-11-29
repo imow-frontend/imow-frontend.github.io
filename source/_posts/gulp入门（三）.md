@@ -148,3 +148,6 @@ gulp.task('copyImage', function () {
 
 gulp.task('build',gulp.series('clean',gulp.parallel('html','cssmin','jsmin','copyImage')));
 ```
+
+## 总结
+gulp系列到此为止，介绍的也是一些常规的基础用法，万丈高楼平地起，高楼怎么造就看砖头怎么码了。有兴趣的去看看前辈grunt [click to link](https://www.gruntjs.net/)
