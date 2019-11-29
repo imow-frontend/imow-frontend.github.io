@@ -1,9 +1,11 @@
 ---
 title: win10安装mysql数据库
 date: 2019-11-28 14:51:58
-author:
+author: 胡豪
 categories:
+  - mysql
 tags:
+  - mysql
 ---
 
 ## Windows安装mysql数据库服务
