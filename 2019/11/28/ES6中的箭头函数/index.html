@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>es6中的箭头函数 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Javascript">
+  
+  
+  
+  
+  <meta name="description" content="前言什么是箭头函数ES6标准新增了一种新的函数：Arrow Function（箭头函数）。箭头函数相当于匿名函数，并且简化了函数定义。箭头函数的语法： 1(parameters) =&amp;gt; &amp;#123; statements &amp;#125;  我们来举一个常规的例子 1234567891011// 使用常规语法定义函数function funcName(params) &amp;#123;   retur">
+<meta name="keywords" content="Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6中的箭头函数">
+<meta property="og:url" content="http://yoursite.com/2019/11/28/ES6中的箭头函数/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="前言什么是箭头函数ES6标准新增了一种新的函数：Arrow Function（箭头函数）。箭头函数相当于匿名函数，并且简化了函数定义。箭头函数的语法： 1(parameters) =&amp;gt; &amp;#123; statements &amp;#125;  我们来举一个常规的例子 1234567891011// 使用常规语法定义函数function funcName(params) &amp;#123;   retur">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-12-02T08:38:35.876Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6中的箭头函数">
+<meta name="twitter:description" content="前言什么是箭头函数ES6标准新增了一种新的函数：Arrow Function（箭头函数）。箭头函数相当于匿名函数，并且简化了函数定义。箭头函数的语法： 1(parameters) =&amp;gt; &amp;#123; statements &amp;#125;  我们来举一个常规的例子 1234567891011// 使用常规语法定义函数function funcName(params) &amp;#123;   retur">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/setting.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ES6中的箭头函数" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      ES6中的箭头函数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/11/28/ES6中的箭头函数/" class="article-date">
+	  <time datetime="2019-11-28T07:35:25.000Z" itemprop="datePublished">2019-11-28</time>
+	</a>
+
+      
+      
+<a href="/2019/11/28/ES6中的箭头函数/" class="article-author">
+刘涛
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h2 id="什么是箭头函数"><a href="#什么是箭头函数" class="headerlink" title="什么是箭头函数"></a>什么是箭头函数</h2><p>ES6标准新增了一种新的函数：Arrow Function（箭头函数）。箭头函数相当于匿名函数，并且简化了函数定义。<br><br>箭头函数的语法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(parameters) =&gt; &#123; statements &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来举一个常规的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用常规语法定义函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcName</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> params * <span class="number">3</span>;</span><br><span class="line"> &#125;</span><br><span class="line">funcName(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用箭头函数定义函数</span></span><br><span class="line"><span class="keyword">var</span> funcName = <span class="function">(<span class="params">params</span>) =&gt;</span> params * <span class="number">3</span></span><br><span class="line">funcName(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以清晰得看到，只须一行代码就可以搞定一个函数，简化了函数定义，书写匿名函数的时候更加方便，在代码书写过程中多处可以使用到箭头函数。</p>
+<h3 id="语法解析"><a href="#语法解析" class="headerlink" title="语法解析"></a>语法解析</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通用语法</span></span><br><span class="line">(parameters) =&gt; &#123; statements &#125;</span><br><span class="line"><span class="comment">// 只有一个参数时，可以省略小括号</span></span><br><span class="line">parameters =&gt; &#123; statements &#125;</span><br><span class="line"><span class="comment">// 没有参数时，简化为</span></span><br><span class="line">() =&gt; &#123;statements &#125;</span><br><span class="line"><span class="comment">// 返回值只有一个表达式时，可以省略大括号</span></span><br><span class="line">parameters =&gt; expression</span><br><span class="line"></span><br><span class="line"><span class="comment">//特殊例子，返回带有大括号的单表达式</span></span><br><span class="line">x =&gt; &#123; <span class="attr">foo</span>: x &#125;  <span class="comment">// error</span></span><br><span class="line">x =&gt; (&#123; <span class="attr">foo</span>: x &#125;) <span class="comment">// 加上小括号，ok</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="箭头函数与普通函数的区别"><a href="#箭头函数与普通函数的区别" class="headerlink" title="箭头函数与普通函数的区别"></a>箭头函数与普通函数的区别</h2><h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">let</span> fun = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'lalalala'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="普通函数"><a href="#普通函数" class="headerlink" title="普通函数"></a>普通函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'lalla'</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>箭头函数相当于匿名函数，并且简化了函数定义。箭头函数有两种格式，一种只包含一个表达式，连{ … }和return都省略掉了。还有一种可以包含多条语句，这时候就不能省略{ … }和return。</p>
+<h3 id="1-箭头函数没有-prototype-原型-所以箭头函数本身没有-this"><a href="#1-箭头函数没有-prototype-原型-所以箭头函数本身没有-this" class="headerlink" title="1. 箭头函数没有 prototype(原型),所以箭头函数本身没有 this"></a>1. 箭头函数没有 prototype(原型),所以箭头函数本身没有 this</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="function"><span class="params">()</span> =&gt;</span>&#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(a.prototype); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-箭头函数的this指向在定义的时候继承自外层第一个普通函数的this。"><a href="#2-箭头函数的this指向在定义的时候继承自外层第一个普通函数的this。" class="headerlink" title="2. 箭头函数的this指向在定义的时候继承自外层第一个普通函数的this。"></a>2. 箭头函数的this指向在定义的时候继承自外层第一个普通函数的this。</h3><p>下面例子中在一个函数中定义箭头函数，然后在另一个函数中执行箭头函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">let</span> a,</span><br><span class="line">  barObj = &#123; <span class="attr">msg</span>: <span class="string">'bar的this指向'</span> &#125;;</span><br><span class="line">  fooObj = &#123; <span class="attr">msg</span>: <span class="string">'foo的this指向'</span> &#125;;</span><br><span class="line">  bar.call(barObj); <span class="comment">// 将bar的this指向barObj</span></span><br><span class="line">  foo.call(fooObj); <span class="comment">// 将foo的this指向fooObj</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      a(); <span class="comment">// 结果：&#123; msg: 'bar的this指向' &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     a = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>, <span class="string">'this指向定义的时候外层第一个普通函数'</span>); <span class="comment">// </span></span><br><span class="line">  &#125;; <span class="comment">// 在bar中定义 this继承于bar函数的this指向</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面的例子中可以得到两点<br><br><strong>1. 箭头函数的this指向定义时所在的外层第一个普通函数，跟使用位置没有关系。</strong><br><br><strong>2. 被继承的普通函数的this指向改变，箭头函数的this指向会跟着改变</strong><br></p>
+<h3 id="3-不能直接修改箭头函数的this指向"><a href="#3-不能直接修改箭头函数的this指向" class="headerlink" title="3. 不能直接修改箭头函数的this指向"></a>3. 不能直接修改箭头函数的this指向</h3><p>上个例子中的foo函数修改一下，尝试直接修改箭头函数的this指向。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">let</span> fnObj = &#123; <span class="attr">msg</span>: <span class="string">'尝试直接修改箭头函数的this指向'</span> &#125;;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  a.call(fnObj); <span class="comment">// 结果：&#123; msg: 'bar的this指向' &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很明显，call显示绑定this指向失败了，包括aaply、bind都一样。<br><strong>所以箭头函数不能直接修改它的this指向</strong><br>幸运的是，我们可以通过间接的形式来修改箭头函数的指向：<br><strong>去修改被继承的普通函数的this指向，然后箭头函数的this指向也会跟着改变，</strong>这在上一个例子中有演示。 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bar.call(barObj); <span class="comment">// 将bar普通函数的this指向barObj 然后内部的箭头函数也会指向barObj</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-箭头函数是匿名函数，不能作为构造函数，不能使用new"><a href="#4-箭头函数是匿名函数，不能作为构造函数，不能使用new" class="headerlink" title="4. 箭头函数是匿名函数，不能作为构造函数，不能使用new"></a>4. 箭头函数是匿名函数，不能作为构造函数，不能使用<code>new</code></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> B = <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">  value:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(); <span class="comment">//TypeError: B is not a constructor</span></span><br></pre></td></tr></table></figure>
+
+<p>无论箭头函数的thsi指向哪里，使用new调用箭头函数都会报错，因为箭头函数没有<code>constructor</code></p>
+<h3 id="5-箭头函数的this指向全局，使用arguments会报未声明的错误"><a href="#5-箭头函数的this指向全局，使用arguments会报未声明的错误" class="headerlink" title="5.箭头函数的this指向全局，使用arguments会报未声明的错误"></a>5.箭头函数的this指向全局，使用arguments会报未声明的错误</h3><p>如果箭头函数的this指向<code>window</code>(全局对象)使用arguments会报错，未声明<code>arguments</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> b = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line">&#125;;</span><br><span class="line">b(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>); <span class="comment">// Uncaught ReferenceError: arguments is not defined</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>箭头函数的this指向普通函数时,它的argumens继承于该普通函数</strong><br>上面是第一种情况：箭头函数的this指向全局对象，会报arguments未声明的错误。</p>
+<p>第二种情况是：箭头函数的this如果是指向普通函数，它的<code>arguments</code>继承于该普通函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>); <span class="comment">// ['外层第二个普通函数的参数']</span></span><br><span class="line">  bb(<span class="string">'外层第一个普通函数的参数'</span>);</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>); <span class="comment">// ["外层第一个普通函数的参数"]</span></span><br><span class="line">    <span class="keyword">let</span> a = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="built_in">arguments</span>, <span class="string">'arguments继承this指向的那个普通函数'</span>); <span class="comment">// ["外层第一个普通函数的参数"]</span></span><br><span class="line">    &#125;;</span><br><span class="line">    a(<span class="string">'箭头函数的参数'</span>); <span class="comment">// this指向bb</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">bar(<span class="string">'外层第二个普通函数的参数'</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>rest参数获取函数的多余参数</strong><br>这是ES6的API，用于获取函数不定数量的参数数组，这个API是用来替代<code>arguments</code>的，API用法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">let</span> a = <span class="function">(<span class="params">first, ...abc</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(first, abc); <span class="comment">// 1 [2, 3, 4]</span></span><br><span class="line">&#125;;</span><br><span class="line">a(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子展示了，获取函数除了第一个确定的参数，以及用一个变量接收其他剩余参数的示例。<br><br>也可以直接接收函数的所有参数，rest参数的用法相对于<code>arguments</code>的优点：</p>
+<ol>
+<li>箭头函数和普通函数都可以使用。</li>
+<li>更加灵活，接收参数的数量完全自定义。</li>
+<li>可读性更好</li>
+<li>rest是一个真正的数组，可以使用数组的API。<br>因为<code>arguments</code>是一个类数组的对象，有些人以为它是真正的数组，所以会出现以下场景：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">arguments</span>.push(<span class="number">0</span>); <span class="comment">// arguments.push is not a function</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>如上，如果我们需要使用数组的API，需要使用扩展符/Array.from来将它转换成真正的数组:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">arguments</span> = [...arguments]; 或者 ：<span class="built_in">arguments</span> = <span class="built_in">Array</span>.from(<span class="built_in">arguments</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>rest参数有两点需要注意：</strong></p>
+<ol>
+<li><p>rest必须是函数的最后一位参数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">let</span> a = <span class="function">(<span class="params">first, ...rest, three</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(first, rest,three); <span class="comment">// 报错：Rest parameter must be last formal parameter</span></span><br><span class="line">&#125;;</span><br><span class="line">a(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数的length属性，不包括 rest 参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">...a</span>) </span>&#123;&#125;).length  <span class="comment">// 0</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">a, ...b</span>) </span>&#123;&#125;).length  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="6-箭头函数不支持new-target"><a href="#6-箭头函数不支持new-target" class="headerlink" title="6.箭头函数不支持new.target"></a>6.箭头函数不支持<code>new.target</code></h3><p><code>new.target</code>是ES6新引入的属性，普通函数如果通过<code>new</code>调用，``new.target`会返回该函数的引用。<br><br>此属性主要：用于确定构造函数是否为new调用的。</p>
+<ol>
+<li><p>箭头函数的this指向全局对象，在箭头函数中使用箭头函数会报错</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span>.target); <span class="comment">// 报错：new.target 不允许在这里使用</span></span><br><span class="line">&#125;;</span><br><span class="line">a();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>箭头函数的this指向普通函数，它的new.target就是指向该普通函数的引用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">new</span> bb();</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">new</span>.target); <span class="comment">// 指向函数bb：function bb()&#123;...&#125;</span></span><br><span class="line">  &#125;;</span><br><span class="line">  a();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="使用箭头函数需要注意什么"><a href="#使用箭头函数需要注意什么" class="headerlink" title="使用箭头函数需要注意什么"></a>使用箭头函数需要注意什么</h2><h3 id="1-在对象上定义函数"><a href="#1-在对象上定义函数" class="headerlink" title="1. 在对象上定义函数"></a>1. 在对象上定义函数</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">const</span> test = &#123;</span><br><span class="line">    array: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    sum: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span> === <span class="built_in">window</span>); <span class="comment">// =&gt; true</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.array.reduce(<span class="function">(<span class="params">result, item</span>) =&gt;</span> result + item);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">test.sum();</span><br><span class="line"><span class="comment">// TypeError: Cannot read property 'reduce' of undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>原因就是，箭头函数没有它自己的this值，箭头函数内的this值继承自外围作用域。</p>
+<p>对象方法内的this指向调用这个方法的对象，如果使用箭头函数，this和对象方法在调用的时候所处环境的this值一致。因为 test.sum()是在全局环境下进行调用，此时this指向全局。<br><br>解决方法也很简单，使用函数表达式或者方法简写（ES6 中已经支持）来定义方法，这样能确保 this 是在运行时是由包含它的上下文决定的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">const</span> test = &#123;</span><br><span class="line">    array: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    sum() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span> === test); <span class="comment">// =&gt; true</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.array.reduce(<span class="function">(<span class="params">result, item</span>) =&gt;</span> result + item);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">test.sum();</span><br><span class="line"><span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-定义原型方法"><a href="#2-定义原型方法" class="headerlink" title="2. 定义原型方法"></a>2. 定义原型方法</h3><p>在对象原型上定义函数也是遵循着一样的规则</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> === <span class="built_in">window</span>); <span class="comment">// =&gt; true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cat = <span class="keyword">new</span> Person(<span class="string">'Mew'</span>);</span><br><span class="line">cat.sayName(); <span class="comment">// =&gt; undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>使用传统的函数表达式就能解决问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> === Person); <span class="comment">// =&gt; true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cat = <span class="keyword">new</span> Person(<span class="string">'Mew'</span>);</span><br><span class="line">cat.sayName(); <span class="comment">// =&gt; Mew</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-定义事件回调函数"><a href="#3-定义事件回调函数" class="headerlink" title="3. 定义事件回调函数"></a>3. 定义事件回调函数</h3><p>this是JS中非常强大的特点，他让函数可以根据其调用方式动态的改变上下文，然后箭头函数直接在声明时就绑定了this对象，所以不再是动态的。</p>
+<p>在客户端，在DOM元素上绑定事件监听函数是非常普遍的行为，在DOM事件被触发时，回调函数中的this指向该DOM，但是，箭头函数在声明的时候就绑定了执行上下文，要动态改变上下文是不可能的，在需要动态上下文的时候它的弊端就凸显出来:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> button = <span class="built_in">document</span>.getElementById(<span class="string">'myButton'</span>);</span><br><span class="line">button.addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> === <span class="built_in">window</span>); <span class="comment">// =&gt; true</span></span><br><span class="line">    <span class="keyword">this</span>.innerHTML = <span class="string">'Clicked button'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>因为这个回调的箭头函数是在全局上下文中被定义的，所以他的this是window。换句话说就是，箭头函数预定义的上下文是不能被修改的，这样 this.innerHTML 就等价于 window.innerHTML，而后者是没有任何意义的。</p>
+<p>使用函数表达式就可以在运行时动态的改变 this：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> button = <span class="built_in">document</span>.getElementById(<span class="string">'myButton'</span>);</span><br><span class="line">button.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> === button); <span class="comment">// =&gt; true</span></span><br><span class="line">    <span class="keyword">this</span>.innerHTML = <span class="string">'Clicked button'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-定义构造函数"><a href="#4-定义构造函数" class="headerlink" title="4. 定义构造函数"></a>4. 定义构造函数</h3><p>如果使用箭头函数会报错。显然，箭头函数是不能用来做构造函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Message = <span class="function">(<span class="params">text</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.text = text;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> helloMessage = <span class="keyword">new</span> Message(<span class="string">'Hello World!'</span>);</span><br><span class="line"><span class="comment">// Throws "TypeError: Message is not a constructor"</span></span><br></pre></td></tr></table></figure>
+
+<p>理论上来说也是不能这么做的，因为箭头函数在创建时this对象就绑定了，更不会指向对象实例。</p>
+<h3 id="5-太简短的（难以理解）函数"><a href="#5-太简短的（难以理解）函数" class="headerlink" title="5.太简短的（难以理解）函数"></a>5.太简短的（难以理解）函数</h3><p>箭头函数可以让语句写的非常的简洁，但是一个真实的项目，一般由多个开发者共同协作完成，箭头函数有时候并不会让人很好的理解：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> multiply = <span class="function">(<span class="params">a, b</span>) =&gt;</span> b === <span class="literal">undefined</span> ? <span class="function"><span class="params">b</span> =&gt;</span> a * b : a * b;</span><br><span class="line"><span class="keyword">const</span> double = multiply(<span class="number">2</span>);</span><br><span class="line">double(<span class="number">3</span>); <span class="comment">// =&gt; 6</span></span><br><span class="line">multiply(<span class="number">2</span>, <span class="number">3</span>); <span class="comment">// =&gt; 6</span></span><br></pre></td></tr></table></figure>
+
+<p>代码看起来很简短，但大多数人第一眼看上去可能无法立即搞清楚它干了什么。</p>
+<p>这个函数的作用就是当只有一个参数a时，返回接受一个参数b返回a*b的函数，接收两个参数时直接返回乘积。</p>
+<p>为了让这个函数更好的让人理解，我们可以为这个箭头函数加一对花括号，并加上return语句，或者直接使用函数表达式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (b === <span class="literal">undefined</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a * b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> double = multiply(<span class="number">2</span>);</span><br><span class="line">double(<span class="number">3</span>); <span class="comment">// =&gt; 6</span></span><br><span class="line">multiply(<span class="number">2</span>, <span class="number">3</span>); <span class="comment">// =&gt; 6</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>毫无疑问，箭头函数带来了很多便利。恰当的使用箭头函数可以让我们避免使用早期的.bind()函数或者需要固定上下文的地方并且让代码更加简洁。</p>
+<p>箭头函数也有一些不便利的地方。我们在需要动态上下文的地方不能使用箭头函数：定义对象方法、定义原型方法、定义构造函数、定义事件回调函数。在其他情况下，请尽情的使用箭头函数。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/11/28/ES6中的箭头函数/" target="_blank" title="ES6中的箭头函数">http://yoursite.com/2019/11/28/ES6中的箭头函数/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/28/win10安装mysql数据库/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">win10安装mysql数据库</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是箭头函数"><span class="nav-number">2.</span> <span class="nav-text">什么是箭头函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法解析"><span class="nav-number">2.1.</span> <span class="nav-text">语法解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数与普通函数的区别"><span class="nav-number">3.</span> <span class="nav-text">箭头函数与普通函数的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数"><span class="nav-number">3.1.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通函数"><span class="nav-number">3.2.</span> <span class="nav-text">普通函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-箭头函数没有-prototype-原型-所以箭头函数本身没有-this"><span class="nav-number">3.3.</span> <span class="nav-text">1. 箭头函数没有 prototype(原型),所以箭头函数本身没有 this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-箭头函数的this指向在定义的时候继承自外层第一个普通函数的this。"><span class="nav-number">3.4.</span> <span class="nav-text">2. 箭头函数的this指向在定义的时候继承自外层第一个普通函数的this。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-不能直接修改箭头函数的this指向"><span class="nav-number">3.5.</span> <span class="nav-text">3. 不能直接修改箭头函数的this指向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-箭头函数是匿名函数，不能作为构造函数，不能使用new"><span class="nav-number">3.6.</span> <span class="nav-text">4. 箭头函数是匿名函数，不能作为构造函数，不能使用new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-箭头函数的this指向全局，使用arguments会报未声明的错误"><span class="nav-number">3.7.</span> <span class="nav-text">5.箭头函数的this指向全局，使用arguments会报未声明的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-箭头函数不支持new-target"><span class="nav-number">3.8.</span> <span class="nav-text">6.箭头函数不支持new.target</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用箭头函数需要注意什么"><span class="nav-number">4.</span> <span class="nav-text">使用箭头函数需要注意什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-在对象上定义函数"><span class="nav-number">4.1.</span> <span class="nav-text">1. 在对象上定义函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-定义原型方法"><span class="nav-number">4.2.</span> <span class="nav-text">2. 定义原型方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-定义事件回调函数"><span class="nav-number">4.3.</span> <span class="nav-text">3. 定义事件回调函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-定义构造函数"><span class="nav-number">4.4.</span> <span class="nav-text">4. 定义构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-太简短的（难以理解）函数"><span class="nav-number">4.5.</span> <span class="nav-text">5.太简短的（难以理解）函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
