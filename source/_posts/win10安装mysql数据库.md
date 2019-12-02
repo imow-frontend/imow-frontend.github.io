@@ -74,7 +74,7 @@ move 路径\文件名 路径\文件名 ：把一个文件移动（就是剪切+�
 ```
 mysqld --initialize --console     # 初始化数据库
 ```
-![QQ浏览器截图20191129103707](http://tvax4.sinaimg.cn/large/b535b7d3ly1g9epl6xqshj20fw02zwef.jpg)
+![QQ浏览器截图20191202134950](http://tva1.sinaimg.cn/large/b535b7d3ly1g9iggq8xwrj20x702l0sn.jpg)
 运行之后会生成第一次初始化mysql数据库root用户随机生成的密码，红色框中的字符串为登录root用户使用的密码，请注意该密码登录时一定要加上双引号，不然无法登录成功。
 
 
@@ -108,8 +108,10 @@ net  start  mysql    # 启动mysql服务
 
 登录mysql
 ```
-mysql -uroot -p"ruer9hh"
+mysql -uroot -p //回车
+输入密码："w3sYN%WxSfsH"
 # 登录mysql 
 # 其格式为：mysql   -u 用户名  -p  密码
-# 由于密码_cRrHHAB0Znz是系统自动生成的字符串，所以一定要加上双引号才能登录成功，自己修改密码之后就不需要了
 ```
+
+![QQ浏览器截图20191202135128](http://tva1.sinaimg.cn/large/b535b7d3ly1g9iggq50zyj20gh06e3yg.jpg)
