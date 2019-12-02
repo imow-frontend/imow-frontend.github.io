@@ -51,7 +51,7 @@ Vue 代码中的 slot 是什么，简单来说就是插槽。`<slot>`元素作�
     <child>
       任意内容
       <template>内容</template>
-      中间内容
+      中间内容 
       <!-- <template v-slot:default>但如果你定义了 default 之后，其他内容就不会出现了，
       原理同上，不能重复定义</template> -->
     </child>
