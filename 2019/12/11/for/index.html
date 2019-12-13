@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>for循环创建多个elementui表单遇到的问题 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="elementUI">
+  
+  
+  
+  
+  <meta name="description" content="前言目前有一个需求就是：点击添加按钮创建一个表单，可以保存删除修改等一系列操作。因为是表单所以涉及到需要表单验证。差了很多资料发现都是点击之后添加一条可输入的input框之类，并没整体循环一整个表单的。  上图是一个商品列表，商品列表的每一项的授权按钮，都会弹出一个授权的表单，遇到的问题是，elementUI的表单放在for循环里渲染出来,那么常规的提交表单和清空表单会报错，显示this.$ref">
+<meta name="keywords" content="elementUI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="for循环创建多个elementUI表单遇到的问题">
+<meta property="og:url" content="http://yoursite.com/2019/12/11/for/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="前言目前有一个需求就是：点击添加按钮创建一个表单，可以保存删除修改等一系列操作。因为是表单所以涉及到需要表单验证。差了很多资料发现都是点击之后添加一条可输入的input框之类，并没整体循环一整个表单的。  上图是一个商品列表，商品列表的每一项的授权按钮，都会弹出一个授权的表单，遇到的问题是，elementUI的表单放在for循环里渲染出来,那么常规的提交表单和清空表单会报错，显示this.$ref">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://tvax2.sinaimg.cn/large/b535b7d3ly1g9sx2vtpvsj20py0f7dgp.jpg">
+<meta property="og:updated_time" content="2019-12-13T07:18:34.807Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="for循环创建多个elementUI表单遇到的问题">
+<meta name="twitter:description" content="前言目前有一个需求就是：点击添加按钮创建一个表单，可以保存删除修改等一系列操作。因为是表单所以涉及到需要表单验证。差了很多资料发现都是点击之后添加一条可输入的input框之类，并没整体循环一整个表单的。  上图是一个商品列表，商品列表的每一项的授权按钮，都会弹出一个授权的表单，遇到的问题是，elementUI的表单放在for循环里渲染出来,那么常规的提交表单和清空表单会报错，显示this.$ref">
+<meta name="twitter:image" content="http://tvax2.sinaimg.cn/large/b535b7d3ly1g9sx2vtpvsj20py0f7dgp.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/setting.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-for" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      for循环创建多个elementUI表单遇到的问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/12/11/for/" class="article-date">
+	  <time datetime="2019-12-11T07:02:30.000Z" itemprop="datePublished">2019-12-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/elementUI/">elementUI</a>
+
+      
+<a href="/2019/12/11/for/" class="article-author">
+胡豪
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前有一个需求就是：点击添加按钮创建一个表单，可以保存删除修改等一系列操作。<br>因为是表单所以涉及到需要表单验证。差了很多资料发现都是点击之后添加一条可输入的input框之类，并没整体循环一整个表单的。</p>
+<p><img src="http://tvax2.sinaimg.cn/large/b535b7d3ly1g9sx2vtpvsj20py0f7dgp.jpg" alt="QQ浏览器截图20191210161509"></p>
+<p>上图是一个商品列表，商品列表的每一项的授权按钮，都会弹出一个授权的表单，遇到的问题是，elementUI的表单放在for循环里渲染出来,那么常规的提交表单和清空表单会报错，显示<code>this.$refs[formName].validate()方法不存在</code>，组件引入都没有问题;但表单放在for循环外面就没有问题，经过试验发现是form表单放在for循环里出现的问题;</p>
+<p>改动如下,就不会出现问题：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div v-<span class="keyword">for</span>=<span class="string">"(item,index) in ProductList"</span> :key=<span class="string">"index"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"customCenList"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list"</span>&gt;</span><br><span class="line">      &lt;img src=<span class="string">"~assets/images/rankCar.png"</span>&gt;</span><br><span class="line">      &lt;span style=<span class="string">"width:200px;"</span>&gt;&#123;&#123; item.name &#125;&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">      &lt;span&gt;&lt;nuxt-link to="/</span><span class="string">"&gt;</span></span><br><span class="line"><span class="string">        &lt;span class="</span>downFont<span class="string">"&gt;下载样品&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;/nuxt-link&gt;&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;span style="</span>width: <span class="number">100</span>px;<span class="string">"&gt;&#123;&#123; item.number &#125;&#125;台&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;span style="</span>width: <span class="number">140</span>px;<span class="string">"&gt;￥&#123;&#123; item.customizedDeposit &#125;&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;span style="</span>width: <span class="number">140</span>px;<span class="string">"&gt;￥&#123;&#123; item.stockDeposit &#125;&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;div v-if="</span>item.isHead<span class="string">" class="</span>listButton<span class="string">"&gt;</span></span><br><span class="line"><span class="string">        &lt;span @click="</span>showLicense1(item.id)<span class="string">"&gt;查看授权客户&lt;/span&gt;&lt;br&gt;</span></span><br><span class="line"><span class="string">        &lt;span @click="</span>showLicense2(item.id)<span class="string">"&gt;授权&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;!-- 授权 --&gt; </span></span><br><span class="line"><span class="string">    &lt;div v-show="</span>item.id==currentId&amp;&amp;showItem1<span class="string">" class="</span>license1<span class="string">"&gt;</span></span><br><span class="line"><span class="string">      &lt;div class="</span>boxName<span class="string">"&gt;</span></span><br><span class="line"><span class="string">        &lt;span&gt;授权&lt;/span&gt;&lt;span @click="</span>retract1<span class="string">"&gt;收起&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;/div&gt; </span></span><br><span class="line"><span class="string">      &lt;ElForm ref="</span>myform<span class="string">" :model="</span>myform<span class="string">" :rules="</span>rules<span class="string">" :inline="</span><span class="literal">true</span><span class="string">"&gt;</span></span><br><span class="line"><span class="string">        &lt;FormItem prop="</span>price<span class="string">" label="</span>购买价格:<span class="string">" style="</span>margin-right:<span class="number">30</span>px;<span class="string">"&gt;</span></span><br><span class="line"><span class="string">          &lt;ElInput v-model="</span>myform.price<span class="string">" size="</span>small<span class="string">" style="</span>width:<span class="number">100</span>px<span class="string">" oninput="</span>value=value.replace(<span class="regexp">/[^\d.]/g</span>,<span class="string">''</span>)<span class="string">" /&gt; </span></span><br><span class="line"><span class="string">        &lt;/FormItem&gt;</span></span><br><span class="line"><span class="string">        &lt;FormItem prop="</span>phone<span class="string">" label="</span>手机号:<span class="string">" style="</span>margin-right:<span class="number">30</span>px;<span class="string">"&gt;</span></span><br><span class="line"><span class="string">          &lt;ElInput v-model="</span>myform.phone<span class="string">" size="</span>small<span class="string">" style="</span>width:<span class="number">200</span>px<span class="string">" /&gt;</span></span><br><span class="line"><span class="string">        &lt;/FormItem&gt;</span></span><br><span class="line"><span class="string">        &lt;FormItem prop="</span>company<span class="string">" label="</span>公司名称:<span class="string">"&gt;</span></span><br><span class="line"><span class="string">          &lt;ElInput v-model="</span>myform.company<span class="string">" size="</span>small<span class="string">" style="</span>width:<span class="number">250</span>px<span class="string">" /&gt;</span></span><br><span class="line"><span class="string">        &lt;/FormItem&gt;  </span></span><br><span class="line"><span class="string">        &lt;div class="</span>bottom<span class="string">"&gt;</span></span><br><span class="line"><span class="string">          &lt;span&gt;注：授权客户直接向中力购买产品，客户手机号应为注册账户使用手机号&lt;/span&gt;</span></span><br><span class="line"><span class="string">          &lt;div class="</span>bottomBtns clear<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>sure<span class="string">" @click="</span>submitForm(<span class="string">'myform'</span>,index)<span class="string">"&gt;确定&lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>cancel<span class="string">" @click="</span>resetForm(<span class="string">'myform'</span>,index)<span class="string">"&gt;取消&lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;/ElForm&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;/template&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">data() &#123;</span></span><br><span class="line"><span class="string">  return &#123;</span></span><br><span class="line"><span class="string">    formDate: [</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        id: 0,</span></span><br><span class="line"><span class="string">        price: "</span><span class="string">",</span></span><br><span class="line"><span class="string">        phone: "</span><span class="string">", </span></span><br><span class="line"><span class="string">        company: "</span><span class="string">"</span></span><br><span class="line"><span class="string">      &#125;,</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        id: 0,</span></span><br><span class="line"><span class="string">        price: "</span><span class="string">",</span></span><br><span class="line"><span class="string">        phone: "</span><span class="string">", </span></span><br><span class="line"><span class="string">        company: "</span><span class="string">"</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    rules: &#123;</span></span><br><span class="line"><span class="string">      price: [</span></span><br><span class="line"><span class="string">        &#123; required: true, message: "</span>请输入价格<span class="string">", trigger: "</span>blur<span class="string">" &#125;</span></span><br><span class="line"><span class="string">      ],</span></span><br><span class="line"><span class="string">      company: [</span></span><br><span class="line"><span class="string">        &#123; required: true, message: "</span>请输入公司名称<span class="string">", trigger: "</span>blur<span class="string">" &#125;</span></span><br><span class="line"><span class="string">      ],</span></span><br><span class="line"><span class="string">      phone: [</span></span><br><span class="line"><span class="string">        &#123; required: true, message: "</span>请输入手机号码<span class="string">", trigger: "</span>blur<span class="string">" &#125;,</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">          len: 11,</span></span><br><span class="line"><span class="string">          pattern: /^1[3-9][0-9]&#123;9&#125;/,</span></span><br><span class="line"><span class="string">          message: "</span>请输入正确的手机号<span class="string">",</span></span><br><span class="line"><span class="string">          trigger: "</span>blur<span class="string">"</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      ]</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">  &#125;;</span></span><br><span class="line"><span class="string">&#125;,</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//重置表单</span></span><br><span class="line"><span class="string">resetForm(formName,index) &#123;</span></span><br><span class="line"><span class="string">  this.$refs[formName][index].resetFields();</span></span><br><span class="line"><span class="string">  this.myform.id = 0;</span></span><br><span class="line"><span class="string">&#125;,</span></span><br><span class="line"><span class="string">//表单保存</span></span><br><span class="line"><span class="string">saveForm(formName, index) &#123;</span></span><br><span class="line"><span class="string">  this.$refs[formName][index].validate((valid) =&gt; &#123;</span></span><br><span class="line"><span class="string">    if (valid) &#123;</span></span><br><span class="line"><span class="string">      console.log('验证成功！');</span></span><br><span class="line"><span class="string">    &#125; else &#123;</span></span><br><span class="line"><span class="string">      console.log('error submit!!');</span></span><br><span class="line"><span class="string">      return false;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>首先当验证时报错时先看你表单上的ref和保存时refs是否一致。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-form ref=<span class="string">"myform"</span> :model=<span class="string">"formDate"</span> :rules=<span class="string">"rules"</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.$refs[formName][index].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果要是循环出多个表单。那么refs输出就是一个数组。所以在验证的时候需要获取到当前表单的下标。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"sure"</span> @click=<span class="string">"submitForm('myform',index)"</span>&gt;确定&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">this.$refs[formName][index].validate((valid) =&gt; &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://blog.csdn.net/weixin_40121676/article/details/101269362" title="参考文章" target="_blank" rel="noopener">参考文章</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/12/11/for/" target="_blank" title="for循环创建多个elementUI表单遇到的问题">http://yoursite.com/2019/12/11/for/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elementUI/">elementUI</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/06/常用CSS/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">常用CSS</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
