@@ -2,8 +2,7 @@
 title: vue双向数据绑定原理
 date: 2019-10-30 13:57:52
 author: 胡豪
-categories:
-  - JavaScript
+categories: 
   - vue
 tags:
   - vue 
@@ -173,5 +172,4 @@ function observe(obj, vm) {
     defineReactive(vm, key, obj[key]);
   });
 }
-```
-未完，待续、、、
+``` 
