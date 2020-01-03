@@ -188,6 +188,65 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-gulp入门（二）"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/11/11/gulp入门（二）/">gulp入门(二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/11/11/gulp入门（二）/" class="article-date">
+	  <time datetime="2019-11-11T08:54:02.000Z" itemprop="datePublished">2019-11-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/gulp/">gulp</a>
+
+      
+<a href="/2019/11/11/gulp入门（二）/" class="article-author">
+胡豪
+</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p class="article-excerpt-content">
+          实践过程遇到的问题
+压缩jsgulp 压缩遇到已经压缩过的 min.js 文件无法再继续压缩会报错跳除压缩程序;解决方法一：先把压缩过的js文件提前剪切到dist/js文件下;执行完gulp要记得吧dist里的js覆盖原项目js文件夹当然这种手动的方法比较麻烦，使用gulp插件自动化处理更加优雅解决方法二：添加gulp-if判断
+1234567891011121314151617var condition = function(f) &#123;  //这里网上用的是endsWith()方...
+        </p>
+        <p class="article-more-link">
+          <a href="/2019/11/11/gulp入门（二）/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-gulp入门（一）"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -718,64 +777,6 @@ action 如果需要异步...
 
 
   
-    <article id="post-谈谈前端路由"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/09/19/谈谈前端路由/">谈谈前端路由</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/09/19/谈谈前端路由/" class="article-date">
-	  <time datetime="2019-09-19T08:57:02.000Z" itemprop="datePublished">2019-09-19</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-
-      
-<a href="/2019/09/19/谈谈前端路由/" class="article-author">
-霜寒
-</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p class="article-excerpt-content">
-          单页面应用与前端路由在传统的 Web 开发中，浏览器根据地址栏的 URL 向服务器发送一个 HTTP 请求，服务器根据 URL 返回一个 HTML 页面。这种情况下，一个 URL 对应一个 HTML 页面，一个 Web 应用包含很多 HTML 页面，这样的应用就是多页面应用；在多页面应用中，页面路由的控制由服务器负责，这种路由方式称为后端路由。
-在多页面应用中，每次页面切换都需要向服务器发送一次请求，页面使用的静态资源也需要重新加载，存在一定的浪费。而且，页面的整体刷新对用户体验也有影响，...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/09/19/谈谈前端路由/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
 
 
   <nav id="page-nav">
@@ -795,7 +796,7 @@ action 如果需要异步...
   <div class="container">
       	<div class="row">
 	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
-	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 阿母工业前端组 All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2020 阿母工业前端组 All Rights Reserved.</p>
 	      
 	      
     		<p class="busuanzi_uv">
@@ -949,7 +950,7 @@ action 如果需要异步...
             阿母工业前端组
           </div>
           <div class="panel-body">
-            Copyright © 2019 中力前端组 All Rights Reserved.
+            Copyright © 2020 中力前端组 All Rights Reserved.
           </div>
         </div>
       </div>
