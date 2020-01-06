@@ -19,12 +19,12 @@
 <meta property="og:site_name" content="阿母工业前端组">
 <meta property="og:description" content="常见场景  何时需要使用到mixin呢?   通常遇到有两个非常相似的组件，他们的基本功能是一样的，但他们之间又存在着足够的差异性，此时的你就像是来到了一个分岔路口：我是把它拆分成两个不同的组件呢？还是使用一个组件，然后通过props传值？对于实现功能来说，这两者都可以做到，但是不够完美。拆成两个组件的写法，遇到功能变动就要在两个文件中去修改，无疑是增加了更新的风险，违反DRY原则。而一个组件，太">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8592917-b7d00f3ae3a285cf.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp">
-<meta property="og:updated_time" content="2020-01-03T09:29:21.203Z">
+<meta property="og:image" content="http://tvax1.sinaimg.cn/large/b535b7d3ly1gamjtob0oxj21370n5jtz.jpg">
+<meta property="og:updated_time" content="2020-01-06T00:44:54.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue之mixin">
 <meta name="twitter:description" content="常见场景  何时需要使用到mixin呢?   通常遇到有两个非常相似的组件，他们的基本功能是一样的，但他们之间又存在着足够的差异性，此时的你就像是来到了一个分岔路口：我是把它拆分成两个不同的组件呢？还是使用一个组件，然后通过props传值？对于实现功能来说，这两者都可以做到，但是不够完美。拆成两个组件的写法，遇到功能变动就要在两个文件中去修改，无疑是增加了更新的风险，违反DRY原则。而一个组件，太">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8592917-b7d00f3ae3a285cf.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp">
+<meta name="twitter:image" content="http://tvax1.sinaimg.cn/large/b535b7d3ly1gamjtob0oxj21370n5jtz.jpg">
   
     <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
   
@@ -212,7 +212,7 @@
 <h2 id="简单用法"><a href="#简单用法" class="headerlink" title="简单用法"></a>简单用法</h2><p>定义一个 js 文件(mixin.js)<br>我们可以在这里提取逻辑并创建可以被重用的项：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line"> data() &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">   name: &apos;我是mixin&apos;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;,</span><br><span class="line"> created() &#123;</span><br><span class="line">  console.log(this.name);</span><br><span class="line"> &#125;,</span><br><span class="line"> mounted() &#123;&#125;,   </span><br><span class="line"> methods: &#123;&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>一般为了清晰，我会在components文件夹内新建一个mixins文件夹，在这里面放mixin的js<br><img src="https://upload-images.jianshu.io/upload_images/8592917-b7d00f3ae3a285cf.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="mixin文件目录"></p>
+<p>一般为了清晰，我会在components文件夹内新建一个mixins文件夹，在这里面放mixin的js<br><img src="http://tvax1.sinaimg.cn/large/b535b7d3ly1gamjtob0oxj21370n5jtz.jpg" alt="图片1"></p>
 <p>在组件中使用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import mixin from &apos;@/components/mixins/mixin&apos;; // 引入mixin文件</span><br><span class="line">export default &#123;</span><br><span class="line"> mixins: [mixin]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
