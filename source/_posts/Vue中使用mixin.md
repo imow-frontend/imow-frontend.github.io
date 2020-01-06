@@ -43,7 +43,7 @@ export default {
 ```
 
 一般为了清晰，我会在components文件夹内新建一个mixins文件夹，在这里面放mixin的js
-![mixin文件目录](https://upload-images.jianshu.io/upload_images/8592917-b7d00f3ae3a285cf.jpg?imageMogr2/auto-orient/strip|imageView2/2/format/webp)
+![图片1](http://tvax1.sinaimg.cn/large/b535b7d3ly1gamjtob0oxj21370n5jtz.jpg)
 
 在组件中使用
 ```
