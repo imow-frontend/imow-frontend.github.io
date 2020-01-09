@@ -122,5 +122,4 @@ fetch规范与jQuery.ajax()主要有两种方式的不同：
 
 从这里可以看出来，如果我们要在fetch请求出错的时候及时地捕获错误，是需要对response的状态码进行解析的。又由于fetch返回的数据不一定是json格式，我们可以从header里面Content-Type获取返回的数据类型，进而使用正确的解析方法。
 
-## 使用async/awiait的原因
-
+## 使用async/awiait的
