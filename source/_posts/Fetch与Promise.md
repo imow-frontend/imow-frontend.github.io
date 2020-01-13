@@ -123,3 +123,13 @@ fetch规范与jQuery.ajax()主要有两种方式的不同：
 从这里可以看出来，如果我们要在fetch请求出错的时候及时地捕获错误，是需要对response的状态码进行解析的。又由于fetch返回的数据不一定是json格式，我们可以从header里面Content-Type获取返回的数据类型，进而使用正确的解析方法。
 
 ## 使用async/awiait的
+```js
+try {
+  let response = await fetch(url);
+  let data = await response.json();
+  console.log(data);
+} catch(e) {
+  console.log("error:", e);
+}
+```
+使用 await 后，告别面条式调用。从上图可以看到await 后面可以跟 Promise 对象，表示等待 Promise resolve() 才会继续向下执行，如果 Promise 被 reject() 或抛出异常则会被外面的 try...catch 捕获。
