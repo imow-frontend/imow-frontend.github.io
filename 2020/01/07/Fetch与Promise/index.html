@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>fetch与promise | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="js">
+  
+  
+  
+  
+  <meta name="description" content="什么是FecthFetch是一种HTTP数据请求的方式，是XMLHttpRequest的一种替代方案。Fetch不是ajax的进一步封装，它们是两个东西。Fetch函数就是原生js，没有使用XMLHttpRequest对象。 XMLHttpRequest 是一个设计粗糙的API，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，asy">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fetch与Promise">
+<meta property="og:url" content="http://yoursite.com/2020/01/07/Fetch与Promise/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="什么是FecthFetch是一种HTTP数据请求的方式，是XMLHttpRequest的一种替代方案。Fetch不是ajax的进一步封装，它们是两个东西。Fetch函数就是原生js，没有使用XMLHttpRequest对象。 XMLHttpRequest 是一个设计粗糙的API，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，asy">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-01-14T07:33:09.005Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fetch与Promise">
+<meta name="twitter:description" content="什么是FecthFetch是一种HTTP数据请求的方式，是XMLHttpRequest的一种替代方案。Fetch不是ajax的进一步封装，它们是两个东西。Fetch函数就是原生js，没有使用XMLHttpRequest对象。 XMLHttpRequest 是一个设计粗糙的API，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，asy">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/setting.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Fetch与Promise" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Fetch与Promise
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/01/07/Fetch与Promise/" class="article-date">
+	  <time datetime="2020-01-07T06:21:55.000Z" itemprop="datePublished">2020-01-07</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/js/">js</a>
+
+      
+<a href="/2020/01/07/Fetch与Promise/" class="article-author">
+胡豪
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是Fecth"><a href="#什么是Fecth" class="headerlink" title="什么是Fecth"></a>什么是Fecth</h2><p>Fetch是一种HTTP数据请求的方式，是XMLHttpRequest的一种替代方案。Fetch不是ajax的进一步封装，它们是两个东西。Fetch函数就是原生js，没有使用XMLHttpRequest对象。</p>
+<p>XMLHttpRequest 是一个设计粗糙的API，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。</p>
+<p>Fetch 的出现就是为了解决 XHR 的问题，它实现了 Promise 规范，返回 Promise 实例；而 Promise 是为解决异步回调问题而摸索出的一套方案。</p>
+<h2 id="简述Promise"><a href="#简述Promise" class="headerlink" title="简述Promise"></a>简述Promise</h2><p>说Fetch，免不了谈及Promise，这里就再来回顾下/<strong>Promise</strong>/：</p>
+<p>Promise是一个对象，用作占位符，用于延迟（可能是异步）计算的最终结果。</p>
+<p>一个 Promise 就是一个对象，它代表了一个异步操作的最终完成或者失败。</p>
+<p>本质上，Promise 是一个绑定了回调的对象，而不是将回调传进函数内部。</p>
+<p>Promise的三种状态：</p>
+<ul>
+<li>初始化，状态：pending</li>
+<li>当调用resolve(成功)，状态：pengding=&gt;fulfilled</li>
+<li>当调用reject(失败)，状态：pending=&gt;rejected</li>
+</ul>
+<h2 id="使用-Fetch"><a href="#使用-Fetch" class="headerlink" title="使用 Fetch"></a>使用 Fetch</h2><p>基本操作：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fetch(url).then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> response.json();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用 ES6 的 箭头函数后： </span></span><br><span class="line">fetch(url).then(<span class="function"><span class="params">response</span> =&gt;</span> response.json())</span><br><span class="line">  .then(<span class="function"><span class="params">data</span> =&gt;</span> <span class="built_in">console</span>.log(data))</span><br><span class="line">  .catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"error"</span>, err))</span><br></pre></td></tr></table></figure>
+
+<p>Response(res)对象成员</p>
+<ul>
+<li>ok:是否成功</li>
+<li>headers:响应头对象</li>
+<li>status/statusText:状态码/状态文本</li>
+<li>redirected:是否重定向过</li>
+</ul>
+<p>要获取响应头里面的Content-Type,调用方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res.headers.get(<span class="string">'Content-Type'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发送json</span></span><br><span class="line">fetch(<span class="string">'/xxx'</span>, &#123;</span><br><span class="line">  method: <span class="string">'post'</span>,</span><br><span class="line">  body: <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">      username: <span class="string">''</span>,</span><br><span class="line">      password: <span class="string">''</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送form</span></span><br><span class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.querySelector(<span class="string">'form'</span>);</span><br><span class="line">fetch(<span class="string">'/xxx'</span>, &#123;</span><br><span class="line">    method: <span class="string">'post'</span>,</span><br><span class="line">    body: <span class="keyword">new</span> FormData(form)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="举个例子-登录接口"><a href="#举个例子-登录接口" class="headerlink" title="举个例子(登录接口)"></a>举个例子(登录接口)</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">LogIn() &#123;</span><br><span class="line">  <span class="keyword">let</span> params = &#123;</span><br><span class="line">    username: <span class="string">'test'</span>,</span><br><span class="line">    password: <span class="string">'123456'</span></span><br><span class="line">  &#125;</span><br><span class="line">  fetch(<span class="string">'http://192.168.3.103:9999/api/users/login'</span>, &#123;</span><br><span class="line">      method: <span class="string">'POST'</span>,</span><br><span class="line">      headers: &#123;</span><br><span class="line">        <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      body: <span class="built_in">JSON</span>.stringify(params)</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> res.json();</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">json</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(json)</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Oops, error"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>async,await使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> LogIn() &#123;</span><br><span class="line">  <span class="keyword">let</span> params = &#123;</span><br><span class="line">    username: <span class="string">'test'</span>,</span><br><span class="line">    password: <span class="string">'123456'</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> response = <span class="keyword">await</span> fetch(<span class="string">'http://192.168.3.103:9999/api/users/login'</span>, &#123;</span><br><span class="line">        method: <span class="string">'POST'</span>,</span><br><span class="line">        headers: &#123;</span><br><span class="line">          <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        body: <span class="built_in">JSON</span>.stringify(params)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">let</span> dataPromise = <span class="keyword">await</span> response.json();</span><br><span class="line">      <span class="built_in">console</span>.log(dataPromise)</span><br><span class="line">  &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(err)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>一个基本的fetch操作很简单。就是通过fetch请求，返回一个promise对象，然后在promise对象的then方法里面用fetch的response.json()等方法进行解析数据，由于这个解析返回的也是一个promise对象，所以需要两个then才能得到我们需要的json数据。</p>
+<h3 id="fetch优势："><a href="#fetch优势：" class="headerlink" title="fetch优势："></a>fetch优势：</h3><ol>
+<li>语法简洁，更加语义化</li>
+<li>基于标准 Promise 实现，支持 async/await</li>
+<li>同构方便，使用 isomorphic-fetch</li>
+</ol>
+<p>fetch的确很好用，但是有的浏览器确是不支持(比如IE)，这时就需要我们手动实现ajax作为替代，或者引入polyfill。</p>
+<ol>
+<li>由于 IE8 是 ES3，需要引入 ES5 的 polyfill: es5-shim, es5-sham</li>
+<li>引入 Promise 的 polyfill: es6-promise</li>
+<li>引入 fetch 探测库：fetch-detector</li>
+<li>引入 fetch 的 polyfill: fetch-ie8</li>
+<li>使用 async/await </li>
+</ol>
+<h3 id="为何不能直接使用Fetch基本操作"><a href="#为何不能直接使用Fetch基本操作" class="headerlink" title="为何不能直接使用Fetch基本操作"></a>为何不能直接使用Fetch基本操作</h3><p>fetch规范与jQuery.ajax()主要有两种方式的不同：</p>
+<ol>
+<li><p>当接收到一个代表错误的 HTTP 状态码时,比如400, 500，fetch不会把promise标记为reject, 而是标记为resolve，仅当网络故障时或请求被阻止时，才会标记为 reject。</p>
+</li>
+<li><p>默认情况下，fetch 不会从服务端发送或接收任何 cookies, 如果站点依赖于用户 session，则会导致未经认证的请求（要发送 cookies，必须设置 credentials 选项）。</p>
+</li>
+</ol>
+<p>从这里可以看出来，如果我们要在fetch请求出错的时候及时地捕获错误，是需要对response的状态码进行解析的。又由于fetch返回的数据不一定是json格式，我们可以从header里面Content-Type获取返回的数据类型，进而使用正确的解析方法。</p>
+<h3 id="使用async-awiait的好处"><a href="#使用async-awiait的好处" class="headerlink" title="使用async/awiait的好处"></a>使用async/awiait的好处</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> response = <span class="keyword">await</span> fetch(url);</span><br><span class="line">    <span class="keyword">let</span> data = <span class="keyword">await</span> response.json();</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125; <span class="keyword">catch</span>(error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"error:"</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+
+<p>使用 await 后，告别面条式调用。从代码可以看到 await 后面可以跟 Promise 对象，表示等待 Promise resolve() 才会继续向下执行，如果 Promise 被 reject() 或抛出异常则会被外面的 try…catch 捕获。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2020/01/07/Fetch与Promise/" target="_blank" title="Fetch与Promise">http://yoursite.com/2020/01/07/Fetch与Promise/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/03/Vue中使用mixin/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Vue之mixin</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Fecth"><span class="nav-number">1.</span> <span class="nav-text">什么是Fecth</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简述Promise"><span class="nav-number">2.</span> <span class="nav-text">简述Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Fetch"><span class="nav-number">3.</span> <span class="nav-text">使用 Fetch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举个例子-登录接口"><span class="nav-number">4.</span> <span class="nav-text">举个例子(登录接口)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch优势："><span class="nav-number">5.1.</span> <span class="nav-text">fetch优势：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为何不能直接使用Fetch基本操作"><span class="nav-number">5.2.</span> <span class="nav-text">为何不能直接使用Fetch基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用async-awiait的好处"><span class="nav-number">5.3.</span> <span class="nav-text">使用async/awiait的好处</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2020 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2020 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
