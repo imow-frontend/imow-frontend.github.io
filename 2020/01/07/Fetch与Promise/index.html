@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="阿母工业前端组">
 <meta property="og:description" content="什么是FecthFetch是一种HTTP数据请求的方式，是XMLHttpRequest的一种替代方案。Fetch不是ajax的进一步封装，它们是两个东西。Fetch函数就是原生js，没有使用XMLHttpRequest对象。 XMLHttpRequest 是一个设计粗糙的API，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，asy">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-14T07:33:09.005Z">
+<meta property="og:updated_time" content="2020-01-15T08:29:44.521Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fetch与Promise">
 <meta name="twitter:description" content="什么是FecthFetch是一种HTTP数据请求的方式，是XMLHttpRequest的一种替代方案。Fetch不是ajax的进一步封装，它们是两个东西。Fetch函数就是原生js，没有使用XMLHttpRequest对象。 XMLHttpRequest 是一个设计粗糙的API，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，asy">
@@ -235,31 +235,39 @@
 <p>async,await使用</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> LogIn() &#123;</span><br><span class="line">  <span class="keyword">let</span> params = &#123;</span><br><span class="line">    username: <span class="string">'test'</span>,</span><br><span class="line">    password: <span class="string">'123456'</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> response = <span class="keyword">await</span> fetch(<span class="string">'http://192.168.3.103:9999/api/users/login'</span>, &#123;</span><br><span class="line">        method: <span class="string">'POST'</span>,</span><br><span class="line">        headers: &#123;</span><br><span class="line">          <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        body: <span class="built_in">JSON</span>.stringify(params)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">let</span> dataPromise = <span class="keyword">await</span> response.json();</span><br><span class="line">      <span class="built_in">console</span>.log(dataPromise)</span><br><span class="line">  &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(err)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>一个基本的fetch操作很简单。就是通过fetch请求，返回一个promise对象，然后在promise对象的then方法里面用fetch的response.json()等方法进行解析数据，由于这个解析返回的也是一个promise对象，所以需要两个then才能得到我们需要的json数据。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Fetch 就是ES6提供的一个异步接口，这样省的自己封装了。一个基本的fetch操作很简单，就是通过fetch请求，返回一个promise对象，然后在promise对象的then方法里面用fetch的response.json()等方法进行解析数据，由于这个解析返回的也是一个promise对象，所以需要两个then才能得到我们需要的json数据。</p>
 <h3 id="fetch优势："><a href="#fetch优势：" class="headerlink" title="fetch优势："></a>fetch优势：</h3><ol>
 <li>语法简洁，更加语义化</li>
 <li>基于标准 Promise 实现，支持 async/await</li>
 <li>同构方便，使用 isomorphic-fetch</li>
 </ol>
-<p>fetch的确很好用，但是有的浏览器确是不支持(比如IE)，这时就需要我们手动实现ajax作为替代，或者引入polyfill。</p>
+<h3 id="优雅的使用fetch"><a href="#优雅的使用fetch" class="headerlink" title="优雅的使用fetch"></a>优雅的使用fetch</h3><p>fetch的确很好用，但是有的浏览器确是不支持的(比如IE)，这时就需要我们手动实现ajax作为替代，或者引入polyfill。</p>
 <ol>
 <li>由于 IE8 是 ES3，需要引入 ES5 的 polyfill: es5-shim, es5-sham</li>
 <li>引入 Promise 的 polyfill: es6-promise</li>
 <li>引入 fetch 探测库：fetch-detector</li>
 <li>引入 fetch 的 polyfill: fetch-ie8</li>
 <li>使用 async/await </li>
+<li>如需跨域，可使用fetch-jsonp</li>
 </ol>
-<h3 id="为何不能直接使用Fetch基本操作"><a href="#为何不能直接使用Fetch基本操作" class="headerlink" title="为何不能直接使用Fetch基本操作"></a>为何不能直接使用Fetch基本操作</h3><p>fetch规范与jQuery.ajax()主要有两种方式的不同：</p>
+<h3 id="为何不能直接使用Fetch基本操作"><a href="#为何不能直接使用Fetch基本操作" class="headerlink" title="为何不能直接使用Fetch基本操作"></a>为何不能直接使用Fetch基本操作</h3><p>fetch是一个低层次的API，你可以把它考虑成原生的XHR，所以使用起来并不是那么舒服，需要进行封装。</p>
 <ol>
 <li><p>当接收到一个代表错误的 HTTP 状态码时,比如400, 500，fetch不会把promise标记为reject, 而是标记为resolve，仅当网络故障时或请求被阻止时，才会标记为 reject。</p>
 </li>
 <li><p>默认情况下，fetch 不会从服务端发送或接收任何 cookies, 如果站点依赖于用户 session，则会导致未经认证的请求（要发送 cookies，必须设置 credentials 选项）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch(url, &#123;<span class="attr">credentials</span>: <span class="string">'include'</span>&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>fetch不支持abort，不支持超时控制，使用setTimeout及Promise.reject的实现的超时控制并不能阻止请求过程继续在后台运行，造成了流量的浪费。<br>原生不行，但可以用到 <a href="http://bluebirdjs.com/docs/api-reference.html" target="_blank" rel="noopener">bluebird</a> 查阅方法，通过可以取消 promise，去达到取消fetch的目的。</p>
+</li>
+<li><p>fetch没有办法原生监测请求的进度，而XHR可以。</p>
 </li>
 </ol>
 <p>从这里可以看出来，如果我们要在fetch请求出错的时候及时地捕获错误，是需要对response的状态码进行解析的。又由于fetch返回的数据不一定是json格式，我们可以从header里面Content-Type获取返回的数据类型，进而使用正确的解析方法。</p>
-<h3 id="使用async-awiait的好处"><a href="#使用async-awiait的好处" class="headerlink" title="使用async/awiait的好处"></a>使用async/awiait的好处</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> response = <span class="keyword">await</span> fetch(url);</span><br><span class="line">    <span class="keyword">let</span> data = <span class="keyword">await</span> response.json();</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125; <span class="keyword">catch</span>(error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"error:"</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<h3 id="使用async-awiait"><a href="#使用async-awiait" class="headerlink" title="使用async/awiait"></a>使用async/awiait</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> response = <span class="keyword">await</span> fetch(url);</span><br><span class="line">    <span class="keyword">let</span> data = <span class="keyword">await</span> response.json();</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125; <span class="keyword">catch</span>(error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"error:"</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
 
 <p>使用 await 后，告别面条式调用。从代码可以看到 await 后面可以跟 Promise 对象，表示等待 Promise resolve() 才会继续向下执行，如果 Promise 被 reject() 或抛出异常则会被外面的 try…catch 捕获。</p>
+<h4 id="Await-b-与Promise-then-b"><a href="#Await-b-与Promise-then-b" class="headerlink" title="Await b()与Promise.then(b)"></a>Await b()与Promise.then(b)</h4><p>有的小伙伴可能很困惑.then()与await;可以参考一篇文章<a href="https://blog.csdn.net/fundebug/article/details/81127760" target="_blank" rel="noopener">从JS引擎理解Await b()与Promise.then(b)的堆栈处理</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>由此看出Fetch存在各种问题，相比于ajax、axios，现阶段更推荐使用axios</p>
 
       
     </div>
@@ -340,7 +348,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Fecth"><span class="nav-number">1.</span> <span class="nav-text">什么是Fecth</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简述Promise"><span class="nav-number">2.</span> <span class="nav-text">简述Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Fetch"><span class="nav-number">3.</span> <span class="nav-text">使用 Fetch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举个例子-登录接口"><span class="nav-number">4.</span> <span class="nav-text">举个例子(登录接口)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch优势："><span class="nav-number">5.1.</span> <span class="nav-text">fetch优势：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为何不能直接使用Fetch基本操作"><span class="nav-number">5.2.</span> <span class="nav-text">为何不能直接使用Fetch基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用async-awiait的好处"><span class="nav-number">5.3.</span> <span class="nav-text">使用async/awiait的好处</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Fecth"><span class="nav-number">1.</span> <span class="nav-text">什么是Fecth</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简述Promise"><span class="nav-number">2.</span> <span class="nav-text">简述Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Fetch"><span class="nav-number">3.</span> <span class="nav-text">使用 Fetch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举个例子-登录接口"><span class="nav-number">4.</span> <span class="nav-text">举个例子(登录接口)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch优势："><span class="nav-number">5.1.</span> <span class="nav-text">fetch优势：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优雅的使用fetch"><span class="nav-number">5.2.</span> <span class="nav-text">优雅的使用fetch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为何不能直接使用Fetch基本操作"><span class="nav-number">5.3.</span> <span class="nav-text">为何不能直接使用Fetch基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用async-awiait"><span class="nav-number">5.4.</span> <span class="nav-text">使用async/awiait</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Await-b-与Promise-then-b"><span class="nav-number">5.4.1.</span> <span class="nav-text">Await b()与Promise.then(b)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol>
     
     </div>
   </aside>
