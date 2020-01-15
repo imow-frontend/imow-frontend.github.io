@@ -97,9 +97,9 @@ LogIn() {
   .then((json) => {
     console.log(json)
   })
-  .catch(function(e) {
-    console.log("Oops, error");
-  })
+  .catch(e => {
+    console.log('errr', e);
+  });
 }
 ```
 
@@ -158,9 +158,46 @@ fetch(url, {credentials: 'include'})
 
 4. fetch没有办法原生监测请求的进度，而XHR可以。
 
-从这里可以看出来，如果我们要在fetch请求出错的时候及时地捕获错误，是需要对response的状态码进行解析的。又由于fetch返回的数据不一定是json格式，我们可以从header里面Content-Type获取返回的数据类型，进而使用正确的解析方法。
+从这里可以看出来，如果我们要在fetch请求出错的时候及时地捕获错误，是需要对response的状态码进行解析的。又由于fetch返回的数据不一定是json格式，我们可以从header里面Content-Type获取返回的数据类型，进而使用正确的解析方法。  
 
-### 使用async/awiait
+接收到一个代表错误的 HTTP 状态码时通过抛出错误改进：
+```js
+checkStatus(response) {//检查响应状态
+  if(response.status >= 200 && response.status < 300) {//响应成功
+      return response;
+  }
+  if(response.status === 301 || response.status === 302) {//重定向
+      window.location = response.headers.get('Location');
+  }
+  const error = new Error(response.statusText);
+  error.data = response;
+  throw error;
+}
+```
+
+判断数据类型，进而使用正确的解析：
+```js
+async parseResult(response) {//解析返回的结果
+  const contentType = response.headers.get('Content-Type');
+  if(contentType != null) {
+      if(contentType.indexOf('text') > -1) {
+          return await response.text()
+      }
+      if(contentType.indexOf('form') > -1) {
+          return await response.formData();
+      }
+      if(contentType.indexOf('video') > -1) {
+          return await response.blob();
+      }
+      if(contentType.indexOf('json') > -1) {
+          return await response.json();
+      }
+  }
+  return await response.text();
+}
+```
+
+### 使用async/awiait的原因
 ```js
 (async () => {
   try {
@@ -172,10 +209,12 @@ fetch(url, {credentials: 'include'})
   }
 })()
 ```
+Promise 将异步操作规范化。使用then连接, 使用catch捕获错误, 堪称完美, 美中不足的是, then和catch中传递的依然是回调函数。
+为此, ES7 提供了更标准的解决方案 — async/await.  
 使用 await 后，告别面条式调用。从代码可以看到 await 后面可以跟 Promise 对象，表示等待 Promise resolve() 才会继续向下执行，如果 Promise 被 reject() 或抛出异常则会被外面的 try...catch 捕获。
 
 #### Await b()与Promise.then(b)
 有的小伙伴可能很困惑.then()与await;可以参考一篇文章[从JS引擎理解Await b()与Promise.then(b)的堆栈处理](https://blog.csdn.net/fundebug/article/details/81127760)
 
 ## 总结
-由此看出Fetch存在各种问题，相比于ajax、axios，现阶段更推荐使用axios
+由此看出Fetch存在各种问题，实际使用中需要二次封装，相比于ajax、axios，现阶段更推荐使用axios
