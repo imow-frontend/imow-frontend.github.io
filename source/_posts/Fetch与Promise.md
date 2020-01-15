@@ -127,30 +127,40 @@ async LogIn() {
 ```
 
 ## 小结
-一个基本的fetch操作很简单。就是通过fetch请求，返回一个promise对象，然后在promise对象的then方法里面用fetch的response.json()等方法进行解析数据，由于这个解析返回的也是一个promise对象，所以需要两个then才能得到我们需要的json数据。
+Fetch 就是ES6提供的一个异步接口，这样省的自己封装了。一个基本的fetch操作很简单，就是通过fetch请求，返回一个promise对象，然后在promise对象的then方法里面用fetch的response.json()等方法进行解析数据，由于这个解析返回的也是一个promise对象，所以需要两个then才能得到我们需要的json数据。
 
 ### fetch优势：
 1. 语法简洁，更加语义化
 2. 基于标准 Promise 实现，支持 async/await
 3. 同构方便，使用 isomorphic-fetch
 
-fetch的确很好用，但是有的浏览器确是不支持(比如IE)，这时就需要我们手动实现ajax作为替代，或者引入polyfill。
+### 优雅的使用fetch 
+fetch的确很好用，但是有的浏览器确是不支持的(比如IE)，这时就需要我们手动实现ajax作为替代，或者引入polyfill。
 1. 由于 IE8 是 ES3，需要引入 ES5 的 polyfill: es5-shim, es5-sham
 2. 引入 Promise 的 polyfill: es6-promise
 3. 引入 fetch 探测库：fetch-detector
 4. 引入 fetch 的 polyfill: fetch-ie8
 6. 使用 async/await 
+7. 如需跨域，可使用fetch-jsonp
 
 ### 为何不能直接使用Fetch基本操作
-fetch规范与jQuery.ajax()主要有两种方式的不同：
+fetch是一个低层次的API，你可以把它考虑成原生的XHR，所以使用起来并不是那么舒服，需要进行封装。
 
 1. 当接收到一个代表错误的 HTTP 状态码时,比如400, 500，fetch不会把promise标记为reject, 而是标记为resolve，仅当网络故障时或请求被阻止时，才会标记为 reject。
 
 2. 默认情况下，fetch 不会从服务端发送或接收任何 cookies, 如果站点依赖于用户 session，则会导致未经认证的请求（要发送 cookies，必须设置 credentials 选项）。
+```js
+fetch(url, {credentials: 'include'})
+```
+
+3. fetch不支持abort，不支持超时控制，使用setTimeout及Promise.reject的实现的超时控制并不能阻止请求过程继续在后台运行，造成了流量的浪费。
+原生不行，但可以用到 [bluebird](http://bluebirdjs.com/docs/api-reference.html) 查阅方法，通过可以取消 promise，去达到取消fetch的目的。
+
+4. fetch没有办法原生监测请求的进度，而XHR可以。
 
 从这里可以看出来，如果我们要在fetch请求出错的时候及时地捕获错误，是需要对response的状态码进行解析的。又由于fetch返回的数据不一定是json格式，我们可以从header里面Content-Type获取返回的数据类型，进而使用正确的解析方法。
 
-### 使用async/awiait的好处
+### 使用async/awiait
 ```js
 (async () => {
   try {
@@ -162,6 +172,10 @@ fetch规范与jQuery.ajax()主要有两种方式的不同：
   }
 })()
 ```
-
 使用 await 后，告别面条式调用。从代码可以看到 await 后面可以跟 Promise 对象，表示等待 Promise resolve() 才会继续向下执行，如果 Promise 被 reject() 或抛出异常则会被外面的 try...catch 捕获。
 
+#### Await b()与Promise.then(b)
+有的小伙伴可能很困惑.then()与await;可以参考一篇文章[从JS引擎理解Await b()与Promise.then(b)的堆栈处理](https://blog.csdn.net/fundebug/article/details/81127760)
+
+## 总结
+由此看出Fetch存在各种问题，相比于ajax、axios，现阶段更推荐使用axios
