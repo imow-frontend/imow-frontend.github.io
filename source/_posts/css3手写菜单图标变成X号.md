@@ -13,7 +13,8 @@ tags:
 
 
 ## 如何写
-```js
+html文档如下：
+```html
 <!DOCTYPE html>
 <html>
   <head>
