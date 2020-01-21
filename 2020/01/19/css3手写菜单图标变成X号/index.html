@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="阿母工业前端组">
 <meta property="og:description" content="前言做项目中经常会遇到三条横线的菜单按钮，一般都是点击按钮出现菜单栏，再次点击关闭菜单栏，直接显示X号就显得很生硬，这里使用CSS3动画将这个过渡过程变得非线性感，更讨好眼球。例子里用的是hover更直接明显，在项目里可以用class来控制 如何写代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-20T06:12:55.839Z">
+<meta property="og:updated_time" content="2020-01-20T09:39:26.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="css3手写菜单图标变成X号">
 <meta name="twitter:description" content="前言做项目中经常会遇到三条横线的菜单按钮，一般都是点击按钮出现菜单栏，再次点击关闭菜单栏，直接显示X号就显得很生硬，这里使用CSS3动画将这个过渡过程变得非线性感，更讨好眼球。例子里用的是hover更直接明显，在项目里可以用class来控制 如何写代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394">
@@ -206,6 +206,52 @@
 <h2 id="如何写"><a href="#如何写" class="headerlink" title="如何写"></a>如何写</h2><p>代码如下：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>CSS3 写菜单按钮变形小动画<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">      .menu-button &#123;</span><br><span class="line">        position: absolute;</span><br><span class="line">        top: 18px;</span><br><span class="line">        left: 24px;</span><br><span class="line">        width: 30px;</span><br><span class="line">        height: 24px;</span><br><span class="line">        padding: 0;</span><br><span class="line">        cursor: pointer;</span><br><span class="line">        border: none;</span><br><span class="line">        outline: none;</span><br><span class="line">        background: transparent;</span><br><span class="line">      &#125;</span><br><span class="line">      button &#123;</span><br><span class="line">        -webkit-appearance: button;</span><br><span class="line">      &#125;</span><br><span class="line">      button,select &#123;</span><br><span class="line">        text-transform: none;</span><br><span class="line">      &#125;</span><br><span class="line">      button,input,optgroup,select,textarea &#123;</span><br><span class="line">        font-family: inherit;</span><br><span class="line">        font-size: 100%;</span><br><span class="line">        line-height: 1.15;</span><br><span class="line">        margin: 0;</span><br><span class="line">      &#125;</span><br><span class="line">      .menu-button:after,.menu-button:before &#123;</span><br><span class="line">        content: "";</span><br><span class="line">        position: absolute;</span><br><span class="line">        top: 50%;</span><br><span class="line">        left: 0;</span><br><span class="line">        width: 100%;</span><br><span class="line">        height: 2px;</span><br><span class="line">        border-radius: 2px;</span><br><span class="line">        pointer-events: none;</span><br><span class="line">        -webkit-transition: -webkit-transform 0.25s;</span><br><span class="line">        transition: -webkit-transform 0.25s;</span><br><span class="line">        transition: transform 0.25s;</span><br><span class="line">        transition: transform 0.25s, -webkit-transform 0.25s;</span><br><span class="line">        -webkit-transform-origin: 50% 50%;</span><br><span class="line">        transform-origin: 50% 50%;</span><br><span class="line">      &#125;</span><br><span class="line">      .menu-button:after,.menu-button:before,.menu-button span &#123;</span><br><span class="line">        background: #5f656f;</span><br><span class="line">      &#125;</span><br><span class="line">      .menu-button:before &#123;</span><br><span class="line">        -webkit-transform: translate3d(0, -10px, 0) scaleX(0.8);</span><br><span class="line">        transform: translate3d(0, -10px, 0) scaleX(0.8);</span><br><span class="line">      &#125;</span><br><span class="line">      .menu-button:after &#123;</span><br><span class="line">        -webkit-transform: translate3d(0, 10px, 0) scaleX(0.8);</span><br><span class="line">        transform: translate3d(0, 10px, 0) scaleX(0.8);</span><br><span class="line">      &#125;</span><br><span class="line">      .menu-button span &#123;</span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 0;</span><br><span class="line">        overflow: hidden;</span><br><span class="line">        width: 100%;</span><br><span class="line">        height: 2px;</span><br><span class="line">        text-indent: 200%;</span><br><span class="line">        -webkit-transition: opacity 0.25s;</span><br><span class="line">        transition: opacity 0.25s;</span><br><span class="line">      &#125;</span><br><span class="line">      .header:hover .menu-button--open:before &#123;</span><br><span class="line">        -webkit-transform: rotate(45deg);</span><br><span class="line">        transform: rotate(45deg);</span><br><span class="line">      &#125;</span><br><span class="line">      .header:hover .menu-button--open:after &#123;</span><br><span class="line">        -webkit-transform: rotate(-45deg);</span><br><span class="line">        transform: rotate(-45deg);</span><br><span class="line">      &#125;</span><br><span class="line">      .header:hover .menu-button--open span &#123;</span><br><span class="line">        opacity: 0;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--header--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"menu-button menu-button--open"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>Menu<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="知识要点总结"><a href="#知识要点总结" class="headerlink" title="知识要点总结"></a>知识要点总结</h2><p>1.transform 属性</p>
+<ul>
+<li>rotate(deg)                     //顺时针旋转</li>
+<li>translate3d(x,y,z)              //3D转换</li>
+<li>scaleX(0.8);                    //按0.8比例X轴缩放</li>
+<li>scaleX(1.1)                     //按1.1比例中心缩放</li>
+</ul>
+<p>2.transition 属性<br>实现过渡动画效果，和控制动画持续时间<br>transition: property duration timing-function delay;</p>
+<ul>
+<li><p>property : 指定CSS属性的name，transition效果</p>
+</li>
+<li><p>duration : transition效果需要指定多少秒或毫秒才能完成,默认值为0,&gt;0才有动画效果</p>
+</li>
+<li><p>timing-function: 指定transition效果的转速曲线<br>默认值为 ease</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>效果描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ease</td>
+<td>慢速开始，然后变快，然后慢速结束的过渡效果</td>
+</tr>
+<tr>
+<td>linear</td>
+<td>匀速</td>
+</tr>
+<tr>
+<td>ease-in</td>
+<td>慢速开始的过渡效果</td>
+</tr>
+<tr>
+<td>ease-out</td>
+<td>慢速结束的过渡效果</td>
+</tr>
+<tr>
+<td>ease-in-out</td>
+<td>慢速开始和结束的过渡效果</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>delay: 延迟多久秒开始过渡效果，默认值0</p>
+</li>
+</ul>
 
       
     </div>
@@ -286,7 +332,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何写"><span class="nav-number">2.</span> <span class="nav-text">如何写</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何写"><span class="nav-number">2.</span> <span class="nav-text">如何写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识要点总结"><span class="nav-number">3.</span> <span class="nav-text">知识要点总结</span></a></li></ol>
     
     </div>
   </aside>
