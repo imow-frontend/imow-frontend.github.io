@@ -105,3 +105,30 @@ tags:
   </body>
 </html>
 ```
+
+## 知识要点总结
+1.transform 属性
+- rotate(deg)                     //顺时针旋转
+- translate3d(x,y,z)              //3D转换
+- scaleX(0.8);                    //按0.8比例X轴缩放
+- scaleX(1.1)                     //按1.1比例中心缩放
+
+2.transition 属性
+实现过渡动画效果，和控制动画持续时间
+transition: property duration timing-function delay;
+
+- property : 指定CSS属性的name，transition效果
+
+- duration : transition效果需要指定多少秒或毫秒才能完成,默认值为0,>0才有动画效果
+
+- timing-function: 指定transition效果的转速曲线
+  默认值为 ease
+| 值 | 效果描述 |
+| ------ | ------ |
+| ease | 慢速开始，然后变快，然后慢速结束的过渡效果 |
+| linear | 匀速 |
+| ease-in | 慢速开始的过渡效果 |
+| ease-out | 慢速结束的过渡效果 |
+| ease-in-out | 慢速开始和结束的过渡效果 |
+
+- delay: 延迟多久秒开始过渡效果，默认值0
