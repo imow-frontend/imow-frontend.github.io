@@ -16,18 +16,11 @@ tags:
 对象的没个属性或方法都有一个俄名字，每个名字都映射到一个值。
 
 
-
 ## 什么是面向对象编程？
 
 面向对象编程的基本思路完全不同。其背后的思想是：你将所需要做的功能抽象成一个“对象”，然后一遍遍地调用这个对象来完成你想要的功能。
 
 每次调用对象时，你必须创建对象，确保对象的存在，然后为了使用对象所带的功能你需要设置它的属性，这些功能称为“方法（methods）”。
-
-
-
-## 为什么我们需要在 JavaScript 中实现 OOP？
-
-
 
 
 ## 面向对象的特点
@@ -358,14 +351,8 @@ var f1 = new Foo;  //没有参数的话括号可以省略
 console.log(f1.a) //1
 console.log(f1.b) // 3
 ``` 
-
   
-   
-  
-![图1](/picture/1.png)
-
-
-
+![js面向对象1](https://tvax3.sinaimg.cn/large/b535b7d3ly1gbzgi54h3ej20d903v74w.jpg)
 
 
 接着来说，Foo.prototype是个对象,那么它的__proto__指向哪里呢？
@@ -379,13 +366,8 @@ var obj = Object();
 obj.__proto__==Object.prototype    //true
 ```
 
-
-
 所以我们可以接着还原这个原型图
-![图2](/picture/2.png)
-
-
-
+![js面向对象2](https://tvax4.sinaimg.cn/large/b535b7d3ly1gbzgi5bj97j20nj0h0aff.jpg)
 
 
 还没完,我们发现对象都是函数(构造器)创造出来的，那么函数是谁创造的呢？
@@ -397,7 +379,7 @@ fun.__proto__==Function.prototype    //true
 ```
 
 现在基本上我们就能得出了完整的原型图了
-![图2](/picture/3.png)
+![js面向对象3](https://tva1.sinaimg.cn/large/b535b7d3ly1gbzgi5gu5oj20dk0ge0wj.jpg)
 
 
 
