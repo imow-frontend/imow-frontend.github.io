@@ -2,7 +2,10 @@
 layout: post
 title: javascript垃圾回收机制
 date: 2019-07-01 10:53:41
+categories: 
+- JavaScript 
 tags:
+- js 
 ---
 
 ## 前言
