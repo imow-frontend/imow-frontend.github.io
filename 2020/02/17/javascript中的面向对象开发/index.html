@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>javascript中的面向对象开发 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="js">
+  
+  
+  
+  
+  <meta name="description" content="js面向对象开发什么是对象“无序属性的集合，其属性可以包括基本值、对象或者函数”，对象是一组没有特定顺序的的值。对象的没个属性或方法都有一个俄名字，每个名字都映射到一个值。 什么是面向对象编程？面向对象编程的基本思路完全不同。其背后的思想是：你将所需要做的功能抽象成一个“对象”，然后一遍遍地调用这个对象来完成你想要的功能。 每次调用对象时，你必须创建对象，确保对象的存在，然后为了使用对象所带的功能">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript中的面向对象开发">
+<meta property="og:url" content="http://yoursite.com/2020/02/17/javascript中的面向对象开发/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="js面向对象开发什么是对象“无序属性的集合，其属性可以包括基本值、对象或者函数”，对象是一组没有特定顺序的的值。对象的没个属性或方法都有一个俄名字，每个名字都映射到一个值。 什么是面向对象编程？面向对象编程的基本思路完全不同。其背后的思想是：你将所需要做的功能抽象成一个“对象”，然后一遍遍地调用这个对象来完成你想要的功能。 每次调用对象时，你必须创建对象，确保对象的存在，然后为了使用对象所带的功能">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/b535b7d3ly1gbzgi5bj97j20nj0h0aff.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/b535b7d3ly1gbzgi5gu5oj20dk0ge0wj.jpg">
+<meta property="og:updated_time" content="2020-02-25T09:33:33.078Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript中的面向对象开发">
+<meta name="twitter:description" content="js面向对象开发什么是对象“无序属性的集合，其属性可以包括基本值、对象或者函数”，对象是一组没有特定顺序的的值。对象的没个属性或方法都有一个俄名字，每个名字都映射到一个值。 什么是面向对象编程？面向对象编程的基本思路完全不同。其背后的思想是：你将所需要做的功能抽象成一个“对象”，然后一遍遍地调用这个对象来完成你想要的功能。 每次调用对象时，你必须创建对象，确保对象的存在，然后为了使用对象所带的功能">
+<meta name="twitter:image" content="https://tvax4.sinaimg.cn/large/b535b7d3ly1gbzgi5bj97j20nj0h0aff.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/setting.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-javascript中的面向对象开发" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      javascript中的面向对象开发
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/02/17/javascript中的面向对象开发/" class="article-date">
+	  <time datetime="2020-02-17T06:06:43.000Z" itemprop="datePublished">2020-02-17</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+<a href="/2020/02/17/javascript中的面向对象开发/" class="article-author">
+胡豪
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="js面向对象开发"><a href="#js面向对象开发" class="headerlink" title="js面向对象开发"></a>js面向对象开发</h1><h2 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h2><p>“无序属性的集合，其属性可以包括基本值、对象或者函数”，对象是一组没有特定顺序的的值。<br>对象的没个属性或方法都有一个俄名字，每个名字都映射到一个值。</p>
+<h2 id="什么是面向对象编程？"><a href="#什么是面向对象编程？" class="headerlink" title="什么是面向对象编程？"></a>什么是面向对象编程？</h2><p>面向对象编程的基本思路完全不同。其背后的思想是：你将所需要做的功能抽象成一个“对象”，然后一遍遍地调用这个对象来完成你想要的功能。</p>
+<p>每次调用对象时，你必须创建对象，确保对象的存在，然后为了使用对象所带的功能你需要设置它的属性，这些功能称为“方法（methods）”。</p>
+<h2 id="面向对象的特点"><a href="#面向对象的特点" class="headerlink" title="面向对象的特点"></a>面向对象的特点</h2><ul>
+<li>封装</li>
+</ul>
+<p>对于一些功能相同或者相似的代码，我们可以放到一个函数中去，多次用到此功能时，我们只需要调用即可，无需多次重写。</p>
+<p>创造对象的几种模式：单例模式，工厂模式，构造函数模式,原型模式等。</p>
+<ul>
+<li>继承</li>
+</ul>
+<p>子类可以继承父类的属性和方法</p>
+<ul>
+<li>多态(重载和重写)</li>
+</ul>
+<p>重载：重载就是函数方法名相同，参数不同</p>
+<p>重写：子类可以改写父类的属性和方法。</p>
+<p>Js中存在多态，但是Js中不存在函数的重载，因为函数名相同的话，后面的一定会把前面的覆盖，但Js中存在重写，所以Js中的多态主要是指重写。<br>但是也存在一种既不是重写却类似重载的Js多态方式,我们可以通过判断函数的参数的不同来实现不同的功能来模拟重载，就是我们调用函数时根据传入不同的参数实现不同的功能，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">num</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> num === <span class="string">"undefined"</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> n1 = sum(<span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(n1);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> n2 = sum();</span><br><span class="line"><span class="built_in">console</span>.log(n2);</span><br></pre></td></tr></table></figure>
+
+<p>当传入空参数的时候，num为undefined所以会返回0，如果不是空参数的时候，就返回num。</p>
+<h2 id="创建对象的几种模式"><a href="#创建对象的几种模式" class="headerlink" title="创建对象的几种模式"></a>创建对象的几种模式</h2><p>一般创建对象是用以下两种方式</p>
+<p>new object创建对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">Person.name = <span class="string">"张三"</span>;</span><br><span class="line">Person.age = <span class="string">"18"</span>;</span><br><span class="line">Person.job = <span class="string">"123"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>或者，对象字面量的方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Person = &#123;</span><br><span class="line">  name:<span class="string">"lisi"</span>,</span><br><span class="line">  age:<span class="string">"18"</span>,</span><br><span class="line">  job:<span class="string">"123"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>一个人写代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNum</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两个人，一起写同一个js。<br>假设，一天小明发现自己写的getNum方法出问题了，原来是小华写的js中也有个getNum的函数，代码合并后把他的覆盖掉了，于是便找小华理论去，经过一番妥协后，两人都把自己的代码改了改。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xiaoming = &#123;</span><br><span class="line">  num:<span class="number">1</span>,</span><br><span class="line">  getNum:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> xiaohua = &#123;</span><br><span class="line">  num:<span class="number">2</span>,</span><br><span class="line">  getNum: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(xiaoming.num);</span><br><span class="line"><span class="built_in">console</span>.log(xiaoming.getNum());</span><br><span class="line"><span class="built_in">console</span>.log(xiaohua.num);</span><br><span class="line"><span class="built_in">console</span>.log(xiaohua.getNum());</span><br></pre></td></tr></table></figure>
+
+<p>这就是我们所谓的单例模式(命名空间)</p>
+<p>我们把描述同一个事物的方法或者属性放到同一个对象里，不同事物之间的方法或者属性名相同相互也不会发生冲突。</p>
+<h4 id="单例模式注意点："><a href="#单例模式注意点：" class="headerlink" title="单例模式注意点："></a>单例模式注意点：</h4><p>当在一个命名空间A中调用别的命名空间B中的函数的时候，调用方法为 B.functionName();</p>
+<p>当在一个命名空间A中调用自己空间中的函数的时候，调用方法为 this.functionName();</p>
+<h4 id="单例模式的优劣"><a href="#单例模式的优劣" class="headerlink" title="单例模式的优劣"></a>单例模式的优劣</h4><p>优点：</p>
+<p>使用单例模式，我们可以实现简单的模块化开发</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  getCss:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="comment">//code</span></span><br><span class="line">  &#125;,</span><br><span class="line">  setCss:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="comment">//code</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以把自己写好的工具方法放到一个单独的js文件中，然后直接引入即可。</p>
+<p>避免了全局变量名的冲突</p>
+<p>需要注意的是，我们在引入各个模块的时候，需要注意引入的顺序，引入顺序是按照各模块之间的相互依赖进行前后排列的；</p>
+<p>缺点：</p>
+<p>单例模式只是一定程度上避免了变量名的冲突，但并不能彻底解决此问题，而且在不同的对象下，我们可能会有很多功能相同的代码，最终造成大量的冗余代码。<br>单例模式让每个对象有了自己独立的命名空间，但是并不能批量生产的问题，每一个新的对象都要重新写一份一模一样的代码（如下面代码所示）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name:<span class="string">'小明'</span>,</span><br><span class="line">  age:<span class="number">24</span>,</span><br><span class="line">  showName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'我的名字是：'</span>+<span class="keyword">this</span>.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name:<span class="string">'小华'</span>,</span><br><span class="line">  age:<span class="number">25</span>,</span><br><span class="line">  showName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'我的名字是：'</span>+<span class="keyword">this</span>.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>1、什么是工厂模式？</p>
+<p>把实现同一件事情的相同代码放到同一个函数中，想实现这个功能只要执行这个函数即可，这就是工厂模式，也叫做“函数的封装”，这也是”低耦合，高内聚“，从而达到减少页面冗余代码，提高代码重复利用率的作用。</p>
+<p>工厂模式其实就是把需要一个个的编写的对象,放在一个函数中统一的进行创建，说白了就是普通函数的封装。</p>
+<p>工厂模式总共3步骤：<br>1）进厂 — 创建一个空对象<br>2）加工 — 加工对象：给对象添加属性和方法；<br>3）输出 — 返回对象：return 对象；</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CreatePerson</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj=&#123;&#125;;<span class="comment">//1.创建一个空对象</span></span><br><span class="line">  <span class="comment">//2.加工对象</span></span><br><span class="line">  obj.name=name;</span><br><span class="line">  obj.age=age;</span><br><span class="line">  obj.showName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'我的名字是：'</span>+<span class="keyword">this</span>.name)</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> obj;<span class="comment">//3.输出对象；</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = CreatePerson(<span class="string">'小明'</span>,<span class="number">23</span>)</span><br><span class="line"><span class="keyword">var</span> person2 = CreatePerson(<span class="string">'小华'</span>,<span class="number">23</span>)</span><br><span class="line">person1.showName(); <span class="comment">//我的名字是：小明</span></span><br><span class="line">person2.showName(); <span class="comment">//我的名字是：小华</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="工厂模式的优缺点"><a href="#工厂模式的优缺点" class="headerlink" title="工厂模式的优缺点"></a>工厂模式的优缺点</h4><p>既然叫工厂模式，它就和我们周围的工厂一样，我们只需要把原材料放进去，就能得到我们需要的产品了。</p>
+<p>工厂模式也解决了单例模式的批量生产的问题，避免了单例模式中的大量冗余代码，进行系统的封装，提高代码的重复利用率</p>
+<p>不过工厂模式跟我们js内置类的调用方法不同</p>
+<hr>
+<h3 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h3><p>可以创建一个自定义的类，并且可以new出实例<br>构造函数做的就是类和实例打交道。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造函数：首字母大写(约定俗成)；</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CreatePerson</span>(<span class="params">name,age</span>)</span>&#123; <span class="comment">//创建一个自定义的类</span></span><br><span class="line">    <span class="comment">//构造函数中的this，都是new出来的实例</span></span><br><span class="line">    <span class="comment">//构造函数中存放的都是私有的属性和方法；</span></span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">    <span class="keyword">this</span>.age=age;</span><br><span class="line">    <span class="keyword">this</span>.showName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'我的名字是：'</span>+<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实例1</span></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> CreatePerson(<span class="string">'小明'</span>,<span class="number">25</span>);</span><br><span class="line">person1.showName(); <span class="comment">// 我的名字是：,小明</span></span><br><span class="line"><span class="comment">//实例2</span></span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> CreatePerson(<span class="string">'小华'</span>,<span class="number">24</span>);</span><br></pre></td></tr></table></figure>
+
+<p>注意，如果不写new，这就是一个普通函数，它返回undefined。但是，如果写了new，它就变成了一个构造函数，它绑定的this指向新创建的对象，并默认返回this，也就是说，不需要在最后写return this;。</p>
+<p>new操作符的作用如下：</p>
+<p>1.创建一个空对象<br>2.由this变量引用该对象<br>3.该对象继承该函数的原型<br>4.把属性和方法加入到this引用的对象中<br>5.新创建的对象由this引用，最后隐式地返回this。<br>过程如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;&#125;;<span class="comment">//创建一个空对象</span></span><br><span class="line">obj.__proto__ = Person.prototype;<span class="comment">//该对象继承该函数的原型</span></span><br><span class="line">Person.call(obj);<span class="comment">//隐式地返回this</span></span><br></pre></td></tr></table></figure>
+
+<p>工厂模式和构造函数模式的区别：</p>
+<ol>
+<li><p>在调用的时候不同：<br>工厂模式：调用的时候，只是普通函数的调用createPerson();<br>构造函数模式：new CreatePerson();</p>
+</li>
+<li><p>在函数体内不同：<br>工厂模式有三步：1）创建对象 2）加工对象 3）返回对象；<br>构造函数模式只有1步： 只有加工对象； 因为系统默认会为其创建对象和返回对象；</p>
+</li>
+<li><p>构造函数默认给我们返回了一个对象，如果我们非要自己手动返回的话：<br>(1)手动返回的是字符串类型：对以前实例上的属性和方法没有影响；<br>(2)手动返回的是引用数据类型:以前实例身上的属性和方法就被覆盖了；实例无法调用属性和方法；</p>
+</li>
+</ol>
+<p>构造函数的方法都是私有方法，每个实例调用的都是自己私有的方法，同样也会有许多重复的代码。</p>
+<p>我们可以使用原型模式来解决每个实例中都有相同方法的函数的问题</p>
+<hr>
+<p>原型模式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CreatePerson</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">    <span class="keyword">this</span>.age=age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 我们把公有的方法放到函数的原型链上</span></span><br><span class="line">CreatePerson.prototype.showName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'我的名字是：'</span>+<span class="keyword">this</span>.name)</span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> CreatePerson(<span class="string">'小明'</span>,<span class="number">25</span>) </span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> CreatePerson(<span class="string">'小华'</span>,<span class="number">24</span>)</span><br><span class="line">person1.showName() <span class="comment">//小明</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>原型模式的关键：</p>
+<p>1）每个函数数据类型（普通函数，类）上，都有一个属性，叫prototype。<br>2）prototype这个对象上，天生自带一个属性，叫constructor:指向当前这个类；<br>3）每个对象数据类型（普通对象，prototype，实例）上都有一个属性，叫做<strong>proto</strong>:指向当前实例所属类的原型；<br>通过例子我们来看这几句话是什么意思</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CreatePerson</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name=name;</span><br><span class="line">  <span class="keyword">this</span>.age=age</span><br><span class="line">&#125;</span><br><span class="line">CreatePerson.prototype.showName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'我的名字是：'</span>+<span class="keyword">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> CreatePerson(<span class="string">'小明'</span>,<span class="number">25</span>);</span><br><span class="line"><span class="built_in">console</span>.dir(person1)</span><br></pre></td></tr></table></figure>
+
+
+<p>在chrome浏览器控制台中显示—-&gt;</p>
+<p>它们中有一条链关联着 person1.<strong>proto</strong> === CreatePerson.prototype</p>
+<p>接着来看</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.a=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype.a=<span class="number">2</span>;</span><br><span class="line">Foo.prototype.b=<span class="number">3</span>;</span><br><span class="line"><span class="keyword">var</span> f1 = <span class="keyword">new</span> Foo;  <span class="comment">//没有参数的话括号可以省略</span></span><br><span class="line"><span class="built_in">console</span>.log(f1.a) <span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(f1.b) <span class="comment">// 3</span></span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string">![js面向对象1](https://tvax3.sinaimg.cn/large/b535b7d3ly1gbzgi54h3ej20d903v74w.jpg)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">接着来说，Foo.prototype是个对象,那么它的__proto__指向哪里呢？</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">每个对象数据类型（普通对象，prototype，实例）上都有一个属性，叫做__proto__:指向当前实例所属类的原型 </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">此外，我们应该知道每一个对象都是function Object这个构造函数的实例</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>();</span><br><span class="line">obj.__proto__==<span class="built_in">Object</span>.prototype    <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>所以我们可以接着还原这个原型图<br><img src="https://tvax4.sinaimg.cn/large/b535b7d3ly1gbzgi5bj97j20nj0h0aff.jpg" alt="js面向对象2"></p>
+<p>还没完,我们发现对象都是函数(构造器)创造出来的，那么函数是谁创造的呢？<br>在js中,function都是由function Function这个构造器创造的，每一个函数都是Function的实例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">fun.__proto__==<span class="built_in">Function</span>.prototype    <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>现在基本上我们就能得出了完整的原型图了<br><img src="https://tva1.sinaimg.cn/large/b535b7d3ly1gbzgi5gu5oj20dk0ge0wj.jpg" alt="js面向对象3"></p>
+<p>补充：</p>
+<p>多说一点,判断数据类型的方法时，我们知道有个instanceof的方法<br>比如</p>
+<p>A instanceof B<br>instanceof判断的规则就是:</p>
+<p>沿着A的<strong>proto</strong>这条线查找的同时沿着B的prototype这条线来找，如果两条线能找到同一个引用(对象)，那么就返回true。如果找到终点还未重合，则返回false。</p>
+<p>再来看我们之前的那个例子</p>
+<pre><code class="js"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>{
+    <span class="keyword">this</span>.a=<span class="number">1</span>;
+}
+Foo.prototype.a=<span class="number">2</span>;
+Foo.prototype.b=<span class="number">3</span>;
+<span class="keyword">var</span> f1 = <span class="keyword">new</span> Foo;  <span class="comment">//没有参数的话括号可以省略</span>
+<span class="built_in">console</span>.log(f1.a) <span class="comment">//1</span>
+<span class="built_in">console</span>.log(f1.b) <span class="comment">//3</span></code></pre>
+<p>当我们查找f1.a时，因为f1中有这个属性,所以我们得出 f1.a=1;<br>当我们查找f1.b时，f1中没有这个属性,我们便顺着f1.<strong>proto</strong>这条链去它的构造器的prototype上找,所以我们得出了 f1.b = 3;<br>当我们查找一个对象的属性时,先在这个对象的私有空间内查找，如果没找到,就顺着对象的<strong>proto</strong>这条链去它的构造器的ptototype上查找,如果还没找到,接着沿<strong>proto</strong>向上查找,直到找到Object.prototype还没有的话,这个值就为undefined,这就是所谓的原型链</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>面向对象开发对我们平时开发有什么好处？</p>
+<p>随着代码库的增长，你需要改变你组织思路的方法，并开始用面向对象的方式思考。与一系列相互纠缠需要通过一系列的参数传递才能运行的函数相比，对象的范围很容易控制和追踪。</p>
+<p>基于函数编程的问题在于，一旦有一个函数出现问题，就会导致整个链上的流程失败。而对于对象而言，一个方法出问题不会（也不应该）影响到其他类。</p>
+<p>补充：<br>JS CLASS类</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2020/02/17/javascript中的面向对象开发/" target="_blank" title="javascript中的面向对象开发">http://yoursite.com/2020/02/17/javascript中的面向对象开发/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/09/slot/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          slot
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/04/关于元素在网页中的位置总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关于元素在网页中的位置总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#js面向对象开发"><span class="nav-number">1.</span> <span class="nav-text">js面向对象开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是对象"><span class="nav-number">1.1.</span> <span class="nav-text">什么是对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是面向对象编程？"><span class="nav-number">1.2.</span> <span class="nav-text">什么是面向对象编程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象的特点"><span class="nav-number">1.3.</span> <span class="nav-text">面向对象的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建对象的几种模式"><span class="nav-number">1.4.</span> <span class="nav-text">创建对象的几种模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单例模式"><span class="nav-number">1.4.1.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单例模式注意点："><span class="nav-number">1.4.1.1.</span> <span class="nav-text">单例模式注意点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单例模式的优劣"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">单例模式的优劣</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂模式"><span class="nav-number">1.4.2.</span> <span class="nav-text">工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工厂模式的优缺点"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">工厂模式的优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数模式"><span class="nav-number">1.4.3.</span> <span class="nav-text">构造函数模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2020 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2020 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

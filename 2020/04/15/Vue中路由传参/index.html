@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>vue中路由传参 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="vue">
+  
+  
+  
+  
+  <meta name="description" content="通常我们在路由中传递数据给另一个页面用如下方法：一、params (不会显示在地址栏)123this.$router.push(&amp;#123; name : &apos;detail&apos; , params : &amp;#123; id: id &amp;#125; &amp;#125;)&amp;lt;router-link :to=&quot;&amp;#123;name:&apos;detail&apos;,params:&amp;#123;name:1&amp;#125;&amp;#125;&quot;&amp;">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue中路由传参">
+<meta property="og:url" content="http://yoursite.com/2020/04/15/Vue中路由传参/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="通常我们在路由中传递数据给另一个页面用如下方法：一、params (不会显示在地址栏)123this.$router.push(&amp;#123; name : &apos;detail&apos; , params : &amp;#123; id: id &amp;#125; &amp;#125;)&amp;lt;router-link :to=&quot;&amp;#123;name:&apos;detail&apos;,params:&amp;#123;name:1&amp;#125;&amp;#125;&quot;&amp;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-04-15T02:58:08.792Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue中路由传参">
+<meta name="twitter:description" content="通常我们在路由中传递数据给另一个页面用如下方法：一、params (不会显示在地址栏)123this.$router.push(&amp;#123; name : &apos;detail&apos; , params : &amp;#123; id: id &amp;#125; &amp;#125;)&amp;lt;router-link :to=&quot;&amp;#123;name:&apos;detail&apos;,params:&amp;#123;name:1&amp;#125;&amp;#125;&quot;&amp;">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/setting.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Vue中路由传参" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Vue中路由传参
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/04/15/Vue中路由传参/" class="article-date">
+	  <time datetime="2020-04-15T01:25:49.000Z" itemprop="datePublished">2020-04-15</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+
+      
+<a href="/2020/04/15/Vue中路由传参/" class="article-author">
+胡豪
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="通常我们在路由中传递数据给另一个页面用如下方法："><a href="#通常我们在路由中传递数据给另一个页面用如下方法：" class="headerlink" title="通常我们在路由中传递数据给另一个页面用如下方法："></a>通常我们在路由中传递数据给另一个页面用如下方法：</h2><h3 id="一、params-不会显示在地址栏"><a href="#一、params-不会显示在地址栏" class="headerlink" title="一、params (不会显示在地址栏)"></a>一、params (不会显示在地址栏)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.push(&#123; <span class="attr">name</span> : <span class="string">'detail'</span> , <span class="attr">params</span> : &#123; <span class="attr">id</span>: id &#125; &#125;)</span><br><span class="line"></span><br><span class="line">&lt;router-link :to=<span class="string">"&#123;name:'detail',params:&#123;name:1&#125;&#125;"</span>&gt; xxx &lt;<span class="regexp">/router-link&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>接收参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$route.params.id</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、query-参数会显示在url的后面"><a href="#二、query-参数会显示在url的后面" class="headerlink" title="二、query (参数会显示在url的后面)"></a>二、query (参数会显示在url的后面)</h3><p>注意：页面之间的跳转使用query 不然的话刷新页面后会找不到参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.push(&#123; <span class="attr">path</span>: <span class="string">'/test'</span>, <span class="attr">query</span>: &#123; <span class="attr">id</span>: id &#125; &#125;)</span><br><span class="line"></span><br><span class="line">&lt;router-link :to=<span class="string">"&#123;path:'/detail',query:&#123;id: id&#125;&#125;"</span>&gt;跳转&lt;router-link&gt;</span><br><span class="line">&lt;router-link :to=<span class="string">"&#123;name:'detail',query:&#123;id:1&#125;&#125;"</span>&gt; xxx &lt;<span class="regexp">/router-link&gt;  </span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/name还是path 取决于路由配置的时候有没有命名路由</span></span><br></pre></td></tr></table></figure>
+
+<p>接收参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$route.query.id</span><br></pre></td></tr></table></figure>
+
+<p>注：这里大家可能会困惑 path 与 name,我要是写反了会怎么样，这里官网的例子里有解答</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> userId = <span class="string">'123'</span></span><br><span class="line">router.push(&#123; <span class="attr">name</span>: <span class="string">'user'</span>, <span class="attr">params</span>: &#123; userId &#125;&#125;) <span class="comment">// -&gt; /user/123</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">`/user/<span class="subst">$&#123;userId&#125;</span>`</span> &#125;) <span class="comment">// -&gt; /user/123</span></span><br><span class="line"><span class="comment">// 这里的 params 不生效</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">'/user'</span>, <span class="attr">params</span>: &#123; userId &#125;&#125;) <span class="comment">// -&gt; /user</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="三、通过path跳转"><a href="#三、通过path跳转" class="headerlink" title="三、通过path跳转"></a>三、通过path跳转</h3><p><a href="https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html" title="Vue官方文档" target="_blank" rel="noopener">#动态路由匹配</a><br><a href="https://router.vuejs.org/zh/guide/essentials/named-routes.html" title="Vue官方文档" target="_blank" rel="noopener">#命名路由</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.push(&#123; <span class="attr">name</span>: <span class="string">'user'</span>, <span class="attr">params</span>: &#123; <span class="attr">userId</span>: <span class="number">123</span> &#125;&#125;)  </span><br><span class="line"></span><br><span class="line">&lt;router-link :to=<span class="string">"&#123; name: 'user', params: &#123; userId: 123 &#125;&#125;"</span>&gt;User&lt;<span class="regexp">/router-link&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>路由：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/user/:userId'</span>,</span><br><span class="line">      name: <span class="string">'user'</span>,</span><br><span class="line">      component: User</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+
+<p>接收参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$route.params.id</span><br></pre></td></tr></table></figure>
+
+<p>注意：route与router的区别</p>
+<p>$route为当前router跳转对象里面可以获取name、path、query、params等</p>
+<p>$router为VueRouter实例，想要导航到不同URL，则使用$router.push方法</p>
+<p>返回上一个history也是使用$router.go方法</p>
+<h2 id="nuxt的路由传参-与vue基本一致"><a href="#nuxt的路由传参-与vue基本一致" class="headerlink" title="nuxt的路由传参 与vue基本一致"></a>nuxt的路由传参 与vue基本一致</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//js写法:</span></span><br><span class="line"><span class="keyword">let</span> name = <span class="string">"ayasa"</span></span><br><span class="line"><span class="keyword">this</span>.$router.push(&#123; <span class="attr">path</span> : <span class="string">' /404 '</span> , <span class="attr">query</span> : &#123; name &#125; &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//html写法:</span></span><br><span class="line">&lt;nuxt-link :to=<span class="string">" '/404?name=' + name "</span>&gt;&#123;&#123; name &#125;&#125;&lt;<span class="regexp">/nuxt-link&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="最后在做项目时遇到了路由传参在接收页面刷新数据消失的问题"><a href="#最后在做项目时遇到了路由传参在接收页面刷新数据消失的问题" class="headerlink" title="最后在做项目时遇到了路由传参在接收页面刷新数据消失的问题"></a>最后在做项目时遇到了路由传参在接收页面刷新数据消失的问题</h2><p>解决方法参考以下文章：<br><a href="https://www.jb51.net/article/116416.htm" target="_blank" rel="noopener">#参考文章1</a><br><a href="https://blog.csdn.net/benben513624/article/details/86583149" target="_blank" rel="noopener">#参考文章2</a></p>
+<p>在我自己试验的时候，我用query的模式，也遇到了这个问题,在query里我直接的丢了个对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.push(&#123; <span class="attr">path</span> : <span class="string">' /404 '</span> , <span class="attr">query</span> : &#123; obj &#125; &#125;)   <span class="comment">//obj是我data里定义的一个对象</span></span><br></pre></td></tr></table></figure>
+
+<p>但是在接收参数页面第一次是有数据的，刷新后，打印的<code>this.$route.query.keyWord</code>就变成<code>[Object Object]</code>取不出值<br>后面我把传值改成了下面这样，就解决了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.push(&#123; <span class="attr">path</span> : <span class="string">' /404 '</span> , <span class="attr">query</span> : &#123; name , age , other &#125; &#125;)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2020/04/15/Vue中路由传参/" target="_blank" title="Vue中路由传参">http://yoursite.com/2020/04/15/Vue中路由传参/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/09/slot/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">slot</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通常我们在路由中传递数据给另一个页面用如下方法："><span class="nav-number">1.</span> <span class="nav-text">通常我们在路由中传递数据给另一个页面用如下方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、params-不会显示在地址栏"><span class="nav-number">1.1.</span> <span class="nav-text">一、params (不会显示在地址栏)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、query-参数会显示在url的后面"><span class="nav-number">1.2.</span> <span class="nav-text">二、query (参数会显示在url的后面)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、通过path跳转"><span class="nav-number">1.3.</span> <span class="nav-text">三、通过path跳转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nuxt的路由传参-与vue基本一致"><span class="nav-number">2.</span> <span class="nav-text">nuxt的路由传参 与vue基本一致</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后在做项目时遇到了路由传参在接收页面刷新数据消失的问题"><span class="nav-number">3.</span> <span class="nav-text">最后在做项目时遇到了路由传参在接收页面刷新数据消失的问题</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2020 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2020 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
