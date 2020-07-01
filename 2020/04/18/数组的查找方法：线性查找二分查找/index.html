@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>数组的查找方法：线性查找二分查找 | 阿母工业前端组</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="javascript">
+  
+  
+  
+  
+  <meta name="description" content="前言从数组中查找你需要的数据，是一个非常常见的需求，那么如何快速的查找你所需要的目标数据呢？ 这篇文章将为你详细的讲解线性查找与二分法查找，并用 javascript 将其实现希望对各位有所帮助 线性查找线性查找是一种在数组中查找数据的算法，从数据的头部开始按顺序往下查找即为线性查找 图解实例如图所示，我们查找的数字 6 在数组中的位置  从数组的最左边开始查找，将其与 6 进行比较，如果结果一致">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组的查找方法：线性查找二分查找">
+<meta property="og:url" content="http://yoursite.com/2020/04/18/数组的查找方法：线性查找二分查找/index.html">
+<meta property="og:site_name" content="阿母工业前端组">
+<meta property="og:description" content="前言从数组中查找你需要的数据，是一个非常常见的需求，那么如何快速的查找你所需要的目标数据呢？ 这篇文章将为你详细的讲解线性查找与二分法查找，并用 javascript 将其实现希望对各位有所帮助 线性查找线性查找是一种在数组中查找数据的算法，从数据的头部开始按顺序往下查找即为线性查找 图解实例如图所示，我们查找的数字 6 在数组中的位置  从数组的最左边开始查找，将其与 6 进行比较，如果结果一致">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian1.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian2.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian3.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian4.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian5.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/daan1.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er1.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er2.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er3.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er4.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er5.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er6.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er7.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er8.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er9.jpg">
+<meta property="og:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/daan2.jpg">
+<meta property="og:updated_time" content="2020-04-20T00:51:42.541Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数组的查找方法：线性查找二分查找">
+<meta name="twitter:description" content="前言从数组中查找你需要的数据，是一个非常常见的需求，那么如何快速的查找你所需要的目标数据呢？ 这篇文章将为你详细的讲解线性查找与二分法查找，并用 javascript 将其实现希望对各位有所帮助 线性查找线性查找是一种在数组中查找数据的算法，从数据的头部开始按顺序往下查找即为线性查找 图解实例如图所示，我们查找的数字 6 在数组中的位置  从数组的最左边开始查找，将其与 6 进行比较，如果结果一致">
+<meta name="twitter:image" content="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="阿母工业前端组" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/setting.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-数组的查找方法：线性查找二分查找" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      数组的查找方法：线性查找二分查找
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/04/18/数组的查找方法：线性查找二分查找/" class="article-date">
+	  <time datetime="2020-04-18T06:30:43.000Z" itemprop="datePublished">2020-04-18</time>
+	</a>
+
+      
+      
+<a href="/2020/04/18/数组的查找方法：线性查找二分查找/" class="article-author">
+刘涛
+</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>从数组中查找你需要的数据，是一个非常常见的需求，那么如何快速的查找你所需要的目标数据呢？ 这篇文章将为你详细的讲解线性查找与二分法查找，并用 javascript 将其实现希望对各位有所帮助</p>
+<h2 id="线性查找"><a href="#线性查找" class="headerlink" title="线性查找"></a>线性查找</h2><p>线性查找是一种在数组中查找数据的算法，从数据的头部开始按顺序往下查找即为<strong>线性查找</strong></p>
+<h3 id="图解实例"><a href="#图解实例" class="headerlink" title="图解实例"></a>图解实例</h3><p>如图所示，我们查找的数字 6 在数组中的位置<br><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian1.jpg" alt></p>
+<ul>
+<li>从数组的最左边开始查找，将其与 6 进行比较，如果结果一致，查找便结束，不一致则向右检查下一个数字。</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian2.jpg" alt></p>
+<ul>
+<li>此处不一致，所以向右继续和下一个数字进行比较。</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian3.jpg" alt></p>
+<ul>
+<li>重复上述操作直到找到数字 6 为止</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian4.jpg" alt></p>
+<ul>
+<li>找到 6 了，查找结束</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/xian5.jpg" alt></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>线性查找需要从头开始不断地按顺序检查数据，因此在数据量大且目标数据靠后，或者目标数据不存在时，比较的次数就会更多，也更为好使。若数据量为 n，线性查找的时间复杂便为 O(n)。</p>
+<h3 id="用-js-实现线性查找"><a href="#用-js-实现线性查找" class="headerlink" title="用 js 实现线性查找"></a>用 js 实现线性查找</h3><p>我们想要查找某个值在数组中的位置，需要遍历这个数组，判断当前遍历到的值是否与目标值相等。</p>
+<ul>
+<li><p>声明一个函数，参数为：需要查找的数组，需要查找的数据</p>
+</li>
+<li><p>遍历数组</p>
+</li>
+<li><p>比较需要查找的数据是否与当前遍历到的数据相等</p>
+</li>
+<li><p>如果相等则返回当前元素的位置，结束循环</p>
+</li>
+<li><p>编写代码</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> linearSearch = <span class="function"><span class="keyword">function</span>(<span class="params">arr, target</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 目标元素位置</span></span><br><span class="line">  <span class="keyword">let</span> position = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    <span class="comment">// 如果当前遍历到的值与目标值相等则返回目标元素的位置</span></span><br><span class="line">    <span class="keyword">if</span> (arr[i] === target) &#123;</span><br><span class="line">      position = i;</span><br><span class="line">      <span class="keyword">return</span> position;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> position;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试代码</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dataArr = [<span class="number">3</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">7</span>];</span><br><span class="line"><span class="keyword">const</span> position = linearSearch(dataArr, <span class="number">6</span>);</span><br><span class="line"><span class="keyword">if</span> (position !== <span class="number">-1</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`目标元素在数组中的位置:<span class="subst">$&#123;position&#125;</span>`</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'目标元素不在数组中'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/daan1.jpg" alt></p>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>二分查找也叫折半查找、平半劈，二分查找的两个条件，有序和顺序，两者缺一不可，意思就是，一条链，不是一盘散沙，如果两点要求没有达到否则就不能使用二分查找法</p>
+<p>二分查找通过比较数组中间的数据与目标数据的大小，可以得知目标数据是在数组的左边还是右边。<br>所以，比较一次就可以把查找范围缩小一半。重复执行该操作接可以找到目标数据，或者得出目标数据不存在的结论</p>
+<h3 id="图解实例-1"><a href="#图解实例-1" class="headerlink" title="图解实例"></a>图解实例</h3><p>我们查找数字 6 在数组中的位置<br><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er1.jpg" alt></p>
+<ul>
+<li>首先，我们先找到数组中中间的数字，此处为 5</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er2.jpg" alt></p>
+<ul>
+<li>将 5 和要查找的数字 6 进行比较</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er3.jpg" alt></p>
+<ul>
+<li>所以把不需要的数字移除查找范围</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er4.jpg" alt></p>
+<ul>
+<li>在剩下的数组中找到中间的数字，此处为 7</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er5.jpg" alt></p>
+<ul>
+<li>然后我们再来比较 6 和 7</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er6.jpg" alt></p>
+<ul>
+<li>再一次把不需要的数字移除查找范围</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er7.jpg" alt></p>
+<ul>
+<li>在剩下的数组中找到中间的数字，此处为 6</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er8.jpg" alt></p>
+<ul>
+<li>最后我们成功找到目标数字啦 6=6</li>
+</ul>
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/er9.jpg" alt></p>
+<h3 id="用-JS-实现二分查找"><a href="#用-JS-实现二分查找" class="headerlink" title="用 JS 实现二分查找"></a>用 JS 实现二分查找</h3><p>二分查找只能查找已经排序好的数据，每一次查找都可以将查找范围减半，查找范围内只剩一个数据时查找结束。</p>
+<ul>
+<li>声明一个函数，参数为：要查找的数组，要查找的数据，数组的起点，数组的末尾</li>
+<li>找到数组的中间值，将其与目标值进行比较</li>
+<li>如果中间值大于目标值，可知目标值在中间值的左侧，则对其左边的数据执行上述操作</li>
+<li>如果中间值小于目标值，可知目标值在中间值的右侧，则对其右边的数据执行上述操作</li>
+<li>直至中间值等于目标值，则结束上述操作，返回中间值的位置。</li>
+</ul>
+<ul>
+<li>编写代码</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> binarySearch = <span class="function"><span class="keyword">function</span>(<span class="params">arr, target, start, end</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> targetPosition = <span class="number">-1</span>;</span><br><span class="line">  <span class="comment">// 计算中间值</span></span><br><span class="line">  <span class="keyword">const</span> median = <span class="built_in">Math</span>.floor((start + end) / <span class="number">2</span>);</span><br><span class="line">  <span class="comment">// 判断中间值与目标值是否相等</span></span><br><span class="line">  <span class="keyword">if</span> (arr[median] === target) &#123;</span><br><span class="line">    targetPosition = median;</span><br><span class="line">    <span class="keyword">return</span> targetPosition;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 未找到</span></span><br><span class="line">  <span class="keyword">if</span> (start &gt;= end) &#123;</span><br><span class="line">    <span class="keyword">return</span> targetPosition;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 判断中间值是否大于目标值</span></span><br><span class="line">  <span class="keyword">if</span> (arr[median] &gt; target) &#123;</span><br><span class="line">    <span class="comment">// 递归中间值左侧的数组</span></span><br><span class="line">    <span class="keyword">return</span> binarySearch(arr, target, start, median - <span class="number">1</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 递归中间值右侧的数组</span></span><br><span class="line">    <span class="keyword">return</span> binarySearch(arr, target, median + <span class="number">1</span>, end);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试代码</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dataArr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>];</span><br><span class="line"><span class="keyword">const</span> position = binarySearch(dataArr, <span class="number">6</span>, <span class="number">0</span>, dataArr.length - <span class="number">1</span>);</span><br><span class="line"><span class="keyword">if</span> (position !== <span class="number">-1</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`目标元素在数组中的位置:<span class="subst">$&#123;position&#125;</span>`</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'目标元素不在数组中'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://images-1300364015.cos.ap-shanghai.myqcloud.com/blogs/%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95/daan2.jpg" alt></p>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><h3 id="本质区别"><a href="#本质区别" class="headerlink" title="本质区别"></a>本质区别</h3><p>线性查找可以从乱序数组中找数据，而线性查找只能从已排序好的数组中查找数据。</p>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>二分查找利用已排序好的数组，每一次查找都可以将查找范围减半。如果将数量为 n 的数组，将其长度减半 log2n 次后，其中便只剩一个数据了，因此它的时间复杂度为 O(logn)</p>
+<p>线性查找需要从头开始不断地按顺序检查数据，因此在数量大且目标数据靠后，或者目标数据不存在时，比较的次数就会更多，也更为耗时。如果数组的数据量为 n，线性查找的时间复杂度便为 O(n)</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>线性查找，数组中的数据可以是无序的，添加数据时无需顾虑位置，直接将其插入到数组的末尾即可，不需要耗费时间。</p>
+<p>二分查找，数组中的数据必须是有序的，添加数据时就需要考虑位置，需要消耗一定的时间。</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>综合上述，如果你查找数据比较频繁的话二分查找更适合你，否则线性查找更适合你。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>中力前端组</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2020/04/18/数组的查找方法：线性查找二分查找/" target="_blank" title="数组的查找方法：线性查找二分查找">http://yoursite.com/2020/04/18/数组的查找方法：线性查找二分查找/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/15/Vue中路由传参/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Vue中路由传参</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性查找"><span class="nav-number">2.</span> <span class="nav-text">线性查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图解实例"><span class="nav-number">2.1.</span> <span class="nav-text">图解实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用-js-实现线性查找"><span class="nav-number">2.3.</span> <span class="nav-text">用 js 实现线性查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分查找"><span class="nav-number">3.</span> <span class="nav-text">二分查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图解实例-1"><span class="nav-number">3.1.</span> <span class="nav-text">图解实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用-JS-实现二分查找"><span class="nav-number">3.2.</span> <span class="nav-text">用 JS 实现二分查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区别"><span class="nav-number">4.</span> <span class="nav-text">区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本质区别"><span class="nav-number">4.1.</span> <span class="nav-text">本质区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">4.2.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">4.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2020 阿母工业前端组 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            阿母工业前端组
+          </div>
+          <div class="panel-body">
+            Copyright © 2020 中力前端组 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
