@@ -33,9 +33,16 @@ this.$refs.getTable
 ## 实际例子
 在项目中，通过点击事件，为了解决调整滚动条的，必须要获取带滚动条盒子的dom
 
-在项目中，我要获取的div在table子组件里
+在项目中，我要获取是table子组件里dom 需要借助$el
 
 ```js
-const tableDom = this.$refs.getTable       //先获取到子组件dom
-const tbodyDom = tableDom.$el.children[0].children[0].children[0].children[0].children[0].children[1]     //通过$el获取子组件内部的dom
+//先获取到子组件dom
+const tableDom = this.$refs.getTable 
+
+//通过$el获取子组件内部的dom,一层层往下找，$el.children是数组，包含下一层所有节点
+const tbodyDom = tableDom.$el.children[0].children[0].children[0].children[0].children[0].children[1]
+
+//通过计算滚动条要滚动的高度实现滚动 
+const scrollHeight = 102 * this.trIndex   
+tbodyDom.scrollTo(0, scrollHeight)
 ```
