@@ -20,7 +20,6 @@ tags:
   :custom-row="pointMark"
   :columns="column"
   :data-source="tableData"
-  row-key="id"
   :pagination="false"
   :scroll="{ y: 200 }"
 >
