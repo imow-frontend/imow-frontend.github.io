@@ -60,3 +60,32 @@ if (content) {
   this.html = unescape(content)
 }
 ```
+
+## 例子测试
+使用在线正则测试网站[link](https://tool.oschina.net/regex)
+
+测试内容：
+```html
+<div data-v-772280c7="" class="solution"><p><img src="http://epcare.oss-cn-hangzhou.aliyuncs.com/Answer-20200721-504240889240193.jpg" style="width: 200px;"><img src="http://epcare.oss-cn-hangzhou.aliyuncs.com/Answer-20200721-491064112187750.jpg" style="width: 200px;"><img src="http://epcare.oss-cn-hangzhou.aliyuncs.com/Answer-20200721-556411729561973.jpg" style="width: 200px;"><br></p><img src="/FileUpload/Answer/20200716/512331910820482.png" style="width: 200px;"></div>
+```
+正则：
+```
+src=([\'\"](?!(https|http))([^\'\"]*)[\'\"]?)
+```
+
+匹配结果：
+```
+共找到 1 处匹配：
+src="/FileUpload/Answer/20200716/512331910820482.png"
+```
+
+
+替换文本:
+```
+http://198.168.1.2$3
+```
+
+替换结果:
+```
+<div data-v-772280c7="" class="solution"><p><img src="http://epcare.oss-cn-hangzhou.aliyuncs.com/Answer-20200721-504240889240193.jpg" style="width: 200px;"><img src="http://epcare.oss-cn-hangzhou.aliyuncs.com/Answer-20200721-491064112187750.jpg" style="width: 200px;"><img src="http://epcare.oss-cn-hangzhou.aliyuncs.com/Answer-20200721-556411729561973.jpg" style="width: 200px;"><br></p><img http://198.168.1.2/FileUpload/Answer/20200716/512331910820482.png style="width: 200px;"></div>
+```
