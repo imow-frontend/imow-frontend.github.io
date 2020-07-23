@@ -188,6 +188,68 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-正则之replace"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/07/22/正则之replace/">正则之replace</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/07/22/正则之replace/" class="article-date">
+	  <time datetime="2020-07-22T06:21:27.000Z" itemprop="datePublished">2020-07-22</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+<a href="/2020/07/22/正则之replace/" class="article-author">
+胡豪
+</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p class="article-excerpt-content">
+          正则 —— replace前言在项目中，需要对富文本字符串进行处理，给所有的img标签的src属性加上统一域名
+所以采用正则来实现
+replace方法使用就是字符串.replace（）；如下：
+12345var str = 'this is tom';var strReg = str.replace(/tom/g,'jack');console.log(strReg);//this is jack意思就是在字符串str中全局搜索tom这个字符，并将他换成jack`；
+
+其中$符号的使用，$...
+        </p>
+        <p class="article-more-link">
+          <a href="/2020/07/22/正则之replace/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-vue中ref与"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -706,67 +768,6 @@ Fetch 的出现就是为了解决 XHR 的问题，它实现了 Promi...
         </p>
         <p class="article-more-link">
           <a href="/2020/01/03/Vue中使用mixin/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-修改img的src属性刷新图片时，图片地址相同图片无变化的问题"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/12/18/修改img的src属性刷新图片时，图片地址相同图片无变化的问题/">修改img的src属性刷新图片时，图片地址相同图片无变化的问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/12/18/修改img的src属性刷新图片时，图片地址相同图片无变化的问题/" class="article-date">
-	  <time datetime="2019-12-18T07:59:04.000Z" itemprop="datePublished">2019-12-18</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-
-      
-<a href="/2019/12/18/修改img的src属性刷新图片时，图片地址相同图片无变化的问题/" class="article-author">
-胡豪
-</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p class="article-excerpt-content">
-          前言修改img的src属性刷新图片时，如果图片地址相同，图片无变化的问题
-最主要的原因浏览器会有缓存，它会认为图片没有变化，是相同的
-项目中需要上传图片预览.但是第二次上传图片显示的时候发现之前的图片没有改变.后经过分析发现是地址相同第二次改变img src属性的时候图片未发生改变,浏览器第二次不会去请求服务器 
-解决方案很easy:在修改img的src属性的时候加上一个随机数即可,让浏览器以为每次请求的服务器都不同.
-123image.attr('src', data.message+'...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/12/18/修改img的src属性刷新图片时，图片地址相同图片无变化的问题/#more">Read More</a>
         </p>
       
     </div>

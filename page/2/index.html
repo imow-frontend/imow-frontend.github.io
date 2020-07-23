@@ -188,6 +188,67 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-修改img的src属性刷新图片时，图片地址相同图片无变化的问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/12/18/修改img的src属性刷新图片时，图片地址相同图片无变化的问题/">修改img的src属性刷新图片时，图片地址相同图片无变化的问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/12/18/修改img的src属性刷新图片时，图片地址相同图片无变化的问题/" class="article-date">
+	  <time datetime="2019-12-18T07:59:04.000Z" itemprop="datePublished">2019-12-18</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+<a href="/2019/12/18/修改img的src属性刷新图片时，图片地址相同图片无变化的问题/" class="article-author">
+胡豪
+</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p class="article-excerpt-content">
+          前言修改img的src属性刷新图片时，如果图片地址相同，图片无变化的问题
+最主要的原因浏览器会有缓存，它会认为图片没有变化，是相同的
+项目中需要上传图片预览.但是第二次上传图片显示的时候发现之前的图片没有改变.后经过分析发现是地址相同第二次改变img src属性的时候图片未发生改变,浏览器第二次不会去请求服务器 
+解决方案很easy:在修改img的src属性的时候加上一个随机数即可,让浏览器以为每次请求的服务器都不同.
+123image.attr('src', data.message+'...
+        </p>
+        <p class="article-more-link">
+          <a href="/2019/12/18/修改img的src属性刷新图片时，图片地址相同图片无变化的问题/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-Vue写tab选项卡"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -700,63 +761,6 @@ SQL注入SQL注入是一种常见的Web安全漏洞，攻击者利用这个漏�
         </p>
         <p class="article-more-link">
           <a href="/2019/11/11/gulp入门（二）/#more">Read More</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-gulp入门（一）"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/11/07/gulp入门（一）/">gulp入门(一)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/11/07/gulp入门（一）/" class="article-date">
-	  <time datetime="2019-11-07T05:31:50.000Z" itemprop="datePublished">2019-11-07</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/gulp/">gulp</a>
-
-      
-<a href="/2019/11/07/gulp入门（一）/" class="article-author">
-胡豪
-</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p class="article-excerpt-content">
-          前言说到前端常见的构建工具，有Webpack/Grunt/Gulp这里简述一下它们都是干什么的：Grunt 和 Gulp 是非常相似的东西，能实现的功能是一样的，当然你可能 Gulp 听的 Grunt 多，通俗的讲，可以把 Gulp 看作 Grunt 的加强版。相对于 Grunt，Gulp增加了监听文件、读写文件、流式处理的功能。Webpack 是一个打包模块化 JavaScript 的工具，在 Webpack 里一切文件皆模块(JavaScript、CSS、SCSS、图片、模板)，通过 ...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/11/07/gulp入门（一）/#more">Read More</a>
         </p>
       
     </div>
